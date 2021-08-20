@@ -1,0 +1,38 @@
+﻿@{
+    var navbarPartial = ViewData.ContainsKey("NavbarContentPartialName") ? ViewData["NavbarContentPartialName"].ToString() : "_MainNavbar";
+    var cartTotalAmount = new ComponentOutValue<int>(0);
+}
+
+@await Component.InvokeAsync("CartTotal", new {cartTotalAmount})
+<nav class="navbar navbar-expand-xl px-2 px-xl-1 px-xxl-2 @Html.AddValue(Html.CanIgnoreNavbarShift(), "bg-dark-transpanent", "navbar-default bg-dark")">
+    <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="">
+        <img src="/common/img/svg/krista-logo.svg" class="d-inline-block align-top img-max-width brand-logo" alt="Krista Unique">
+        <img src="/common/img/svg/krista-pic-transparent-sm.gif" class="d-inline-block align-top img-max-width brand-icon" alt="Krista Diamond">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="toggle-collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="iconify text-white icon-font-24px" data-inline="false" data-icon="bytesize:menu"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <partial name="@navbarPartial" model="new NavbarViewModel(cartTotalAmount.Value)"/>
+    </div>
+</nav>
+<div class="navbar collapse-right" id="navbarNav">
+    <div class="close-right-collapse" data-toggle="toggle-collapse" data-target="#navbarNav"><a><span class="iconify icon-font-30px text-white" data-inline="false" data-icon="gg:close"></span></a></div>
+    <div class="position-relative">
+        <partial name="@navbarPartial" model="new NavbarViewModel(cartTotalAmount.Value)"/>
+    </div>
+</div>
+<div class="sidebar-content-hover"></div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="fixed-mobile-cart">
+        <a asp-action="Index" asp-controller="Cart" class="navbar-text link-base link-light my-0 p-0 py-1 position-relative @Html.IsActionSelected("Cart", "Index")">
+            <span class="iconify icon-font-24px" data-inline="false" data-icon="simple-line-icons:basket"></span>
+            <span class="badge badge-pill cart-badge-absolute jsCartCountValueMobile" style="@Html.AddValue(cartTotalAmount.Value < 1, "display: none;")">@cartTotalAmount.Value</span>
+        </a>
+    </div>
+}
+
+<partial name="_IdentityPartial" />

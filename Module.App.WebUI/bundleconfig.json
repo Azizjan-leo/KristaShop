@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/js/min/pages.min.js",
+    "inputFiles": [
+      "wwwroot/js/identity.js",
+      "wwwroot/js/feedback-forms.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

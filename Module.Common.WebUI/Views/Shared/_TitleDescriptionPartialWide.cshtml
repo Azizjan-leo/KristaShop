@@ -1,0 +1,44 @@
+﻿@model TitleDescriptionViewModel
+@{
+    var collapsePanelId = $"descriptionCollapse-{Guid.NewGuid()}";
+}
+
+<div class="row px-0 px-md-5 mt-2 pt-1 pb-4">
+    <div class="col-12 col-lg-10 col-xl-8 pb-2">
+        <div class="row catalog-top-text-row">
+            <div>
+                <div class="text-uppercase text-center text-md-left text-lg-left text-xl-left">
+                    @if (string.IsNullOrEmpty(Model.Link)) {
+                        if (Model.IsHeading) {
+                            <h1 class="header-font h2 text-uppercase font-weight-bold">@Model.Title</h1>
+                        } else {
+                            <h2 class="header-font h2 text-uppercase font-weight-bold">@Model.Title</h2>
+                        }
+                     
+                    } else {
+                        if (Model.IsHeading) {
+                            <h1><a class="link-base link-dark header-font h2 text-uppercase font-weight-bold" href="@Model.Link">@Model.Title</a></h1>
+                        } else {
+                            <h2><a class="link-base link-dark header-font h2 text-uppercase font-weight-bold" href="@Model.Link">@Model.Title</a></h2>
+                        }
+                        
+                    }
+                </div>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Description)) {
+                <div class="col-12 col-lg flex-grow-0 flex-lg-grow-1 catalog-top-text-block">
+                    <div class="gradient-separator"></div>
+                    <div class="main-font h4 collapse @Html.AddValue(!Model.IsCollapsed, "show") panel-collapse" id="@collapsePanelId">
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="text-center overflow-hidden">
+                        <span class="line-surrounded">
+                            <a class="link-base link-grey main-font h5" data-toggle="collapse" data-target="#@collapsePanelId" data-collapse-show="@Model.ShowButtonText" data-collapse-hide="@Model.HideButtonText" data-collapse-max="1200">@Model.GetDefaultText</a>
+                        </span>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

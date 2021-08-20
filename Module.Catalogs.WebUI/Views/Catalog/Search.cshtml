@@ -1,0 +1,133 @@
+﻿@using KristaShop.Common.Enums
+@using Module.Common.WebUI.Infrastructure
+@model Module.Catalogs.WebUI.Models.SearchPanelViewModel
+
+@{
+    ViewData["Title"] = "Поиск по всем каталогам";
+}
+
+<form class="container p-2 main-font h4" method="get" asp-action="Products">
+    <div class="form-row justify-content-center align-items-center my-3">
+        <div class="col-sm-12 col-lg-9 text-center text-lg-left">
+            <h1 class="header-font h2 m-0 text-black">@ViewData["Title"]</h1>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <button type="submit" class="btn btn-basic btn-main w-100">НАЙТИ МОДЕЛИ</button>
+        </div>
+    </div>
+    <div class="form-row my-2">
+        <div class="col-sm-12 col-lg-6">
+            <select name="CatalogId" asp-items="Model.Catalogs" class="form-control light-control">
+                <option value="@((int)CatalogType.All)">По всем каталогам</option>
+            </select>
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <input type="text" class="form-control light-control" placeholder="Артикул" name="Articul" value="@Model.NomFilter.Articul">
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <div class="row">
+                <div class="col-sm-12 col-lg mr-auto pr-lg-0">
+                    <input type="text" class="form-control light-control" placeholder="Цена мин" name="MinPrice" value="@Model.NomFilter.MinPrice">
+                </div>
+                <div class="col-sm-12 col-lg-auto text-center px-1">
+                    <label class="col-form-label">&mdash;</label>
+                </div>
+                <div class="col-sm-12 col-lg ml-auto pl-lg-0">
+                    <input type="text" class="form-control light-control" placeholder="Цена макс" name="MaxPrice" value="@Model.NomFilter.MaxPrice">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-sm-12 col-lg-3 mb-2">
+            <div class="border bg-main-light rounded-1 p-4">
+                <label class="main-font h4 mt-2 mb-3 font-weight-bold">Цвет:</label>
+                @foreach (var item in Model.SearchLookups.Colors.Take(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item.Value</span>
+                        <input type="checkbox" name="Colors" value="@item.Key" @Html.AddValue(Model.NomFilter.Colors.Contains(item.Key), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                }
+                <div class="collapse" id="colorsCollapse">
+                    @foreach (var item in Model.SearchLookups.Colors.Skip(5))
+                    {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item.Value</span>
+                        <input type="checkbox" name="Colors" value="@item.Key" @Html.AddValue(Model.NomFilter.Colors.Contains(item.Key), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                    }
+                </div>
+                <button type="button" class="btn btn-basic btn-basic-sm btn-main-white-colored w-100 mt-3" data-toggle="collapse" data-target="#colorsCollapse">Показать остальное</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 mb-2">
+            <div class="border bg-main-light rounded-1 p-4">
+                <label class="main-font h4 mt-2 mb-3 font-weight-bold">Категории:</label>
+                @foreach (var item in Model.SearchLookups.Categories.Take(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item.Name</span>
+                        <input type="checkbox" name="Categories" value="@item.CategoryId1C" @Html.AddValue(Model.NomFilter.Categories.Contains((int) item.CategoryId1C), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                }
+                <div class="collapse" id="categoriesCollapse">
+                    @foreach (var item in Model.SearchLookups.Categories.Skip(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item.Name</span>
+                        <input type="checkbox" name="Categories" value="@item.CategoryId1C" @Html.AddValue(Model.NomFilter.Categories.Contains((int)item.CategoryId1C), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                    }
+                </div>
+                <button type="button" class="btn btn-basic btn-basic-sm btn-main-white-colored w-100 mt-3" data-toggle="collapse" data-target="#categoriesCollapse">Показать остальное</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 mb-2">
+            <div class="border bg-main-light rounded-1 p-4">
+                <label class="main-font h4 mt-2 mb-3 font-weight-bold">Размер:</label>
+                @foreach (var item in Model.SearchLookups.Sizes.Take(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item</span>
+                        <input type="checkbox" name="Sizes" value="@item" @Html.AddValue(Model.NomFilter.Sizes.Contains(item), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                }
+                <div class="collapse" id="sizesCollapse">
+                    @foreach (var item in Model.SearchLookups.Sizes.Skip(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item</span>
+                        <input type="checkbox" name="Sizes" value="@item" @Html.AddValue(Model.NomFilter.Sizes.Contains(item), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                    }
+                </div>
+                <button type="button" class="btn btn-basic btn-basic-sm btn-main-white-colored w-100 mt-3" data-toggle="collapse" data-target="#sizesCollapse">Показать остальное</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3 mb-2">
+            <div class="border bg-main-light rounded-1 p-4">
+                <label class="main-font h4 mt-2 mb-3 font-weight-bold">Размерный ряд:</label>
+                @foreach (var item in Model.SearchLookups.SizeLines.Take(5)) {
+                    <label class="container-checkbox">
+                        <span class="checkmark-label">@item</span>
+                        <input type="checkbox" name="SizeLines" value="@item" @Html.AddValue(Model.NomFilter.SizeLines.Contains(item), "checked")>
+                        <span class="checkmark"></span>
+                    </label>
+                }
+                <div class="collapse" id="sizeLinesCollapse">
+                    @foreach (var item in Model.SearchLookups.SizeLines.Skip(5))
+                    {
+                        <label class="container-checkbox">
+                            <span class="checkmark-label">@item</span>
+                            <input type="checkbox" name="SizeLines" value="@item" @Html.AddValue(Model.NomFilter.SizeLines.Contains(item), "checked")>
+                            <span class="checkmark"></span>
+                        </label>
+                    }
+                </div>
+                <button type="button" class="btn btn-basic btn-basic-sm btn-main-white-colored w-100 mt-3" data-toggle="collapse" data-target="#sizeLinesCollapse">Показать остальное</button>
+            </div>
+        </div>
+    </div>
+</form>

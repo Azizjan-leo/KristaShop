@@ -1,0 +1,114 @@
+﻿@using KristaShop.Common.Enums;
+@using KristaShop.Common.Extensions
+@model (List<Module.Order.Business.Models.CartItem1CDTO> Items, KristaShop.Common.Models.Structs.PrepayValue Prepay)
+
+@{
+    ViewData["Title"] = "Корзина";
+    var totalPrice = Model.Items.Sum(x => x.TotalPrice).ToTwoDecimalPlaces();
+    var totalPriceRu = Model.Items.Sum(x => x.TotalPriceInRub).ToTwoDecimalPlaces();
+    var preorderPrice = Model.Items.Where(x => x.CatalogId == CatalogType.Preorder).Sum(x => x.TotalPrice);
+    var preorderPriceRu = Model.Items.Where(x => x.CatalogId == CatalogType.Preorder).Sum(x => x.TotalPriceInRub);
+    var preorderTotalPrice = (preorderPrice * Model.Prepay.Percent).ToTwoDecimalPlaces();
+    var preorderTotalPriceRu = (preorderPriceRu * Model.Prepay.Percent).ToTwoDecimalPlaces();
+    var instockPrice = Model.Items.Where(x => x.CatalogId != CatalogType.Preorder).Sum(x => x.TotalPrice).ToTwoDecimalPlaces();
+    var instockPriceRu = Model.Items.Where(x => x.CatalogId != CatalogType.Preorder).Sum(x => x.TotalPriceInRub).ToTwoDecimalPlaces();
+    var inStockPriceWasShowed = false;
+    int totalPartsCount = Model.Items.Sum(x => x.Amount);
+}
+<div class="container mt-2">
+    <div class="d-flex my-3 flex-wrap">
+        <div class="">
+            <p class="h3 text-uppercase text-black"><b>@ViewData["Title"]</b></p>
+        </div>
+        <div class="ml-lg-auto ml-md-auto">
+            <p class="h4 text-uppercase">
+                Итого: <span class="jsCartTotalPrice">@totalPrice $</span> | <span class="jsCartTotalPriceRu">@totalPriceRu р</span>
+            </p>
+        </div>
+    </div>
+    @if (Model.Items.Any()) {
+        <div class="row text-center align-items-start p-3 d-none d-md-flex">
+            <div class="col-1"></div>
+            <div class="col-2 m-0 p-0"><b>Артикул</b></div>
+            <div class="col-1 m-0 p-0"><b>Цвет</b></div>
+            <div class="col-1 m-0 p-0"><b>Размер</b></div>
+            <div class="col-2 m-0 p-0"><b>Линейки</b></div>
+            <div class="col-2 m-0 p-0"><b>Единицы</b></div>
+            <div class="col-3"><b>Расчет</b></div>
+        </div>
+        @foreach(var catalog in CatalogTypeExtensions.GetAllCatalogsExceptOpen()) {
+            @if (Model.Items.Any(x => x.CatalogId == catalog)) {
+                <div class="d-flex my-1 flex-wrap d-block bg-dark text-white align-items-center p-2" data-toggle="collapse" href="#collapseCatalog_@catalog" role="button" aria-expanded="false" aria-controls="collapsePreorder">
+                    <div class="">
+                        <p class="m-auto">
+                            <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span> @Model.Items.First(x => x.CatalogId == catalog).CatalogName
+                        </p>
+                    </div>
+                    @if (catalog == CatalogType.Preorder) {
+                        <div class="ml-auto">
+                            На сумму <span class="jsCartTotalPricePreorder">@preorderPrice.ToTwoDecimalPlaces() $</span> | <span class="jsCartTotalPriceRuPreorder">@preorderPriceRu.ToTwoDecimalPlaces() р</span> | Предоплата @Model.Prepay.Name %: <span class="jsCartTotalPrepayPreorder">@preorderTotalPrice $</span> | <span class="jsCartTotalPrepayRuPreorder">@preorderTotalPriceRu р</span>
+                        </div>
+                    } else {
+                        @if (!inStockPriceWasShowed) {
+                            inStockPriceWasShowed = true;
+                            <div class="ml-auto">
+                                На сумму <span class="jsCartTotalPriceInStock">@instockPrice $</span> | <span class="jsCartTotalPriceRuInStock">@instockPriceRu р</span>
+                            </div>
+                        }
+                    }
+                </div>
+                @foreach (var item in Model.Items.Where(x => x.CatalogId == catalog)) {
+                    <div class="row collapse show text-center align-items-center border-top border-bottom m-0 mb-3 jsParentRow" id="collapseCatalog_@catalog">
+                        <div class="col-lg-1 col-md-1 col-sm-12 p-0">
+                            <a href="@item.Image" data-lightbox="Изображение" data-title="@item.Articul">
+                                <picture class="img-fluid">
+                                    <source srcset="@item.Image?width=100&format=webp" type="image/webp">
+                                    <img srcset="@item.Image?width=100" class="img-fluid" alt="Фото модели @item.Articul" />
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 m-0 p-0">@item.Articul</div>
+                        <div class="col-lg-1 col-md-1 col-sm-12 m-0 p-0">
+                            @{ var background = string.IsNullOrEmpty(item.ColorPhoto) ? item.ColorValue : $"url({item.ColorPhoto})";}
+                            <div class="color-swatch" title="@item.ColorName" style="background: @background;"></div>
+                            <div class="text-capitalize">@item.ColorName</div>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-12 m-0 p-0">@item.SizeValue</div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 m-0 p-0">
+                            @(item.Amount / item.PartsCount)
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 m-0 p-0 jsTotalAmount">@item.Amount</div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 d-md-flex align-self-stretch">
+                            <div class="row">
+                                <div class="col-6 bg-light d-flex align-self-stretch align-items-center">
+                                    <p class="text-dark m-auto">Цена <b><span class="text-nowrap">@item.Price.ToTwoDecimalPlaces() $</span> | <span class="text-nowrap">@item.PriceInRub.ToTwoDecimalPlaces() р</span></b></p>
+                                </div>
+                                <div class="col-6 d-flex align-self-stretch align-items-center" style="background-color:#E0E0E0">
+                                    <p class="text-dark m-auto">Скидка <b><span class="text-nowrap">0 $</span> | <span class="text-nowrap">0 р</span></b></p>
+                                </div>
+                                <div class="col-12 bg-secondary d-flex align-self-stretch align-items-center">
+                                    <p class="text-white m-auto">Итого <b><span class="text-nowrap jsTotalPrice">@item.TotalPrice.ToTwoDecimalPlaces() $</span> | <span class="text-nowrap jsTotalPriceRu">@item.TotalPriceInRub.ToTwoDecimalPlaces() р</span></b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+        <div class="d-flex my-1 flex-wrap d-block bg-dark text-white align-items-center p-2 mb-3">
+            <div class="">
+                <p class="m-auto">&nbsp;</p>
+            </div>
+            <div class="ml-auto">Всего единиц: <span class="jsCartTotalAmount">@totalPartsCount</span> шт.</div>
+        </div>
+
+    } else {
+        <p class="text-center h3">Корзина пустая.</p>
+    }
+</div>
+
+@section Styles{
+    <link rel="stylesheet" href="/cart/css/cart.css" asp-append-version="true" />
+}
+

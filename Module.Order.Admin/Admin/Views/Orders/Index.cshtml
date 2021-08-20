@@ -1,0 +1,70 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model Module.Order.Admin.Admin.Models.OrdersFilter
+@{
+    ViewData["Title"] = "Заказы";
+
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new MenuButtonsViewModel("Объединить заказы", "", "", "krista-link", null, "btn-main-danger jsCombineOrders", "return false;")
+    };
+}
+
+<script>
+    var filtrModelId = @ViewBag.ModelId;
+    var filtrColorId = @ViewBag.ColorId;
+    var filtrCatalogsMode = '@ViewBag.CatalogsMode';
+</script>
+
+@if (!string.IsNullOrEmpty(ViewBag.ModelDescription)) {
+    <div class="row">
+        <div class="col-auto m-2 mr-auto">
+            <h3>@ViewBag.ModelDescription</h3>
+        </div>
+    </div>
+}
+
+<partial name="_LinkPartial" />
+<partial name="_SearchOrdersPartial" model="Model"/>
+<div class="row">
+    <div class="col-12 pb-4 pt-5">
+        <h4 class="h4 font-weight-bold" style="width: 100%;">
+            @ViewData["Title"]
+            <small style="float: right;">ИТОГО: предзаказ <strong class="jsPreorderCount">0</strong> ед. <strong class="jsPreorderSum">0.00</strong> $, наличие <strong class="jsInStockCount">0</strong> ед. <strong class="jsInStockSum">0.00</strong> $</small>
+        </h4>
+    </div>
+</div>
+<div class="col-12 table-responsive mt-3">
+    <table class="table table-striped table-bordered text-break" style="width:100%">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="allorders" value="allorders" class="jsSwitchAll" /></th>
+                <th>№</th>
+                <th>Дата</th>
+                <th>ФИО клиента</th>
+                <th>Город</th>
+                <th>Менеджер</th>
+                <th>Сумма ($)</th>
+                <th></th>
+                <th></th>
+                <th>Единиц</th>
+                <th>Предзаказ</th>
+                <th><i class="fa fa-check-circle text-info"></i></th>
+                <th>Наличие</th>
+                <th><i class="fa fa-check-circle text-info"></i></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+}
+
+@section Scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/order-admin/js/Orders/Index.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common-admin/js/datetime-picker.js" asp-append-version="true" type="text/javascript"></script>
+}

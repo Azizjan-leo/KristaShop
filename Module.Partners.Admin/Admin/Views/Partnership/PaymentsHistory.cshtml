@@ -1,0 +1,76 @@
+@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model (List<Module.Partners.Business.DTOs.PaymentDocumentDTO<Module.Partners.Business.DTOs.DocumentItemDetailedDTO>> Documents, KristaShop.Common.Models.Filters.PaymentsReportFilter Filter)
+@{
+    ViewData["Title"] = "История по взаиморасчетам";
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+
+<div class="row m-0">
+    <div class="col-12">
+        <partial name="Partials/_PaymentsReportFilter" model="Model.Filter"/>
+    </div>
+    <div class="col-12">
+        @if (Model.Documents.Any()) {
+            @foreach (var document in Model.Documents) {
+                <div class="d-flex my-2 flex-wrap d-block bg-white rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseItems_@(document.Id)">
+                    <div class="font-weight-bold my-auto">
+                        <span>@document.UserFullName / @document.CreateDateAsString / единиц @document.Totals.TotalAmount / на сумму @document.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                    </div>
+                    <div class="ml-auto">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="collapse pb-3 mb-4" id="collapseItems_@(document.Id)">
+                    <table class="table table-striped table-bordered text-break dataTable w-100 @Html.AddValue(true, $"itemsTable_{document.Id}")">
+                        <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Информация о модели</th>
+                            <th>Цвета</th>
+                            <th>Размер</th>
+                            <th>Кол-во</th>
+                            <th>На сумму</th>
+                            <th>Тип документа</th>
+                        </tr>
+                        </thead>
+                        <tfoot class="bg-white">
+                        <tr>
+                            <td colspan="7">
+                                <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center py-1 pl-3 pr-1">
+                                    <div class="font-weight-bold">
+                                        <span>Итого: </span>
+                                        <span>@document.Totals.TotalAmount</span>
+                                        <span>ед на сумму</span>
+                                        <span class="ml-1">@document.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="btn btn-main-@document.State.GetHighlightColor()">
+                                            Статус выплаты: @document.State.GetDisplayName()
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+        } else {
+            <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Documents);
+    </script>
+    <script src="/partners-admin/js/Partnership/UserActivePayments.js" asp-append-version="true"></script>
+    <script src="/common-admin/js/datetime-picker.js" asp-append-version="true" type="text/javascript"></script>
+}

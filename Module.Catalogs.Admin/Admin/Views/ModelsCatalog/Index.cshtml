@@ -1,0 +1,37 @@
+﻿@using Module.Common.WebUI.Infrastructure
+@model IEnumerable<Module.Catalogs.Admin.Admin.Models.AdminCatalogItemBriefViewModel>
+@{
+    ViewData["Title"] = "Модели";
+}
+
+<partial name="_SearchModelPartial" />
+<div class="row">
+    <div class="col-auto pb-4 pt-5">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered text-break" style="width: 100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Порядок</th>
+                <th>Артикул</th>
+                <th>Наименование</th>
+                <th>Цвет</th>
+                <th>Размер</th>
+                <th>Каталог</th>
+                <th>Категория</th>
+                <th>Видимость</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    <script>
+        const dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/catalogs-admin/js/ModelsCatalog/Index.js" asp-append-version="true" type="text/javascript"></script>
+}

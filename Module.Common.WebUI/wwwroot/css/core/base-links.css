@@ -1,0 +1,44 @@
+﻿.link-base {
+    text-decoration: none;
+}
+
+    .link-base:hover, .link-base.active {
+        width: 100%;
+        width: fit-content;
+        width: -moz-fit-content;
+        text-decoration: none;
+        background-image: linear-gradient(259.46deg, #7000FF 0%, #D500A6 100%);
+        background-repeat: no-repeat;
+        background-position: bottom center;
+        background-size: 100% 1px;
+        cursor: pointer;
+    }
+
+.link-base.link-light { color: #ffffff; }
+.link-base.link-light:hover, .link-light.active { color: #ffffff; }
+
+.link-base.link-dark { color: #000000; }
+.link-base.link-dark:hover, .link-dark.active { color: #000000; }
+
+.link-base.link-colored-light { color: #D400A6; }
+.link-base.link-colored-light:hover, .link-colored-light.active { color: #D400A6; }
+
+.link-base.link-grey { color: #828282; }
+.link-base.link-grey:hover, .link-grey.active { color: #828282; }
+
+.link-base.link-danger { color: #D73030; }
+.link-base.link-danger:hover, .link-danger.active { color: #D73030; }
+
+.link-base.link-light.plain:hover,
+.link-base.link-dark.plain:hover,
+.link-base.link-colored-light.plain:hover,
+.link-base.link-colored-grey.plain:hover {
+    display: inline;
+    width: auto;
+    text-decoration: underline;
+    background: none;
+}
+
+.link-base:hover.link-decoration-none {
+    background-image: none;
+}

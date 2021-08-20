@@ -1,0 +1,466 @@
+@{
+    ViewData["NavbarContentPartialName"] = "_PartnershipNavbar";
+    const string citiesNames = "МОСКВА ЕКАТЕРИНБУРГ НОВОСИБИРСК ";
+}
+@* banner *@
+<div class="row mb-4 mb-lg-5 mx-0">
+    <div class="col-12 px-0">
+        <div class="youtube-banner">
+            <div class="caption text-white">
+                <h1 class="title header-font h1-bigger font-weight-bold text-uppercase">Стань партнером Krista Exclusive</h1>
+                <div class="body main-font h1-smaller py-2 py-md-4">
+                    Идейные соображения высшего порядка, а также начало повседневной работы по формированию позиции способствует подготовки и реализации существенных финансовых
+                </div>
+                <div class="button mt-2">
+                    <button type="button" class="btn btn-basic btn-basic-big btn-main-gradient-animated" data-become-partner>Подать заявку</button>
+                </div>
+            </div>
+            <div id="yt-wrap">
+                <img src="/common/img/default/banner.jpg?width=1920&height=980" class="cover" alt="banner">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/g1NG5akq6G0" frameborder="0" allowfullscreen data-video-id="g1NG5akq6G0"></iframe>
+                <div id="ytplayer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@* advantages *@
+<div class="row my-4 my-lg-5 pt-0 pt-lg-5 mx-0">
+    <div class="container py-2 py-lg-3">
+        <div class="row">
+            <div class="col-12 py-2">
+                <div id="partnership-advantages" class="text-exclusive">Преимущества партнерства</div>
+            </div>
+        </div>
+        <div class="row pt-0 pt-lg-2">
+            <div class="col-12">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture  class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/handshake.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/handshake.svg" class="img-max-width" alt="tools photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="become-partner" class="header-font h1 text-bold text-uppercase">Стань нашим партнером</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0 mb-lg-2">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@* Marquee *@
+<div class="row my-4 my-lg-5 mx-0">
+    <div class="container-fluid p-0 bg-gradient-exclusive py-3">
+        <div class="row m-0">
+            <div class="col-auto text-center m-auto px-4">
+                <img src="/common/img/svg/krista-pic-transparent-sm.gif" alt="Krista Diamond">
+            </div>
+            <div class="col overflow-hidden pl-2 pl-lg-3 pr-0">
+                <div class="marquee my-2" data-duplicated="true" data-direction="left">
+                    @foreach (var letter in citiesNames) {
+                        <div class="letter-pane letter-@((int) letter)">@letter</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* closed cities *@
+<div class="row my-4 my-lg-5 mx-0 py-0 py-lg-4">
+    <div class="col-12 text-center">
+        <object data="/partners/img/exclusive/map-locked-animated.svg" type="image/svg+xml" style="max-width: 919px;">
+            <img src="/partners/img/exclusive/map-locked.png" alt="Карта городов партнеров">
+        </object>
+    </div>
+</div>
+<div class="row my-4 my-lg-5 mx-0 pt-0 pt-lg-4">
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-12 mb-0 mb-lg-5">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/lock.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/lock.svg" class="img-max-width" alt="lock photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="closed-cities" class="header-font h1 text-bold text-uppercase">Закрытые города</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 mb-0 mb-lg-2">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@* protection *@
+<div class="row my-4 my-lg-5 mx-0">
+    <div class="col-12 px-0">
+        <div class="custom-banner img-background" style="background: url('/partners/img/exclusive/protection-bg.png')">
+            <div class="caption text-white">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/shield.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/shield.svg" class="img-max-width" alt="shield photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="competitor-protection" class="header-font h1 text-bold text-uppercase">Защита от конкурентов</h2>
+                    </div>
+                </div>
+                <div class="body main-font h2 py-2 py-md-3">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </div>
+                <div class="button mt-3">
+                    <button type="button" class="btn btn-basic btn-basic-big btn-main-gradient-animated" data-become-partner>Подать заявку</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@* toolset *@
+<div class="row my-4 my-lg-5 pt-0 pt-lg-5 mx-0">
+    <div class="container pt-2 pb-3 py-lg-3">
+        <div class="row">
+            <div class="col-12 py-2">
+                <div id="partner-tools" class="text-exclusive">Инструменты партнера</div>
+            </div>
+        </div>
+        <div class="row pt-0 pt-lg-2">
+            <div class="col-12">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture  class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/tools.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/tools.svg" class="img-max-width" alt="tools photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="toolset" class="header-font h1 text-bold text-uppercase">Набор инструментов для партнеров</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4 my-lg-5 mx-0">
+    <div class="col-12 d-none d-lg-block">
+        <div class="tools-flipster overflow-hidden">
+            <ul>
+                <li data-flip-title="Item 1 Title">
+                    <picture class="img-max-width">
+                        <source srcset="/partners/img/exclusive/tools-photo.png?format=webp" type="image/webp" />
+                        <img srcset="/partners/img/exclusive/tools-photo.png" class="img-max-width" alt="tools photo" />
+                    </picture>
+                </li>
+                <li data-flip-title="Item 2 Title">
+                    <picture class="img-max-width">
+                        <source srcset="/partners/img/exclusive/tools-photo.png?format=webp" type="image/webp" />
+                        <img srcset="/partners/img/exclusive/tools-photo.png" class="img-max-width" alt="tools photo" />
+                    </picture>
+                </li>
+                <li data-flip-title="Item 1 Title">
+                    <picture class="img-max-width">
+                        <source srcset="/partners/img/exclusive/tools-photo.png?format=webp" type="image/webp" />
+                        <img srcset="/partners/img/exclusive/tools-photo.png" class="img-max-width" alt="tools photo" />
+                    </picture>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 d-lg-none">
+        <ul class="tools-slider" style="list-style: none;">
+            <li>
+                <picture class="img-max-width">
+                    <source srcset="/partners/img/exclusive/tools-photo.png?format=webp&width=340" type="image/webp" />
+                    <img srcset="/partners/img/exclusive/tools-photo.png?width=340" class="img-max-width" alt="tools photo" />
+                </picture>
+            </li>
+            <li>
+                <picture class="img-max-width">
+                    <source srcset="/partners/img/exclusive/tools-photo.png?format=webp&width=340" type="image/webp" />
+                    <img srcset="/partners/img/exclusive/tools-photo.png?width=340" class="img-max-width" alt="tools photo" />
+                </picture>
+            </li>
+            <li>
+                <picture class="img-max-width">
+                    <source srcset="/partners/img/exclusive/tools-photo.png?format=webp&width=340" type="image/webp" />
+                    <img srcset="/partners/img/exclusive/tools-photo.png?width=340" class="img-max-width" alt="tools photo" />
+                </picture>
+            </li>
+        </ul>
+    </div>
+</div>
+@* analytics *@
+<div class="row my-4 my-lg-5 pt-lg-0 pt-lg-5 mx-0">
+    <div class="container">
+        <div class="row pt-3 pt-lg-4">
+            <div class="col-12">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/analytics.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/analytics.svg" class="img-max-width" alt="tool photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="analytics" class="header-font h1 text-bold text-uppercase">Аналитика и учет</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4 my-lg-5 mx-0 pt-3 pb-2">
+    <div class="col-12 d-flex justify-content-center">
+        <ul class="tools-slider" style="list-style-type: none;">
+            <li>
+                <picture class="img-max-width">
+                    <source media="(min-width: 960px)" srcset="/partners/img/exclusive/analytics-photo.png?width=803&format=webp" type="image/webp">
+                    <source media="(min-width: 720px)" srcset="/partners/img/exclusive/analytics-photo.png?width=500&format=webp" type="image/webp">
+                    <source media="(min-width: 540px)" srcset="/partners/img/exclusive/analytics-photo.png?width=340&format=webp" type="image/webp">
+                    <source media="(min-width: 960px)" srcset="/partners/img/exclusive/analytics-photo.png?width=803">
+                    <source media="(min-width: 720px)" srcset="/partners/img/exclusive/analytics-photo.png?width=500">
+                    <source media="(min-width: 540px)" srcset="/partners/img/exclusive/analytics-photo.png?width=340">
+                    <img data-srcset="/partners/img/exclusive/analytics-photo.png?width=340" class="img-max-width" alt="tools photo" />
+                </picture>
+            </li>
+            <li>
+                <picture class="img-max-width">
+                    <source media="(min-width: 960px)" srcset="/partners/img/exclusive/analytics-photo.png?width=803&format=webp" type="image/webp">
+                    <source media="(min-width: 720px)" srcset="/partners/img/exclusive/analytics-photo.png?width=500&format=webp" type="image/webp">
+                    <source media="(min-width: 540px)" srcset="/partners/img/exclusive/analytics-photo.png?width=340&format=webp" type="image/webp">
+                    <source media="(min-width: 960px)" srcset="/partners/img/exclusive/analytics-photo.png?width=803">
+                    <source media="(min-width: 720px)" srcset="/partners/img/exclusive/analytics-photo.png?width=500">
+                    <source media="(min-width: 540px)" srcset="/partners/img/exclusive/analytics-photo.png?width=340">
+                    <img data-srcset="/partners/img/exclusive/analytics-photo.png?width=340" class="img-max-width" alt="tools photo" />
+                </picture>
+            </li>
+        </ul>
+    </div>
+</div>
+@* mobile app *@
+<div class="row my-4 mx-0 pt-3 pt-lg-5">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12 mb-2">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/smartphone.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/smartphone.svg" class="img-max-width" alt="smartphone photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="mobile-application" class="header-font h1 text-bold text-uppercase">Удобное мобильное приложение</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4 my-lg-5 mx-0">
+    <div class="col-12 text-center">
+        <div class="mb-3 mb-lg-5 pb-0 pb-lg-5">
+            <a href="https://www.apple.com/ru/app-store/" class="link-base link-decoration-none" target="_blank"><img src="/common/img/app-store-badge.svg" class="img-max-width" width="235" height="80" alt="app store badge" /></a>
+            <a href="https://play.google.com/store/apps" class="link-base link-decoration-none" target="_blank"><img src="/common/img/google-play-badge.png" class="img-max-width" width="295" height="80" alt="google play badge" /></a>
+        </div>
+        <picture class="lazy img-max-width">
+            <source data-srcset="/partners/img/exclusive/mobile-app-photo.png?format=webp">
+            <img data-srcset="/partners/img/exclusive/mobile-app-photo.png" class="lazy image img-max-width" alt="mobile application photo" />
+        </picture>
+    </div>
+</div>
+@* sales assistance *@
+<div class="row my-4 my-lg-5 mx-0 pt-0 pt-lg-5">
+    <div class="container">
+        <div class="row mt-3 mt-lg-4">
+            <div class="col-12 mb-0 mb-lg-2">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/handshake.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/handshake.svg" class="img-max-width" alt="handshake photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="sales-assistance" class="header-font h1 text-bold text-uppercase">Помощь в продаже остатков партнера</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row my-4 my-lg-5 mx-0 pt-0 pt-lg-2">
+    <div class="col-12 text-center">
+        <picture class="img-max-width">
+            <source data-srcset="/partners/img/exclusive/in-development.png?format=webp" type="image/webp">
+            <img data-srcset="/partners/img/exclusive/in-development.png" class="lazy image img-max-width" alt="tools photo" />
+        </picture>
+    </div>
+</div>
+@* exchange models *@
+<div class="row my-4 my-lg-5 mx-0 pt-0 pt-lg-5">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12 mb-3 mb-lg-5">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/exchange.svg" width="36px">
+                            <img srcset="/partners/img/exclusive/exchange.svg" class="img-max-width" alt="exchange photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="exchange" class="header-font h1 text-bold text-uppercase">Возможность обмена между складами партнеров</h2>
+                    </div>
+                </div>
+                <p class="col-12 col-lg-9 px-0 pt-3 pb-0 mb-0">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@*Profit increase*@
+<div class="row my-4 my-lg-5 mx-0">
+    <div class="col-12 px-0">
+        <div class="custom-banner img-background" style="background: url('/partners/img/exclusive/profit-bg.png')">
+            <div class="caption text-white">
+                <div class="row no-gutters">
+                    <div class="col-auto">
+                        <picture class="img-max-width">
+                            <source media="(max-width: 540px)" srcset="/partners/img/exclusive/money.svg" width="36px">
+                            <img src="/partners/img/exclusive/money.svg" class="img-max-width" alt="money photo" />
+                        </picture>
+                    </div>
+                    <div class="col pl-3">
+                        <h2 id="profit-increase" class="header-font h1 text-bold text-uppercase">Увеличение прибыли</h2>
+                    </div>
+                </div>
+                <div class="body main-font h2 py-2 py-md-3">
+                    Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. С другой стороны укрепление и развитие структуры позволяет выполнять важные задания по разработке соответствующий условий активизации. Товарищи! постоянный количественный рост и сфера нашей активности влечет за собой процесс внедрения и модернизации дальнейших направлений развития.
+                </div>
+                <div class="button mt-3">
+                    <button type="button" class="btn btn-basic btn-basic-big btn-main-gradient-animated" data-become-partner>Подать заявку</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row my-0 my-lg-5 mx-0 pt-lg-0 pt-lg-5 pb-3">
+    <div class="col-12 px-0 py-0 py-lg-2">
+        <div class="container" id="extra">
+            <div class="row my-3">
+                <div class="col-12 col-md-6">
+                    <div class="row no-gutters">
+                        <div class="col-auto">
+                            <picture class="img-max-width">
+                                <source media="(max-width: 540px)" srcset="/partners/img/exclusive/customer-service.svg" width="36px">
+                                <img srcset="/partners/img/exclusive/customer-service.svg" class="img-max-width" alt="customer-service photo" />
+                            </picture>
+                        </div>
+                        <div class="col pl-3">
+                            <h2 class="header-font h3 text-bold text-uppercase">Высокий сервис</h2>
+                        </div>
+                    </div>
+                    <p class="py-3">
+                        Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий
+                    </p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row no-gutters">
+                        <div class="col-auto">
+                            <picture class="img-max-width">
+                                <source media="(max-width: 540px)" srcset="/partners/img/exclusive/loyalty.svg" width="36px">
+                                <img srcset="/partners/img/exclusive/loyalty.svg" class="img-max-width" alt="loyalty photo" />
+                            </picture>
+                        </div>
+                        <div class="col pl-3">
+                            <h2 class="header-font h3 text-bold text-uppercase">Лояльность</h2>
+                        </div>
+                    </div>
+                    <p class="py-3">
+                        Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий
+                    </p>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12 col-md-6">
+                    <div class="row no-gutters">
+                        <div class="col-auto">
+                            <picture class="img-max-width">
+                                <source media="(max-width: 540px)" srcset="/partners/img/exclusive/managers.svg" width="36px">
+                                <img src="/partners/img/exclusive/managers.svg" class="img-max-width" alt="loyalty photo" />
+                            </picture>
+                        </div>
+                        <div class="col pl-3">
+                            <h2 class="header-font h3 text-bold text-uppercase">Менеджеры</h2>
+                        </div>
+                    </div>
+                    <p class="py-3">
+                        Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий
+                    </p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row no-gutters">
+                        <div class="col-auto">
+                            <picture class="img-max-width">
+                                <source media="(max-width: 540px)" srcset="/partners/img/exclusive/magnifier.svg" width="36px">
+                                <img src="/partners/img/exclusive/magnifier.svg" class="img-max-width" alt="magnifier photo" />
+                            </picture>
+                        </div>
+                        <div class="col pl-3">
+                            <h3 class="header-font h3 text-bold text-uppercase">Полный контроль процессов</h3>
+                        </div>
+                    </div>
+                    <p class="py-3">
+                        Повседневная практика показывает, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    <link rel="stylesheet" href="/common/lib/jquery-flipster/jquery.flipster.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/common/lib/lightslider/css/lightslider.min.css">
+    <environment include="Development">
+        <link rel="stylesheet" href="/partners/css/partnership.css" asp-append-version="true" />
+    </environment>
+    <environment include="Production, Staging">
+        <link rel="stylesheet" href="/partners/css/min/partnership.min.css" asp-append-version="true">
+    </environment>
+}
+
+@section Scripts {
+    <script src="/common/lib/jquery-flipster/jquery.flipster.min.js" asp-append-version="true"></script>
+    <script src="/common/lib/lightslider/js/lightslider.min.js"></script>
+    <script src="/common/lib/jquery-marquee/jquery.marquee.min.js" asp-append-version="true"></script>
+    <environment include="Development">
+        <script src="/partners/js/partnership.js" asp-append-version="true"></script>
+    </environment>
+    <environment include="Production, Staging">
+        <script src="/partners/js/min/partnership.min.js" asp-append-version="true"></script>
+    </environment>
+}

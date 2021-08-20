@@ -1,0 +1,63 @@
+﻿@model Module.Order.WebUI.Models.GuestOrderViewModel
+<form asp-action="OrderProductsAsGuest" asp-controller="MakeOrder" method="post" id="orderForm">
+    <div class="row d-flex">
+        <div class="col-lg-9 col-md-8 col-sm-12 mb-3 create-order">
+            <div class="card rounded-0">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="GuestFullName" class="control-label"></label>
+                        <input asp-for="GuestFullName" class="form-control" />
+                        <span asp-validation-for="GuestFullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GuestPhone" class="control-label"></label>
+                        <input asp-for="GuestPhone" class="form-control" />
+                        <span asp-validation-for="GuestPhone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="button-hover" style="position: absolute; width: 100%; height: 55px; z-index: 999;"></div>
+                        <button type="submit" class="btn btn-basic btn-main btn-block" id="submitBtn" disabled>Оформить заказ <i class="bx bx-right-arrow-alt align-middle icon-font-30px"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column mb-3">
+            <div class="form-group">
+                <a class="btn btn-lg btn-block btn-basic btn-main-gradient" asp-controller="Catalog" asp-action="Index">Продолжить покупки</a>
+            </div>
+            <div class="form-group">
+                <a target="_blank" href="@ViewData["DeliveryDetailsUri"]" class="btn btn-lg btn-outline-dark btn-block">Информация о доставке</a>
+            </div>
+            <div class="form-group">
+                <a target="_blank" href="@ViewData["PaymentDetailsUri"]" class="btn btn-lg btn-outline-dark btn-block">Информация об оплате</a>
+            </div>
+            <p class="text-justify">
+                Уважаемый гость!
+            </p>
+            <p class="text-justify">
+                Для подтверждения вашего заказа, Вам необходимо пройти авторизацию, указав Ваше имя и контактный номер телефона.
+            </p>
+            <p class="text-justify">
+                Наш менеджер свяжется с вами в ближайшее время.
+            </p>
+            <p class="text-justify">
+                Благодарим за Ваш выбор!
+            </p>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" asp-for="Accepted">
+                    <label class="custom-control-label identity-label" asp-for="Accepted">Я ознакомился(лась) с условиями</label>
+                    <span asp-validation-for="Accepted" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group text-center bg-light p-3 m-0 flex-grow-1 align-items-center">
+                <p>
+                    Дата формирования заказа:
+                </p>
+                <p class="h4">
+                    @DateTime.Now.Date.ToString("dd.MM.yyyy")
+                </p>
+            </div>
+        </div>
+    </div>
+</form>

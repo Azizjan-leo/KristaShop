@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.VideoGalleryWithVideosDTO>
+@{
+    ViewData["Title"] = "Видеогалерея";
+}
+
+<div class="container-fluid">
+    <div class="row px-5 pt-4 pb-2">
+        <h1 class="header-font h1 text-uppercase font-weight-bold">
+            @ViewData["Title"] <span class="iconify mb-3" data-inline="false" data-icon="ant-design:youtube-filled"></span>
+        </h1>
+    </div>
+    @foreach (var gallery in Model) {
+        <div class="py-3">
+            <partial name="_TitleDescriptionPartialWide" model="@(new TitleDescriptionViewModel(gallery.Title, gallery?.Description, Url.Action("Details", "VideoGallery", new {gallery = gallery.Slug})))"/>
+            @if (!string.IsNullOrEmpty(gallery.PreviewPath) && !string.IsNullOrEmpty(gallery.VideoPath)) {
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="card mb-3 border-0 rounded-1">
+                            <div class="position-relative">
+                                <picture class="card-img-top rounded-1 w-100 img-max-width img-cover">
+                                    <source data-srcset="@gallery.PreviewPath?height=850&format=webp" type="image/webp">
+                                    <img srcset="@gallery.PreviewPath?height=850" class="card-img-top rounded-1 w-100 img-max-width img-cover" alt="Превью коллекции" style="max-height: 620px;">
+                                </picture>
+                                <a class="d-block" data-toggle="video-modal" data-target="#videoModal" data-source="@gallery.VideoPath">
+                                    <div class="card-img-overlay d-flex flex-column justify-content-center overlay overlay-transparent cursor-pointer">
+                                        <div class="overlay-bg"></div>
+                                        <span class="h3 card-text text-center text-overflow position-relative">
+                                            <i class="bx bxl-youtube icon-font-100px text-red"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row row-cols-xl-4 row-cols-lg-2 row-cols-md-2 row-cols-1">
+                @foreach (var video in gallery.Videos) {
+                    <div class="col mb-2">
+                        <div class="card mb-3 border-0 rounded-1 h-100">
+                            <div class="position-relative cursor-pointer">
+                                <div class="image-fix-height-wrapper">
+                                    <picture class="card-img-top rounded-top-1 lazy image">
+                                        <source data-srcset="@video.PreviewPath?height=480&format=webp" type="image/webp">
+                                        <img class="card-img-top rounded-top-1 lazy image" data-srcset="@video.PreviewPath?width=480" alt="@video.Title" />
+                                    </picture>
+                                </div>
+                                <a class="d-block" data-toggle="video-modal" data-target="#videoModal" data-source="@video.VideoPath">
+                                    <div class="card-img-overlay d-flex flex-column justify-content-center overlay overlay-transparent text-white">
+                                        <div class="overlay-bg rounded-top-1"></div>
+                                        <span class="h3 card-text text-center text-overflow position-relative">
+                                            <i class="bx bxl-youtube icon-font-100px text-red"></i>
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card-body border rounded-bottom-1 p-3">
+                                <h5 class="main-font h5 font-weight-bold cursor-pointer" data-toggle="video-modal" data-target="#videoModal" data-source="@video.VideoPath">@video.Title</h5>
+                                <span class="main-font h5 card-text text-overflow card-description-text">
+                                    @Html.Raw(video.Description)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row my-3 pt-2">
+                <div class="col text-center">
+                    <a asp-action="Details" asp-controller="VideoGallery" asp-route-gallery="@gallery.Slug" class="btn btn-basic btn-main-gradient">Смотреть все видео</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<partial name="_VideoModalPartial" />

@@ -1,0 +1,265 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model Module.Catalogs.WebUI.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = $"Модель {Model.ItemFull.Descriptor.Articul}";
+}
+
+<div class="container-fluid px-4">
+    <div class="row m-0 mt-5 mb-4">
+        <div class="col-12"><breadcrumb></breadcrumb></div>
+    </div>
+    <div class="row m-0 pl-2">
+        <div class="col-12 col-lg-7 pl-2 pr-4">
+            <div class=" mb-2 text-center">
+                <ul class="" id="imageGallery" style="list-style: none;">
+                    @foreach (var item in Model.ItemFull.Photos)
+                    {
+                        <li data-thumb="@item.PhotoPath?width=190" data-colorid="@item.ColorId">
+                            <a href="@item.PhotoPath?width=1920" class="d-inline-block rounded-1 left-corner-container" data-lightbox="@Model.ItemFull.Descriptor.Articul" data-title="@Model.ItemFull.Descriptor.Articul">
+                                <picture class="lazy img-fluid mx-auto slider-photo rounded-1">
+                                    <source srcset="@item.PhotoPath?width=568&format=webp" type="image/webp">
+                                    <img srcset="@item.PhotoPath?width=568" class="lazy img-fluid mx-auto slider-photo rounded-1" alt="@Model.ItemFull.Descriptor.AltText"/>
+                                </picture>
+                                @if (Model.ItemFull.Descriptor.IsLimited && Model.ItemFull.CatalogId.ToProductCatalog1CId() == CatalogType.Preorder) {
+                                    <div class="left-corner" title="Лимитированная модель">
+                                        <span>ограничено</span>
+                                    </div>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5 pl-3 pr-0">
+            <input type="hidden" id="requestCanAccess" value="@(Context.User.Identity.IsAuthenticated)">
+            @if (Context.User.Identity.IsAuthenticated && !Model.Catalog.IsOpen)
+            {
+                <input id="defaultPrice" hidden value="@Model.ItemFull.CommonPrice" />
+                <input id="defaultPriceRu" hidden value="@Model.ItemFull.CommonPriceInRub" />
+                <div class="row">
+                    <div class="col-auto pr-0">
+                        <h1 class="header-font h4 font-weight-bold d-flex align-items-center">
+                            АРТИКУЛ @Model.ItemFull.Descriptor.Articul 
+                        </h1>
+                    </div>
+                    @if (!Context.User.IsGuest())
+                    {
+                        <div class="col-auto flex-grow-1 px-4">
+                            <div class="ajax-background-form" data-use-response-message="True" data-success-callback="updateFavoriteButton">
+                                <form method="post" asp-action="AddOrDeleteFavorite" asp-controller="Favorite" class="">
+                                    <input type="hidden" asp-for="@Model.ItemFull.Descriptor.Articul" name="Articul" />
+                                    <input type="hidden" asp-for="@Model.ItemFull.CatalogId" name="CatalogId" />
+
+                                    <button type="submit" class="btn btn-basic btn-main-colored-outline btn-iconed @Html.AddValue(Model.IsFavorite, "active")" data-favorite="active">
+                                        <div class="btn-icon-wrapper">
+                                            <div class="icon icon-left">
+                                                <span class="iconify icon-font-24px" data-inline="false" data-icon="mdi-light:diamond"></span>
+                                            </div>
+                                            <div class="text">Избранное</div>
+                                        </div>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-12 col-md-auto pr-0">
+                    <h1 class="header-font h4 font-weight-bold d-flex align-items-center">
+                        АРТИКУЛ @Model.ItemFull.Descriptor.Articul
+                    </h1>
+                </div>
+            }
+
+            <div class="main-font h2 my-3">
+                @Html.Raw(Model.ItemFull.Descriptor.Description)
+            </div>
+
+            <div class="main-font h3  font-weight-5 bg-main-light rounded-1 my-4 p-4 right-corner-container">
+                @if (Model.ItemFull.Descriptor.IsLimited && Model.ItemFull.CatalogId.ToProductCatalog1CId() == CatalogType.Preorder) {
+                    <div class="right-corner" title="Лимитированная модель">
+                        <span>Ограничено</span>
+                    </div>
+                }
+                <div class="row mx-0 my-2">
+                    <div class="col-9 d-flex px-0">
+                        <span class="text-main-grey text-nowrap mr-2">Размерный ряд:</span>
+                        <div class="btn-group-toggle flex-wrap div-sizes" data-toggle="buttons">
+                            @{
+                                foreach (var size in Model.ItemFull.Sizes) {
+                                    <label class="btn btn-basic btn-basic-tiny btn-main-light2 dynamic-height mr-2 h5 @Html.AddValue(size.Equals(Model.SelectedProduct.Size.Value), "active")">
+                                        <input type="radio" name="Size" autocomplete="off" value="@size" @Html.AddValue(size.Equals(Model.SelectedProduct.Size.Value), "checked")>
+                                        <b>@size</b>
+                                    </label>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex my-2">
+                    <span class="text-main-grey mr-2">Цвет:</span>
+                    <div class="div-colors">
+                        @{
+                            foreach (var color in Model.ItemFull.CatalogItems.First(x => x.SizeValue == Model.SelectedProduct.Size.Value).Colors) {
+                                var background = string.IsNullOrEmpty(color.Image) ? color.Code : $"url({color.Image})";
+                                <label class="m-0">
+                                    <input type="radio" name="Color" autocomplete="off" value="@color.Id" data-colorname="@color.Name" @Html.AddValue(color.Id == Model.SelectedProduct.Color.Id, "checked")>
+                                    <span class="color-swatch" style="background: @background;" data-toggle="tooltip" data-placement="top" title="@color.Name"></span>
+                                </label>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="my-2">
+                    <span>
+                        <span class="text-main-grey">Название цвета: </span>
+                        <span id="colorName">@Model.SelectedProduct.Color.Name</span>
+                    </span>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.SelectedProduct.Material)) {
+                    <div class="my-2">
+                        <span>
+                            <span class="text-main-grey">Материал: </span>
+                            <span>@Model.SelectedProduct.Material</span>
+                        </span>
+                    </div>
+                }
+                <div class="my-2">
+                    @if (Context.User.Identity.IsAuthenticated && !Model.Catalog.IsOpen) {
+                        <div class="my-2">
+                            <span class="text-main-grey">Цена за единицу: </span>
+                            <span><span id="SinglePrice">@Model.SelectedProduct.Price.ToTwoDecimalPlaces()</span> $ <span class="mr-2 ml-2">|</span> <span id="SinglePriceRu">@Model.SelectedProduct.PriceInRub.ToTwoDecimalPlaces()</span> р</span>
+                        </div>
+                        if (Model.SelectedProduct.Size.IsLine) {
+                            <div class="my-2">
+                                <span class="text-main-grey">Цена за линейку: </span>
+                                <span><span id="ProductPrice">@Model.SelectedProduct.LinePrice.ToTwoDecimalPlaces()</span> $ <span class="mr-2 ml-2">|</span> <span id="ProductPriceRu">@Model.SelectedProduct.LinePriceInRub.ToTwoDecimalPlaces()</span> р</span>
+                            </div>
+                        }
+                        <div class="my-2">
+                            <span class="text-main-grey">Количество штук: </span>
+                            <span id="totalPartsCount">@Model.SelectedProduct.Size.Parts</span>
+                        </div>
+                        if (Model.SelectedProduct.Size.IsLine) {
+                            <div class="my-2">
+                                <span class="text-main-grey">Количество линеек: </span>
+                                <span id="totalLinesCount">1</span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="main-font h3">
+                @if (Context.User.Identity.IsAuthenticated && !Model.Catalog.IsOpen)
+                {
+                    <form method="post" asp-action="AddToCart" asp-controller="Cart" id="addToCartForm">
+                        <input type="hidden" name="CatalogId" id="CatalogType" value="@Model.Catalog.Id" />
+                        <input type="hidden" name="Articul" id="Articul" value="@Model.ItemFull.Descriptor.Articul" />
+                        <input type="hidden" name="ModelId" id="ModelId" value="@Model.SelectedProduct.ModelId" />
+                        <input type="hidden" name="NomenclatureId" id="NomenclatureId" value="@Model.SelectedProduct.NomenclatureId" />
+                        <input type="hidden" name="SizeValue" id="SizeValue" value="@Model.SelectedProduct.Size.Value" />
+                        <input type="hidden" name="ColorId" id="ColorId" value="@Model.SelectedProduct.Color.Id" />
+                        <input type="hidden" name="Price" id="Price" value="@Model.SelectedProduct.Price" />
+                        <input type="hidden" name="PriceInRub" id="PriceInRub" value="@Model.SelectedProduct.PriceInRub" />
+                        <input type="hidden" name="Amount" id="Amount" value="@(1 * Model.SelectedProduct.Amount)" />
+
+                        <div class="container-fluid px-0">
+                            <div class="form-row mx-0">
+                                <div class="form-group col-auto pl-0 pr-5 mb-0">
+                                    <div class="font-weight-bold mb-2">Количество: </div>
+                                    <div class="input-group pr-2">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-quantity minus" type="button" disabled>
+                                                <span class="iconify" data-inline="false" data-icon="bx:bx-minus"></span>
+                                            </button>
+                                        </div>
+                                        <input type="number" name="BasicAmount" id="BasicAmount" class="form-control border-0 text-center my-auto d-inline-block" placeholder="" aria-label="" value="1" style="width: 60px;" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-quantity plus" type="button">
+                                                <span class="iconify" data-inline="false" data-icon="bx:bx-plus"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-auto flex-grow-1 px-0 mb-0">
+                                    <div class="font-weight-bold mb-3">Итого на сумму: </div>
+                                    <span class="main-font h1">
+                                        <span class="font-weight-5">
+                                            <span id="totalPrice">@Model.SelectedProduct.LinePrice.ToTwoDecimalPlaces()</span><span> $ <span class="mr-2 ml-2">|</span> </span><span id="totalPriceRu">@Model.SelectedProduct.LinePriceInRub.ToTwoDecimalPlaces()</span><span>  р</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-row py-4 mx-0">
+                                <div class="d-flex mt-3 mb-2">
+                                    <button type="submit" class="btn btn-basic btn-main-gradient pl-3" id="add-to-cart">
+                                        <span class="iconify" data-inline="false" data-icon="simple-line-icons:basket"></span>
+                                        <span class="pl-2">Добавить в корзину</span>
+                                    </button>
+                                </div>
+                            </div>
+                            @if (Model.ItemFull.InCategories.Any()) {
+                                <div class="mt-4 pt-2">
+                                    <div class="font-weight-bold mb-1">Категория:</div>
+                                    @foreach (var category in Model.ItemFull.InCategories) {
+                                        <a class="btn btn-basic btn-main-light2 mr-1 my-1" target="_blank" asp-action="Products" asp-controller="Catalog" asp-route-categories="@category.Id">@category.Name</a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </form>
+                }
+            </div>
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="text-center mb-5">
+                    <div class="iconify icon-font-70px text-dark-grey" data-inline="false" data-icon="bx:bxs-lock-alt"></div>
+                    <div class="my-3">
+                        <button data-toggle="ajax-modal" data-target="#registerModal" data-target-tab="#register-tab" class="btn-basic btn-main-gradient">Зарегистрироваться</button>
+                    </div>
+                    <div>Уважаемый гость, для того, чтобы увидеть описание товара и оптовую цену, вам необходимо пройти регистрацию для подтверждения вашего региона, расположения торговой точки и персональных данных.</div>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ItemFull.Descriptor.VideoLink))
+            {
+                <div class="embed-responsive embed-responsive-16by9 youtube-player w-100">
+                    <iframe class="embed-responsive-item" src="@Model.ItemFull.Descriptor.VideoLink" allowfullscreen></iframe>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@await Component.InvokeAsync("Recommended", new { CategoryIds = Model.ItemFull.InCategories.Select(x => x.Id).ToList() })
+@await Component.InvokeAsync("Gallery", new { isRandom = true })
+
+@section Styles{
+    <link rel="stylesheet" href="/common/lib/lightslider/css/lightslider.min.css">
+    <link rel="stylesheet" href="/common/lib/lightgallery/css/lightgallery.min.css">
+    <environment include="Development">
+        <link rel="stylesheet" href="/catalogs/css/catalog-product.css" asp-append-version="true">
+    </environment>
+}
+
+@section Scripts{
+    <script src="/common/lib/lightslider/js/lightslider.min.js"></script>
+    <script src="/common/lib/lightgallery/js/lightgallery-all.min.js"></script>
+    <environment include="Development">
+        <script src="/catalogs/js/product-details.js" asp-append-version="true"></script>
+    </environment>
+    <environment include="Production, Staging">
+        <script src="/catalogs/js/min/catalog.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script>
+        catalogItem.setModelData('@Html.DecodeJsString(Model.Serialize())');
+    </script>
+}

@@ -1,0 +1,22 @@
+@using KristaShop.Common.Extensions
+@model Module.Client.Business.Models.UserClientDTO
+<div>
+    <h1 class="mb-3">
+        <svg class="krista-icon krista-user">
+            <use xlink:href="#krista-user"></use>
+        </svg> Информация о клиенте
+    </h1>
+    <p class="label">ФИО</p>
+    <p class="field">@Model.FullName</p>
+    <hr/>
+    <p class="label">Контакты</p>
+    <p class="field">
+        @Model.Phone<br/>@Model.Email
+    </p>
+    <hr/>
+    <p class="label">Город</p>
+    <p class="field">@Model.CityName</p>
+    <hr/>
+    <p class="label">Баланс</p>
+    <p class="field">@(Model.Balance < 0.0d ? 0.0d.ToTwoDecimalPlaces() : Model.Balance.ToTwoDecimalPlaces()) $</p>
+</div>

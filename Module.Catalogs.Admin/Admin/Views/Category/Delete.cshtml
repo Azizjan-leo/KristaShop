@@ -1,0 +1,33 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model Module.Catalogs.Admin.Admin.Models.CategoryViewModel
+@{
+    ViewData["Title"] = "Категории - Удалить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new MenuButtonsViewModel("Назад к списку", "Index", classes: "btn-main-info")
+    };
+}
+
+<div class="col-auto">
+    <a asp-action="Index">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Назад к списку
+    </a>
+</div>
+<hr />
+<h3 class="text-danger">Вы уверены что хотите удалить данные?</h3>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger btn-block col-4">Удалить</button>
+    </form>
+</div>

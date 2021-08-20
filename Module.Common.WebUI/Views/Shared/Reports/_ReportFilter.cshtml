@@ -1,0 +1,28 @@
+﻿@model KristaShop.Common.Models.Filters.ReportsFilter
+
+<div class="form-row">
+    <div class="form-group col-4">
+        <select asp-for="SelectedArticuls" asp-items="@Model.Articuls" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="Артикул" data-target-col="articul">
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <select asp-for="SelectedColorIds" asp-items="@Model.Colors" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="По цвету" data-target-col="colorId">
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <select asp-for="SelectedCityIds" asp-items="@Model.Cities" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="Город" data-target-col="cityId">
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <select asp-for="SelectedUserIds" asp-items="@Model.Users" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="Поиск по клиентам" data-target-col="userId">
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <select asp-for="SelectedManagerIds" asp-items="@Model.Managers" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="Менеджер" data-target-col="managerId">
+        </select>
+    </div>
+    <div class="form-group col-4">
+        <select asp-for="SelectedCatalogIds" asp-items="@Model.Catalogs" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true" title="Каталог" data-target-col="catalogId">
+        </select>
+    </div>
+</div>

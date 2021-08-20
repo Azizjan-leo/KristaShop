@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Module.App.Business.Models.MenuItemDTO>
+
+<li class="nav-item d-none d-xl-block">
+    <a class="nav-link bg-transparent" data-widget="pushmenu" data-enable-remember="true" href="#">
+        <svg class="krista-icon krista-manu-bars"><use xlink:href="#krista-menu-bars"></use></svg>
+        <p>Закрепить</p>
+    </a>
+</li>
+
+@foreach (var item in Model)
+{
+    <li class="nav-item">
+        <a href="@item.Url" class="nav-link @Html.IsControllerSelected(item.ChildControllers)">
+            <svg class="krista-icon @item.Icon"><use xlink:href="#@item.Icon"></use></svg>
+            <p>@item.Title</p>
+            @if (!string.IsNullOrEmpty(item.BadgeTarget)) {
+                <div class="nav-link-badge" style="display: none;" data-update-name="@item.BadgeTarget">0</div>
+            }
+        </a>
+    </li>
+}
+
+<li class="nav-item pt-4">
+    <a class="nav-link" asp-area="Admin" asp-controller="Identity" asp-action="Logout">
+        <svg class="krista-icon krista-logout"><use xlink:href="#krista-logout"></use></svg>
+        <p>Выход</p>
+    </a>
+</li>

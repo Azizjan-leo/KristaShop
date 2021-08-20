@@ -1,0 +1,17 @@
+﻿@if (User.Identity.IsAuthenticated && !User.IsGuest()) {
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary sidebar-main-dark elevation-4">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    @await Component.InvokeAsync("Menu")
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+    <div class="sidebar-content-hover"></div>
+}

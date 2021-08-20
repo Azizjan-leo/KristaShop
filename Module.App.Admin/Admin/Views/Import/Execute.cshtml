@@ -1,0 +1,39 @@
+﻿@using Module.Common.Admin.Admin.Models
+@using KristaShop.Common.Models
+@model Module.App.Admin.Admin.Models.UploadDumpFileViewModel
+@{
+    var backup = ViewData["LastBackup"] as LookUpItem<string, string>;
+    var navbarButtons = new List<MenuButtonsViewModel> {
+        new("К списку бэкапов", "Backups"),
+        new("К списку импортов", "Imports")
+    };
+    if (backup != null) {
+        navbarButtons.Insert(0, new MenuButtonsViewModel($" Применить бэкап от {backup.Value}", "Imports", "", "", new Dictionary<string, string> { { "backupName", backup.Key }}, "btn-main-success"));
+    }
+    ViewData["NavbarButtons"] = navbarButtons;
+}
+<div class="main-container">
+    <div class="row py-3">
+        <div class="col-auto">
+            <h4 class="font-weight-bold">Импорт</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form asp-action="Execute" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="File" class="custom-file-input" />
+                            <label asp-for="File" class="custom-file-label">Выберите файл</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-main-primary">Загрузить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

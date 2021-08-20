@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.DynamicPageDTO>
+@foreach (var dynamicPage in Model) {
+    <div class="container-xxl">
+        <div class="row my-3">
+            <div class="col-12 mb-5">
+                @if (!string.IsNullOrEmpty(dynamicPage.TitleIconPath)) {
+                    <div class="two-halfs-block">
+                        <div class="right-wrapper icon">
+                            <picture>
+                                <source srcset="@dynamicPage.TitleIconPath?height=50&format=webp" type="image/webp">
+                                <img srcset="@dynamicPage.TitleIconPath?height=50" height="50" alt="" />
+                            </picture>
+                        </div>
+                        <div class="left-wrapper justify-content-start px-2">
+                            @if (dynamicPage.GetActionName().Equals(ViewData["DynamicAction"])) {
+                                <h1 id="@dynamicPage.GetActionName()" class="header-font h1 py-2 my-2 text-uppercase">@dynamicPage.Title</h1>
+                            } else {
+                                <h2 id="@dynamicPage.GetActionName()" class="header-font h1 py-2 my-2 text-uppercase">@dynamicPage.Title</h2>
+                            }
+                        </div>
+                    </div>
+                } else {
+                    @if (dynamicPage.GetActionName().Equals(ViewData["DynamicAction"])) {
+                        <h1 id="@dynamicPage.GetActionName()" class="header-font h1 py-2 my-2 text-uppercase">@dynamicPage.Title</h1>
+                    } else {
+                        <h2 id="@dynamicPage.GetActionName()" class="header-font h1 py-2 my-2 text-uppercase">@dynamicPage.Title</h2>
+                    }
+                }
+
+                @Html.Raw(dynamicPage.Body)
+            </div>
+        </div>
+    </div>
+}

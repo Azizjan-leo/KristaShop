@@ -1,0 +1,85 @@
+[
+  {
+    "outputFileName": "wwwroot/css/min/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/base.css",
+      "wwwroot/css/core/base-buttons.css",
+      "wwwroot/css/core/base-links.css",
+      "wwwroot/css/core/base-backgrounds.css",
+      "wwwroot/css/core/form-controls.css",
+      "wwwroot/css/core/bootstrap-extensions.css",
+      "wwwroot/css/core/bootstrap-customization.css",
+      "wwwroot/css/core/sweetalert-customization.css",
+      "wwwroot/css/core/images.css",
+      "wwwroot/css/site.css",
+      "wwwroot/css/navbar.css",
+      "wwwroot/css/footer.css",
+      "wwwroot/css/beauty-checkbox.css",
+      "wwwroot/css/lightslider-customize.css",
+      "wwwroot/css/lightbox-zoom-integration.css",
+      "wwwroot/css/floating-totop-button-customization.css",
+      "wwwroot/css/select2-settings.css",
+      "wwwroot/css/flatpickr-customization.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/min/fonts.min.css",
+    "inputFiles": [
+      "wwwroot/css/core/fonts.css",
+      "wwwroot/css/core/base-fonts.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/min/ckeditor-custom.min.css",
+    "inputFiles": [
+      "wwwroot/css/base.css",
+      "wwwroot/css/core/fonts.css",
+      "wwwroot/css/core/base-fonts.css",
+      "wwwroot/css/core/base-buttons.css",
+      "wwwroot/css/core/base-links.css",
+      "wwwroot/css/core/base-backgrounds.css",
+      "wwwroot/css/core/form-controls.css",
+      "wwwroot/css/core/bootstrap-extensions.css",
+      "wwwroot/css/core/bootstrap-customization.css",
+      "wwwroot/css/core/images.css",
+      "wwwroot/css/site.css",
+      "../Module.Media.WebUI/wwwroot/css/dynamic-pages.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/min/site.min.js",
+    "inputFiles": [
+      "wwwroot/lib/lodash-4.17.15/lodash.js",
+      "wwwroot/js/site.js",
+      "wwwroot/js/core/core.js",
+      "wwwroot/js/core/notifications.js",
+      "wwwroot/js/core/jquery-extension.js",
+      "wwwroot/js/core/types.js",
+      "wwwroot/js/core/tab-forms-handler.js",
+      "wwwroot/js/core/background-form-handler.js",
+      "wwwroot/js/core/modal-windows.js",
+      "wwwroot/js/core/countdown-timer.js",
+      "wwwroot/js/core/disabled-button-warning.js",
+      "wwwroot/js/core/datatables-customization.js",
+      "wwwroot/js/lightbox-zoom-integration.js",
+      "wwwroot/js/back-to-top-button.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/min/custom-validation.min.js",
+    "inputFiles": [
+      "wwwroot/js/core/validation/is-true-validation.js",
+      "wwwroot/js/core/validation/required-this-or-other-validation.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -1,0 +1,18 @@
+﻿@await Html.PartialAsync("_WysiwygHtmlPartial")
+<style>
+    .cke_combo_text.cke_combo_inlinelabel {
+        width: auto;
+    }
+
+    .cke_combopanel {
+        width: fit-content !important;
+        width: -moz-fit-content !important;
+        width: auto !important;
+    }
+</style>
+
+<input hidden id="ckeditor-scripts-version" value="@Html.GetFileVersion()"/>
+<script src="/common/lib/parallax.js-1.5.0/parallax.min.js" asp-append-version="true"></script>
+<script src="/common/lib/ckeditor/ckeditor.js" asp-append-version="true"></script>
+<script src="/common/lib/ckeditor/lang/ru.js" asp-append-version="true"></script>
+<script src="/common-admin/js/ckeditor-config.js" asp-append-version="true"></script>

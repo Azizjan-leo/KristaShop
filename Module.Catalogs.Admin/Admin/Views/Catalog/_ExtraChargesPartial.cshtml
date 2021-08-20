@@ -1,0 +1,18 @@
+﻿@using KristaShop.Common.Extensions
+@model List<Module.Catalogs.Admin.Admin.Models.CatalogExtraChargeViewModel>
+@if (Model.Any()) {
+    <div class="pb-3">
+        @foreach (var item in Model) {
+            <div class="row bg-blue rounded-1 p-3 mb-2 cursor-pointer" onclick="openExtraChargeModal('@item.CatalogId', '@item.Id', '@item.Type', '@item.Price')">
+                <div class="col mt-2">
+                    <a class="font-weight-bold">@Html.DisplayFor(x => item.Type)</a>
+                </div>
+                <div class="col-auto">
+                    <div class="rounded-1 bg-white px-4 py-2 font-weight-bold">
+                        @item.Price.ToTwoDecimalPlaces()$
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model KristaShop.Common.Models.OperationResult
+
+<div>
+    <div><span>Успешно:</span><span>@Model.IsSuccess</span></div>
+    <div><div class="text-bold">Сообщения:</div>
+        <div>
+            @foreach (var message in Model.Messages) {
+                <div>@message</div>
+            }
+        </div>
+    </div>
+</div>

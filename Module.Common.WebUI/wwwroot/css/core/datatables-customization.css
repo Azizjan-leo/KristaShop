@@ -1,0 +1,306 @@
+﻿table.dataTable {
+    font-size: 14px;
+    border: 0;
+    -ms-border-radius: 12px !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-top: 0 !important;
+}
+
+table.dataTable thead th {
+    border-bottom: 1px solid #E9EEF6;
+    color: #B6C0C9;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 11px;
+    line-height: 15px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    text-align: left;
+}
+
+table.dataTable thead.text-dark th {
+    color: #000000;
+}
+
+table.dataTable th, table.dataTable tr, table.dataTable td {
+    border: 0;
+    height: 1em;
+}
+
+.realAmountsTable .th {
+    border: solid 1px;
+}
+
+table.dataTable th {
+    background-color: #ffffff;
+}
+
+table.dataTable.table-striped tr.even {
+    background-color: #ffffff;
+}
+
+table.dataTable.table-striped tr.odd {
+    background-color: #f9fcff;
+}
+
+table.dataTable td.order-column {
+    text-align: center;
+}
+
+/*#region Sorting arrows */
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+    padding: 24px 12px 24px 30px;
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+    bottom: 24px;
+    -ms-opacity: 1;
+    opacity: 1;
+}
+
+table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
+    color: #000000;
+    -ms-opacity: 1;
+    opacity: 1;
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc:before {
+    left: 10.5px;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc:after {
+    left: 15.5px;
+}
+
+table.dataTable thead th.small-paddings {
+    padding-left: 20px !important;
+    padding-right: 12px !important;
+}
+
+table.dataTable thead th.small-paddings.sorting:before, table.dataTable thead th.small-paddings.sorting_desc:before, table.dataTable thead th.small-paddings.sorting_asc:before {
+    left: 4px;
+}
+
+table.dataTable thead th.small-paddings.sorting:after, table.dataTable thead th.small-paddings.sorting_desc:after, table.dataTable thead th.small-paddings.sorting_asc:after {
+    left: 9px;
+}
+
+table.dataTable thead .hide-arrows.sorting:before, table.dataTable thead .hide-arrows.sorting_desc:before, table.dataTable thead .hide-arrows.sorting_asc:before,
+table.dataTable thead .hide-arrows.sorting:after, table.dataTable thead .hide-arrows.sorting_desc:after, table.dataTable thead .hide-arrows.sorting_asc:after {
+    content: ' ' !important;
+}
+
+table.dataTable thead .hide-arrows {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+/*#endregion Sorting arrows */
+
+table.dataTable td.details-control {
+    background: url('/lib/datatables/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+table.dataTable tr.shown td.details-control {
+    background: url('/lib/datatables/images/details_close.png') no-repeat center center;
+}
+
+.dataTables_wrapper .dataTables_info {
+    color: #B6C0C9;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item {
+    margin: 0 3px;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item > a {
+    margin: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.03);
+    -ms-border-radius: 6px;
+    border: 0;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #B6C0C9;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item:hover > a,
+.dataTables_wrapper .dataTables_paginate .page-item.active > a {
+    color: #000000;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item.active > a {
+    background-color: #ffffff;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item:hover.disabled > a {
+    color: #b6c0c9;
+}
+
+.dataTables_wrapper td img {
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.card .dataTables_wrapper > .row:first-child {
+    padding: 0 32px;
+}
+
+.card .dataTables_wrapper > .row:last-child {
+    padding: 12px 32px;
+}
+
+/* #region form controls */
+
+.dataTables_wrapper input.form-control,
+.dataTables_wrapper select.form-control,
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle,
+.dataTables_customSearchWrapper input.form-control,
+.dataTables_customSearchWrapper select.form-control,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle {
+    background-color: #ffffff !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+    border: 0;
+    height: 44px;
+}
+
+.dataTables_customSearchWrapper .input-group input.form-control {
+    box-shadow: none;
+}
+
+.dataTables_customSearchWrapper .input-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.dataTables_customSearchWrapper .input-group input.form-control + .input-group-append .input-group-text {
+    background-color: #ffffff !important;
+    -ms-border-top-right-radius: 9px;
+    border-top-right-radius: 9px;
+    -ms-border-bottom-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border: 1px solid #ffffff;
+}
+
+.dataTables_wrapper .bootstrap-select,
+.dataTables_customSearchWrapper .bootstrap-select {
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+    border: 0;
+}
+
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle .filter-option *,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle .filter-option * {
+    line-height: 2rem;
+    height: 100%;
+}
+
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle:after,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle:after {
+    color: #4f4f4f;
+}
+
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle:focus,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle:focus {
+    outline: none !important
+}
+
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle.bs-placeholder,
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:active,
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.dataTables_wrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle.bs-placeholder,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:active,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.dataTables_customSearchWrapper .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+    color: #b6c0c9;
+}
+
+.dataTables_wrapper input.form-control::placeholder,
+.dataTables_customSearchWrapper input.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #b6c0c9;
+    opacity: 1; /* Firefox */
+}
+
+.dataTables_wrapper input.form-control:-ms-input-placeholder,
+.dataTables_customSearchWrapper input.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #b6c0c9;
+}
+
+.dataTables_wrapper input.form-control::-ms-input-placeholder,
+.dataTables_customSearchWrapper input.form-control:-ms-input-placeholder { /* Microsoft Edge */
+    color: #b6c0c9;
+}
+
+.dataTables_wrapper input[type="search"].form-control,
+.dataTables_customSearchWrapper input[type="search"].form-control {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(/common/img/icons/krista-search.svg);
+    -ms-background-size: 18px 18px;
+    background-size: 18px 18px;
+    -ms-background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -ms-background-position: 16.5px 12.5px !important;
+    background-position: 16.5px 12.5px !important;
+    padding-left: 48px;
+    width: 100%;
+    margin: 0;
+    font-size: 15px;
+}
+
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_customSearchWrapper .dataTables_filter label {
+    position: relative;
+    height: 44px;
+    width: 100%;
+}
+
+.dataTables_customSearchWrapper {
+    border: 1px solid #d9e2f0;
+    box-sizing: border-box;
+    -ms-border-radius: 12px;
+    border-radius: 12px;
+    padding: 24px 24px 32px 24px;
+}
+
+
+/*Total inputs*/
+.dataTables_customTotalsWrapper {
+    background-color: white;
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.dataTables_customTotalsWrapper input.form-control,
+.dataTables_customTotalsWrapper select.form-control,
+.dataTables_customTotalsWrapper .bootstrap-select > .dropdown-toggle {
+    background-color: #f9f9f9 !important;
+    box-shadow: none;
+    -ms-border-radius: 9px;
+    border-radius: 9px;
+    border: 1px solid #d9e2f0;
+    height: 44px;
+    font-weight: 700;
+}
+
+.dataTables_customTotalsWrapper label {
+    color: #b6c0c9;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 800 !important;
+}
+
+/* #endregion form controls */
+.table-responsive {
+    padding: 0;
+}
+
+table.dataTable .cell-lining:after {
+    content: "";
+    display: block;
+    border-bottom: 1px solid blue !important;
+}

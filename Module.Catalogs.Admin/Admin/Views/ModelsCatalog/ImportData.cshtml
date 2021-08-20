@@ -1,0 +1,21 @@
+﻿@model Tuple<string, int, int, int, int, List<string>>
+@{
+    ViewData["Title"] = "Модели - Импорт старых данных";
+}
+
+<div class="p-4 mt-3 bg-white">
+    <div class="col-12 table-responsive">
+        <h2>Результаты импорта:</h2>
+        @if (!string.IsNullOrEmpty(Model.Item1)) {
+            <h3 class="text-danger">@Model.Item1</h3>
+        } else {
+            <ul>
+                <li>Обновлено описаний моделей: @Model.Item2</li>
+                <li>Добавлено описаний моделей: @Model.Item3</li>
+                <li>Добавлено фото моделей: @Model.Item4</li>
+                <li>Цветов фото не найдено: @Model.Item5 (@string.Join(", ", Model.Item6))</li>
+            </ul>
+        }
+    </div>
+</div>
+

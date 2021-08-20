@@ -1,0 +1,65 @@
+@model ItemsGroupedBase<ModelGroupedDTO, PaymentTotalInfo>
+
+@if (Model.Items.Any()) {
+    <div>
+        <partial name="_BasicFilter"/>
+        <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseStorehouseItems">
+            <div class="font-weight-bold">
+                <span>Выберите модели из наличия на складе</span>
+            </div>
+            <div class="ml-auto">
+                <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+            </div>
+        </div>
+        <div class="collapse show mb-4" id="collapseStorehouseItems">
+            <table class="table table-striped table-bordered text-break border dataTable w-100 storehouseItemsTable td-paddings">
+                <thead>
+                <tr>
+                    <th class="hide-arrows">
+                        <div class="row mx-0 no-gutters">
+                            <div class="col-3">
+                                <span class="sorting" data-sort-target-col="modelKey">Информация о модели</span>
+                            </div>
+                            <div class="col-9">
+                                <div class="row mx-0 no-gutters">
+                                    <div class="col-2">Цвета</div>
+                                    <div class="col-2">Размер</div>
+                                    <div class="col-3">
+                                        <span class="sorting" data-sort-target-col="totalAmount">Кол-во</span>
+                                    </div>
+                                    <div class="col-2">
+                                        <span class="sorting" data-sort-target-col="totalSum">На сумму</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>Цвета</th>
+                    <th>Размеры</th>
+                    <th>Кол-во</th>
+                    <th>На сумму</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div class="d-flex flex-wrap my-2 bg-main-info-light rounded-2 align-items-center p-2">
+                            <div class="font-weight-bold">
+                                <span class="mx-1">Итого:</span>
+                                <span>@Model.Totals.TotalAmount единиц</span>
+                                <span class="mx-1">на сумму @Model.Totals.TotalSum.ToTwoDecimalPlaces()$</span>
+                            </div>
+                            <div class="ml-auto mr-2">
+                                <button type="button" class="btn btn-basic btn-success btn-shop dynamic-height createSellingRequestBtn">Подтвердить запрос</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">Ваш склад пуст</div>
+}

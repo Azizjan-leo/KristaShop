@@ -1,0 +1,44 @@
+﻿<div class="dataTables_customSearchWrapper">
+    <div class="form-row px-3 pb-4">
+        <h4 class="font-weight-bold">Фильтр</h4>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-12 col-md-4 col-lg">
+            <input type="text" class="form-control" id="Articul" placeholder="Поиск по артикулу"  data-target-col="articul" value="@ViewBag.Articul" />
+        </div>
+        <div class="form-group col-sm-12 col-md-4 col-lg">
+            <select class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" id="Catalog" asp-items="ViewBag.Catalogs"  data-target-col="catalogs">
+                <option value="">Каталог</option>
+            </select>
+        </div>
+        @if (ViewBag.Categories != null) {
+            <div class="form-group col-sm-4 col-md-4 col-lg">
+                <select class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" id="Category" asp-items="ViewBag.Categories" data-target-col="categories">
+                    <option value="">Категории</option>
+                </select>
+            </div>
+        }
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-12 col-md-4 col-lg">
+            <select class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" id="Color" asp-items="ViewBag.Colors" data-target-col="colors">
+                <option value="">Цвет</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-12 col-md-4 col-lg">
+            <select class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" id="SizeLine" asp-items="ViewBag.SizeLines" data-target-col="sizes">
+                <option value="">Размер</option>
+            </select>
+        </div>
+        @if (ViewBag.Visibility != null) {
+            <div class="form-group col-sm-4 col-md-4 col-lg">
+                <select class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" id="IsVisible" asp-items="ViewBag.Visibility" data-target-col="modelIsVisible">
+                    <option value="">Видимость</option>
+                </select>
+            </div>
+        }
+    </div>
+    <div class="form-row px-1 pt-4">
+        <button class="btn btn-main-danger" onclick="ResetAllValues()">Сбросить фильтр</button>
+    </div>
+</div>

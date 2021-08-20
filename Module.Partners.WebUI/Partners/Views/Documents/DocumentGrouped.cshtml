@@ -1,0 +1,78 @@
+@model DocumentDTO<ModelGroupedDTO>
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = $"Магазин | Документ {Model.Name}";
+}
+
+<div>
+    <partial name="_BasicFilter"/>
+    <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center @Html.AddValue(Model is RevisionDocumentDTO<ModelGroupedDTO>, "py-1 px-3", "p-3")" data-toggle="collapse" href="#collapseStorehouseItems">
+        <div class="font-weight-bold">
+            <span>@Model.Descriptor</span>
+            <span class="mx-1">@Model.Totals.ToString()</span>
+        </div>
+        <div class="ml-auto">
+            @if (Model is RevisionDocumentDTO<ModelGroupedDTO> revisionDocument) {
+                var deficiencyDocument = @revisionDocument.GetDeficiencyDocument();
+                <a asp-area="Partners"
+                   asp-controller="Documents"
+                   asp-action="Document"
+                   asp-route-number="@deficiencyDocument.Number"
+                   onclick="stopPropagation(event)"
+                   class="btn btn-basic btn-success btn-shop mx-1">
+                    Недостача по ревизии @deficiencyDocument.Totals.TotalAmount ед
+                </a>
+            }
+            <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+        </div>
+    </div>
+    <div class="collapse show mb-4" id="collapseStorehouseItems">
+        <table class="table table-striped table-bordered text-break border dataTable w-100 documentItemsTable">
+            <thead>
+            <tr>
+                <th class="hide-arrows">
+                    <div class="row mx-0 no-gutters">
+                        <div class="col-3">
+                            <span class="sorting" data-sort-target-col="modelKey">Информация о модели</span>
+                        </div>
+                        <div class="col-9">
+                            <div class="row mx-0 no-gutters">
+                                <div class="col-2">Цвета</div>
+                                <div class="col-2">Размер</div>
+                                <div class="col-3">
+                                    <span class="sorting" data-sort-target-col="totalAmount">Кол-во</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="sorting" data-sort-target-col="totalSum">На сумму</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th>Кол-во</th>
+                <th>На сумму</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                        <div class="font-weight-bold">
+                            <span>Итого:</span>
+                            <span class="mx-1">@Model.Totals.ToString()</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Items);
+    </script>
+    <script src="/partners/js/table-render-helper.js" asp-append-version="true"></script>
+    <script src="/partners/js/documents/document-grouped.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,21 @@
+CKEDITOR.plugins.setLang('kristashop','ru',{
+	kristaStyles : "Krista Стили",
+	kristaStylesTitle : "Набор стилей Krista",
+    socials: "Соц. сети",
+    socialsCardTitle: "Карточка соц сетей",
+    managerCard: "Карточка менеджера",
+    gradientBg: "Градиентный фон",
+    gradientBgTitle: "Блок с градиентом на фоне",
+    containerWithBgImage: "Блок с изображением",
+    containerWithBgImageTitle: "Блок с изображением на всю ширину страницы",
+    containerWithImage: "Блок с изображением",
+    containerWithImageTitle: "Блок с изображением",
+    bgImageTitle : 'Фоновое изображение',
+    partnersMapTitle: 'Карта партнеров',
+    contactsTitle: 'Блок контактов',
+    imageUrl     : 'URL изображения',
+    gradientText : "Градиентный текст",
+    gradientTextTitle : "Текст с цветом градиента",
+    container  : "Контейнеры",
+    textStyles : "Стили текста"
+})

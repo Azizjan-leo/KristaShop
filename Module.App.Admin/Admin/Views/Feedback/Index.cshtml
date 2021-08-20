@@ -1,0 +1,49 @@
+﻿@using Module.Common.Admin.Admin.Models
+@using Module.Common.WebUI.Extensions
+@{
+    ViewData["Title"] = "Сообщения";
+    @if (UserSession.IsRoot) {
+        ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+            new("Удалить прочитаные", "DeleteAll", routeValues: new Dictionary<string, string>{{ "viewedOnly", "false" }}, classes: "btn-main-danger"),
+            new("Удалить все", "DeleteAll", routeValues: new Dictionary<string, string>{{ "viewedOnly", "true" }}, classes: "btn-main-danger")
+        };
+    }
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered" style="width: 100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Порядок</th>
+                <th>ФИО</th>
+                <th>№ телефона</th>
+                <th>Почта</th>
+                <th>Дата</th>
+                <th>Тип</th>
+                <th>Прочитано</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="hidden row-content-container">
+        <div class="row-content">
+            <div class="form-group">
+                <label class="control-label">Сообщение:</label>
+                <textarea readonly class="form-control row-content-message bg-white" rows="5" cols="15"></textarea>
+            </div>
+            <div class="row-content-files">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/app-admin/js/Feedback/Index.js" asp-append-version="true" type="text/javascript"></script>
+}

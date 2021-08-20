@@ -1,0 +1,100 @@
+﻿@using Module.Common.Admin.Admin.Models
+@using KristaShop.Common.Extensions
+@model Module.Common.Business.Models.ItemsGrouped<Module.Common.Business.Models.ItemsGroupedWithDateName<Module.Order.Business.Models.ShipmentsItemDTO>>
+@{
+    ViewData["Title"] = "Отправки подробно";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> { new("Назад", "Shipings", "Orders", "krista-history", null, "btn-main-primary") };
+}
+
+<div class="row">
+    <div class="col-xl-4 col-md-6 col-sm-12 order-top-info">
+        @await Component.InvokeAsync("UserInfo", new {userId = ViewBag.UserId})
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-auto pb-4 pt-5">
+        <h4 class="h4 font-weight-bold">Отправки</h4>
+    </div>
+</div>
+
+<div class="row order-details">
+    <div class="col-12 table-responsive">
+        <table class="table table-striped table-bordered table-sm text-break order-details dataTable" style="width:100%">
+            <thead>
+                <tr class="table-secondary">
+                    <th width="110px">Фото</th>
+                    <th>Артикул</th>
+                    <th>Цвет</th>
+                    <th>Размер</th>
+                    <th>Линеек</th>
+                    <th>Единиц</th>
+                    <th>Сумма ($)</th>
+                    <th>Сумма (р)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dateItem in Model.Items) {
+                    <tr data-toggle="collapse" href="#collapsePreorder_@(dateItem.CreateDate.ToString("dd_MM_yyyy"))" role="button" aria-expanded="false" aria-controls="collapsePreorder_@(dateItem.CreateDate.ToString("dd_MM_yyyy"))">
+                        <td colspan="9" class="tal">
+                            <div class="order-header-panel panel-gray panel-subtotal">
+                                <div class="left-text-section">
+                                    <i class="far fa-caret-square-down"></i> <strong>Отправка от @dateItem.CreateDate.ToString("dd.MM.yyyy") (единиц: @dateItem.Totals.TotalAmount)</strong>
+                                </div>
+                                <div class="right-text-section">
+                                    На сумму @(dateItem.Totals.TotalSum.ToTwoDecimalPlaces()) $
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    @foreach (var item in dateItem.Items) {
+                        var photoPath = string.IsNullOrEmpty(item.MainPhoto) ? "/common/img/noimage.png?width=100" : $"{item.MainPhoto}?width=100";
+                        <tr class="collapse show" id="collapsePreorder_@(dateItem.CreateDate.ToString("dd_MM_yyyy"))">
+                            <td>
+                                <picture class="img-fluid">
+                                    <source srcset="@photoPath&format=webp" type="image/webp">
+                                    <img srcset="@photoPath" class="img-fluid" height="150" width="100" />
+                                </picture>
+                            </td>
+                            <td>@item.Articul</td>
+                            <td class="tal">
+                                @{ var background = string.IsNullOrEmpty(item.ColorPhoto) ? item.ColorValue : $"url({item.ColorPhoto})";}
+                                <span class="color-round" title="@item.ColorName" style="background: @background;"></span>
+                                <div>@item.ColorName</div>
+                            </td>
+                            <td>@item.Size.Value</td>
+                            <td>@(item.Amount / item.Size.Parts)</td>
+                            <td>@item.Amount</td>
+                            <td>@item.TotalPrice.ToTwoDecimalPlaces()</td>
+                            <td>@item.TotalPriceInRub.ToTwoDecimalPlaces()</td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <div class="order-header-panel panel-blue">
+            <div class="left-text-section">
+                <strong>Итого</strong>
+                Единиц: @Model.Totals.TotalAmount,
+                На сумму: @Model.Totals.TotalSum.ToTwoDecimalPlaces() $ | @Model.Totals.TotalSumInRub.ToTwoDecimalPlaces() р
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/locale/ru.min.js"></script>
+}

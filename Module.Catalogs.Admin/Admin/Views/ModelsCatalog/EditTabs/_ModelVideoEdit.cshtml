@@ -1,0 +1,29 @@
+﻿@model Module.Catalogs.Admin.Admin.Models.Model1CViewModel
+<div class="container-fluid py-5 px-4 mx-2">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            @if (string.IsNullOrEmpty(Model.VideoUrl)) {
+                <iframe id="videoFrame" width="600" height="400" frameborder="0"
+                        src="">
+                </iframe>
+            }
+            else {
+                <iframe id="videoFrame" width="600" height="400" frameborder="0"
+                        src="@Model.VideoUrl">
+                </iframe>
+            }
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="VideoUrl" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="VideoUrl" class="form-control" placeholder="Ссылка на видео, пример: https://www.youtube.com/watch?v=S2cPMa6fRq8" aria-label="Ссылка на видео" aria-describedby="LinkName-addon">
+                    <div class="input-group-append">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="ChangeVideo()" type="button">Предпросмотр</button>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-main-primary mt-2" type="submit">Сохранить изменения</button>
+        </div>
+    </div>
+</div>

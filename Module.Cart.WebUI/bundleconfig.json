@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/js/min/cart.min.js",
+    "inputFiles": [
+      "wwwroot/js/cart.js",
+      "wwwroot/js/cart-navbar.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

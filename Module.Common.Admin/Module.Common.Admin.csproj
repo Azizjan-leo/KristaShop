@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+        <PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\KristaShop.Common\KristaShop.Common.csproj" />
+        <ProjectReference Include="..\Module.Common.WebUI\Module.Common.WebUI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\fonts" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">common-admin</StaticWebAssetBasePath>
+    </PropertyGroup>
+</Project>

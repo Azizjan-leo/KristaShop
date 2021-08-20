@@ -1,0 +1,34 @@
+@model (List<Module.Client.Business.Models.NewUserDTO> Registrations, bool showHeader)
+
+@if (Model.Registrations.Any()) {
+    if (Model.showHeader) {
+        <h1 class="dashboard-title">Новые регистрации</h1>
+    }
+    <div class="dashboard-header orange-g">
+        <h3>
+            <svg class="krista-icon krista-user krista-icon-size16">
+                <use xlink:href="#krista-user"></use>
+            </svg> Регистрации через промо
+        </h3>
+        <h2>новых клиентов: @Model.Registrations.Count</h2>
+    </div>
+
+    <div class="col-12 table-responsive">
+        <table class="table table-striped table-bordered text-break dataTable newPromoRegistrationsTable" style="width: 100%; background-color: #ffffff;">
+            <thead>
+            <tr>
+                <th>Клиент</th>
+                <th>Контакты</th>
+                <th>Дата</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    
+    {
+        <script>
+            const newPromoRegistrationsData = @Html.AsJsObject(Model); 
+        </script>        
+    }
+}

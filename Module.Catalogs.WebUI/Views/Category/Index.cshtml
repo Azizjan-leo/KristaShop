@@ -1,0 +1,53 @@
+﻿@using Module.Common.WebUI.Models
+@model List<Module.Catalogs.Business.Models.CategoryDTO>
+
+@{
+    ViewData["Title"] = "Категории";
+}
+
+<div class="container-fluid mb-5">
+    <partial name="_TitleDescriptionPartialWide" model="@(new TitleDescriptionViewModel(ViewData["Title"].ToString(), "DynamicPageBody", new {Url = ViewData["DescriptionSettingKey"]}, isHeading: true))"/>
+    <div class="d-flex flex-row justify-content-center">
+        <div class="row row-max-width row-cols-1 row-cols-md-2 row-cols-lg-2 ">
+            @{
+                var count = Model.Count % 2 > 0 ? Model.Count - 1 : Model.Count;
+            }
+            @for (var i = 0; i < count; i++) {
+                <div class="col-12 col-md-6 col-lg-6 mb-2">
+                    <div class="card mb-3 border-0">
+                        <a href="@Url.Action("Products", "Catalog", new {Categories = new List<int> {Model[i].CategoryId1C}})">
+                            <img class="card-img-top rounded-1" src="@Model[i].ImagePath?width=630" alt="@Model[i].Name">
+                        </a>
+                        <div class="card-body p-0">
+                            <h2><a href="@Url.Action("Products", "Catalog", new {Categories = new List<int> {Model[i].CategoryId1C}})" class="link-base link-dark header-font h3">@Model[i].Name</a></h2>
+                            <div class="card-text card-description-text text-main-grey">
+                                @Html.Raw(Model[i].Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.Count >= count) {
+                <div class="col-12 col-md-12 col-lg-12 mb-2">
+
+                    <div class="card mb-3 border-0">
+                        <a href="@Url.Action("Products", "Catalog", new {Categories = new List<int> {Model[^1].CategoryId1C}})">
+                            <img class="card-img-top horizontal-image" src=" @Model[^1].ImagePath?width=1300" alt="@Model[^1].Name">
+                        </a>
+                        <div class="card-body p-0">
+                            <a href="@Url.Action("Products", "Catalog", new {Categories = new List<int> {Model[^1].CategoryId1C}})">
+                                <picture class="card-img-top rounded-1">
+                                    <source srcset="@Model[^1].ImagePath?width=630&format=webp" type="image/webp">
+                                    <img class="card-img-top rounded-1" srcset="@Model[^1].ImagePath?width=630" alt="@Model[^1].Name">
+                                </picture>
+                            </a>
+                            <div class="card-text card-description-text text-main-grey">
+                                @Html.Raw(@Model[^1].Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

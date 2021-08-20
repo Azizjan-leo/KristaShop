@@ -1,0 +1,40 @@
+﻿@using Module.Common.Admin.Admin.Models
+@using Module.Common.WebUI.Infrastructure
+@model IEnumerable<Module.App.Admin.Admin.Models.RoleAccessViewModel>
+@{
+    ViewData["Title"] = "Права доступа для роли";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new MenuButtonsViewModel("Назад к списку", "Index", classes: "btn-main-info")
+    };
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<div class="d-flex justify-content-end py-2">
+    <button type="button" class="btn btn-main-success mx-2" onclick="grantAccessForAll()">Разрешить доступ ко всем</button>
+    <button type="button" class="btn btn-main-danger" onclick="removeAccessForAll()">Запретить доступ ко всем</button>
+</div>
+<form id="UpdateRoleAccessForm">
+    <div class="col-12 table-responsive">
+        <table class="table table-striped table-bordered" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Путь</th>
+                    <th>Доступ разрешен</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-main-primary">Подтвердить</button>
+    </div>
+</form>
+@section Scripts {
+    <script>
+        const dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/app-admin/js/Access/edit-role-accesses.js" asp-append-version="true" type="text/javascript"></script>
+}

@@ -1,0 +1,36 @@
+﻿@model Module.Common.Business.Models.ReportTotalsDTO
+
+<div class="form-row">
+    <div class="form-group col-12 col-lg-3">
+        <label>Итого единиц</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.Totals.TotalAmount" id="Totals_TotalAmount">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Предзаказ</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.PreorderTotals.TotalAmount" id="PreorderTotals_TotalAmount">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Наличие сериями</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.InStockLinesTotals.TotalAmount" id="InStockLinesTotals_TotalAmount">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Наличие не сериями</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.InStockPartsTotals.TotalAmount" id="InStockPartsTotals_TotalAmount">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>На сумму</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.Totals.TotalSum.ToTwoDecimalPlaces() $" id="Totals_TotalPrice">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Предзаказ</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.PreorderTotals.TotalSum.ToTwoDecimalPlaces() $" id="PreorderTotals_TotalPrice">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Наличие сериями</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.InStockLinesTotals.TotalSum.ToTwoDecimalPlaces() $" id="InStockLinesTotals_TotalPrice">
+    </div>
+    <div class="form-group col-12 col-lg-3">
+        <label>Наличие не сериями</label>
+        <input type="text" class="form-control" readonly="readonly" value="@Model.InStockPartsTotals.TotalSum.ToTwoDecimalPlaces() $" id="InStockPartsTotals_TotalPrice">
+    </div>
+</div>

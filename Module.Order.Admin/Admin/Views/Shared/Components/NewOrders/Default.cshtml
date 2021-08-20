@@ -1,0 +1,28 @@
+@using KristaShop.Common.Extensions
+@model (KristaShop.Common.Models.Structs.ReportTotalInfo Preorder, KristaShop.Common.Models.Structs.ReportTotalInfo InStock, int OrdersCount)
+@if (Model.OrdersCount > 0) {
+    <h1 class="dashboard-title mt-4">Новые заказы</h1>
+
+    <div class="dashboard-header violet-g">
+        <h3>
+            <svg class="krista-icon krista-shop krista-icon-size16">
+                <use xlink:href="#krista-shop"></use>
+            </svg> Необработанные заказы
+        </h3>
+        <div>
+            <h2>заказов: @Model.OrdersCount</h2>
+        </div>
+        <div>
+            <h2>единиц из предзаказа: @Model.Preorder.TotalAmount <small>(на сумму @Model.Preorder.TotalSum.ToTwoDecimalPlaces() $)</small></h2>
+        </div>
+        <div>
+            <h2>единиц из наличия: @Model.InStock.TotalAmount <small>(на сумму @Model.InStock.TotalSum.ToTwoDecimalPlaces() $)</small></h2>
+        </div>
+        <a href="/Admin/Orders/Index" class="btn btn-main-success" style="float: right;">
+            <svg class="krista-icon krista-shop">
+                <use xlink:href="#krista-shop"></use>
+            </svg> Заказы
+        </a>
+        <div class="clearfix"></div>
+    </div>
+}

@@ -1,0 +1,44 @@
+﻿@model Module.Order.Admin.Admin.Models.OrdersFilter
+<div class="dataTables_customSearchWrapper">
+    <div class="form-row px-3 pb-4">
+        <h4 class="font-weight-bold">Фильтр</h4>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-12 col-md-2 col-lg-2">
+            <label asp-for="Manager"></label>
+            <select asp-for="Manager" asp-items="@ViewBag.ManagersList" class="selectpicker form-control show-menu-arrow localStorageFilter" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="managerFullName">
+                <option value="">Все</option>
+                <option value="---">Без менеджера</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-12 col-md-3 col-lg-3">
+            <label asp-for="ClientFullName"></label>
+            <input type="text" asp-for="ClientFullName" class="form-control order-input localStorageFilter" data-target-col="userFullName" />
+        </div>
+        <div class="form-group col-sm-12 col-md-2 col-lg-3">
+            <label asp-for="CityName"></label>
+            <input type="text" asp-for="CityName" class="form-control order-input localStorageFilter" data-target-col="cityName" />
+        </div>
+        <div class="form-group col-sm-12 col-md-2 col-lg-2">
+            <label asp-for="OrderDateFrom"></label>
+            <div class="input-group order-input date localStorageFilter" id="orderDateFromPicker" data-target-input="nearest" data-datetime-picker>
+                <input asp-for="OrderDateFrom" type="text" class="form-control datetimepicker-input" data-target="#orderDateFromPicker" data-target-range-col="firstItemDate" data-target-range-type="from" />
+                <div class="input-group-append" data-target="#orderDateFromPicker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-2 col-lg-2">
+            <label asp-for="OrderDateTo"></label>
+            <div class="input-group order-input date localStorageFilter" id="orderDateToPicker" data-target-input="nearest" data-datetime-picker>
+                <input asp-for="OrderDateTo" type="text" class="form-control datetimepicker-input" data-target="#orderDateToPicker" data-target-range-col="firstItemDate" data-target-range-type="to" />
+                <div class="input-group-append" data-target="#orderDateToPicker" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row px-1 pt-4">
+        <button class="btn btn-main-danger" onclick="ResetOrderAllValues()">Сбросить фильтр</button>
+    </div>
+</div>

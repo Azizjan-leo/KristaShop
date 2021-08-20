@@ -1,0 +1,44 @@
+﻿@using KristaShop.Common.Extensions
+@using Module.Catalogs.Business.Models
+@model Module.Catalogs.Admin.Admin.Models.Model1CViewModel
+<div class="py-5">
+    <table class="table table-striped table-bordered table-condensed text-center" width="100%">
+        <tr>
+            <th width="250px">Каталог</th>
+            <th width="250px">Цвет</th>
+            @foreach (var size in Model.FullModelData.Sizes) {
+                <th>@size</th>
+            }
+        </tr>
+        @foreach (var catalog in Model.FullModelData.InCatalogs) {
+            @if (Model.CurrentCatalogId >= 0 && catalog.Id != Model.CurrentCatalogId) {
+                continue;
+            }
+            @foreach (var color in Model.FullModelData.Colors) {
+                @if (!Model.FullModelData.CatalogItems.Any(x => x.Items.Any(c => c.CatalogId == catalog.Id && c.Color.Id == color.Id))) {
+                    continue;
+                }
+                <tr>
+                    <td>@catalog.Name</td>
+                    <td>@color.Name</td>
+                    @foreach (var size in Model.FullModelData.Sizes) {
+                        var sizeGroup = Model.FullModelData.CatalogItems.FirstOrDefault(x=>x.SizeValue.Equals(size));
+                        var item = sizeGroup?.Items.FirstOrDefault(d => d.Size.Value == size && d.CatalogId == catalog.Id && d.Color.Id == color.Id);
+                        if (sizeGroup != null && item != null) {
+                            <td>
+                                <p class="form-control form-control-sm">
+                                    @($"{item.Price.ToTwoDecimalPlaces()}$")
+                                    @if (item.Size.IsLine) {
+                                        @($"/ {(item.Price * item.Size.Parts).ToTwoDecimalPlaces()}$")
+                                    }
+                                </p>
+                            </td>
+                        } else {
+                            <td bgcolor="silver"></td>
+                        }
+                    }
+                </tr>
+            }
+        }
+    </table>
+</div>

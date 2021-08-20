@@ -1,0 +1,80 @@
+﻿@model string
+<!-- About -->
+<div class="my-4 py-2">
+    <div data-parallax="scroll" data-image-src="/media/img/about-background.jpg">
+        <div class="container-fluid about-container about-bg py-4 py-xl-5 px-2 px-xl-4">
+            <div class="row mx-0 py-2 py-xl-3 px-xl-3">
+                <div class="col mx-0 px-0 text-white">
+                    <div class="container-fluid px-0 px-xl-2">
+                        <div class="row mx-0">
+                            <div class="col-12 col-lg-6 px-2 px-xl-0">
+                                <div class="text-uppercase text-left">
+                                    <h2 class="header-font h2 font-weight-bold text-uppercase">
+                                        О компании krista unique
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 pl-0 px-0">
+                                <div class="gradient-separator"></div>
+                                <div class="main-font h4 text-white about-container-text">
+                                    @Html.Raw(Model)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mx-0 px-0 px-xl-3">
+                <div class="col mx-0 px-0 px-xl-3">
+                    <div class="row mx-0">
+                        <div class="col-12 col-lg-6">
+                        </div>
+                        <div class="col-12 col-lg-6 px-0 px-xl-3">
+                            <div class="px-2 mb-2 mb-xl-0 mx-0 mx-xl-1 mt-2">
+                                <a href="/About/Index" class="btn btn-basic btn-main-gradient">Подробнее о нас</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-2 px-xl-3">
+    <div class="row row-cols-2 row-cols-xl-4 mx-0 mt-3">
+        <div class="mb-3 px-2">
+            <div class="image-fix-height-wrapper ratio100">
+                <picture class="img-max-width lazy image rounded-1">
+                    <source data-srcset="/media/img/about1.jpg?width=450&height=450&format=webp" type="image/webp">
+                    <img class="img-max-width lazy image rounded-1" data-srcset="/media/img/about1.jpg?width=450&height=450" alt="Материал" />
+                </picture>
+            </div>
+        </div>
+        <div class="mb-3 px-2">
+            <div class="image-fix-height-wrapper ratio100">
+                <picture class="img-max-width lazy image rounded-1">
+                    <source data-srcset="/media/img/about2.jpg?width=450&height=450&format=webp" type="image/webp">
+                    <img class="img-max-width lazy image rounded-1" data-srcset="/media/img/about2.jpg?width=450&height=450" alt="Крой" />
+                </picture>
+            </div>
+        </div>
+        <div class="mb-3 px-2">
+            <div class="image-fix-height-wrapper ratio100">
+                <picture>
+                    <source data-srcset="/media/img/about3.jpg?width=450&height=450&format=webp" type="image/webp">
+                    <img class="img-max-width lazy image rounded-1" data-srcset="/media/img/about3.jpg?width=450&height=450" alt="Пошив" />
+                </picture>
+            </div>
+        </div>
+        <div class="mb-3 px-2">
+            <div class="image-fix-height-wrapper ratio100">
+                <picture>
+                    <source data-srcset="/media/img/about4.jpg?width=450&height=450&format=webp" type="image/webp">
+                    <img class="img-max-width lazy image rounded-1" data-srcset="/media/img/about4.jpg?width=450&height=450" alt="Платье" />
+                </picture>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About -->

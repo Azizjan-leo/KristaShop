@@ -1,0 +1,157 @@
+@using Microsoft.AspNetCore.Routing
+@model (List<DocumentMovementAmountsDTO> Documents, DocumentsFilter Filter)
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = "Магазин | Журнал движения по складу";
+}
+
+<div>
+    <div class="container-fluid p-0 customSearchWrapper filter-form-bordered">
+        <form asp-action="@Context.GetRouteData().GetAction()" asp-controller="Documents">
+            <div class="form-row mb-0 pl-1 main-font h4">
+                <div class="form-group col-12 col-md-4 pl-0 pr-2">
+                    <label class="text-bold">Поиск по артикулу</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                            </span>
+                        </div>
+                        <input type="text" asp-for="Filter.Articul" name="Articul" class="form-control has-append-group" placeholder="Поиск по артикулу">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                                <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 col-md-4 px-2">
+                    <label class="text-bold">Поиск по цвету</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                            </span>
+                        </div>
+                        <input type="text" asp-for="Filter.ColorName" name="ColorName" class="form-control has-append-group" placeholder="Поиск по цвету">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                                <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 col-md-4 px-2">
+                    <div class="d-flex">
+                        <label class="text-bold">Поиск по размеру</label>
+                        <div class="ml-auto">
+                            <a asp-action="@Context.GetRouteData().GetAction()" class="link-base link-danger link-decoration-none" title="Сбросить фильтры">
+                                <span class="iconify font-size-18 font-weight-6" data-inline="false" data-icon="grommet-icons:power-reset"></span>
+                                <span class="font-weight-6 align-middle">Сброс</span>
+                            </a>
+                        </div>
+                    </div>
+                    <select asp-items="Model.Filter.SizesSelect" asp-for="Filter.Sizes" name="Sizes" class="selectpicker form-control form-control-sm show-menu-arrow" data-dropup-auto="false" data-size="10" data-live-search="true" data-actions-box="true" multiple data-title="Укажите размер">
+                    </select>
+                </div>
+            </div>
+            <div class="form-row pl-1 main-font h4">
+                <div class="form-group col-12 col-md-4 pl-0 pr-2">
+                    <label class="text-bold">Период от и до:</label>
+                    <div class="form-row mx-0">
+                        <div class="col pl-0 pr-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                                    </span>
+                                </div>
+                                <input asp-for="Filter.DateFrom" name="DateFrom" class="form-control flatpickr flatpickr-input has-append-group" type="text" value="@(Model.Filter.DateFrom.ToBasicString())" placeholder="От" data-datetime-picker>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                                        <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col px-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                                    </span>
+                                </div>
+                                <input asp-for="Filter.DateTo" name="DateTo" class="form-control flatpickr flatpickr-input has-append-group" type="text" value="@(Model.Filter.DateTo.ToBasicString())" placeholder="До" data-datetime-picker>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                                        <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 col-md-4 px-2">
+                    <label class="text-bold">По виду документа</label>
+                    <select asp-items="Model.Filter.DocumentTypesSelect" asp-for="Filter.DocumentTypes" name="DocumentTypes" class="selectpicker form-control form-control-sm show-menu-arrow" data-dropup-auto="false" data-size="10" data-live-search="true" data-actions-box="true" data-title="Выберите тип документа">
+                    </select>
+                </div>
+                <div class="form-group col-12 col-md-4 px-2">
+                    <div class="d-flex flex-row justify-content-end align-items-end">
+                        <button type="submit" class="btn btn-basic btn-success mt-4">Поиск</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    @if (Model.Documents.Any()) {
+        <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseStorehouseItems">
+            <div class="font-weight-bold">
+                <span>Документы по движению на складе за период</span>
+                <span class="mx-1">@Model.Filter.DateFrom.ToBasicString()</span>
+                <span>по</span>
+                <span class="mx-1">@Model.Filter.DateTo.ToBasicString()</span>
+            </div>
+            <div class="ml-auto">
+                <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+            </div>
+        </div>
+        <div class="collapse show mb-4" id="collapseStorehouseItems">
+            <table class="table table-striped table-bordered text-break border dataTable w-100 documentsTable">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Номер</th>
+                    <th>Документ</th>
+                    <th>Приход</th>
+                    <th>Расход</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr class="font-weight-bold">
+                    <td>Итого</td>
+                    <td colspan="2"></td>
+                    <td>
+                        <span id="totalIncomeAmount"></span>
+                    </td>
+                    <td>
+                        <span id="totalWriteOffAmount"></span>
+                    </td>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    } else {
+        <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу не найдено документов</div>
+    }
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Documents);
+    </script>
+    <script src="/partners/js/documents/storehouse-documents.js" asp-append-version="true"></script>
+}

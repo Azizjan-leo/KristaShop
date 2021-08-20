@@ -1,0 +1,85 @@
+﻿@using System.Linq
+@using KristaShop.Common.Extensions
+@using Module.Order.Business.Models
+@model Module.Order.Business.Models.InvoiceDTO
+@{
+    ViewData["Title"] = $"Счет на оплату №{Model.InvoiceNum}";
+}
+
+<div class="container mt-2">
+    <a asp-action="Index" class="text-secondary">Вернуться в кабинет</a>
+    <div class="d-flex my-3 flex-wrap">
+        <div>
+            <p class="h3 text-uppercase"><b>@ViewData["Title"] @(Model.WasPayed ? "(оплачен)" : "")</b></p>
+            <p class="m-0">Дата: @Model.CreateDate.ToString("dd.MM.yyyy")</p>
+            <p class="m-0">Плательщик: @Model.InvoiceClientTitle</p>
+            <p class="m-0">Предоплата: @Model.PrePayFormated</p>
+            <p class="m-0">К оплате: @Model.TotalPayFormated</p>
+        </div>
+    </div>
+
+    @if (Model.Lines.Any()) {
+        <div class="row text-center align-items-start p-3 d-none d-md-flex">
+            @if (Model.Lines.First().IsProductLine) {
+                <div class="col-1"></div>
+                <div class="col-2 m-0 p-0"><b>Артикул</b></div>
+                <div class="col-1 m-0 p-0"><b>Цвет</b></div>
+                <div class="col-1 m-0 p-0"><b>Размер</b></div>
+                <div class="col-2 m-0 p-0"><b>Линейки</b></div>
+                <div class="col-2 m-0 p-0"><b>Единицы</b></div>
+            } else {
+                <div class="col-9 m-0 p-0 text-left"><b>Основание</b></div>
+            }
+            <div class="col"><b>Сумма</b></div>
+        </div>
+        @foreach (var item in Model.Lines) {
+            <div class="row text-center align-items-center border-top border-bottom m-0 mb-3">
+                @if (item.IsProductLine) {
+                    <div class="col-12 col-lg-1 p-0">
+                        <a href="@item.MainPhoto" data-lightbox="Изображение" data-title="@item.Articul">
+                            <picture class="img-fluid">
+                                <source srcset="@item.MainPhoto?format=webp&width=100" type="image/webp">
+                                <img srcset="@item.MainPhoto?width=100" class="img-fluid" alt="Alternate Text" />
+                            </picture>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-2 m-0 p-0">@item.Articul</div>
+                    <div class="col-12 col-lg-1 m-0 p-0">
+                        @{ var background = string.IsNullOrEmpty(item.ColorPhoto) ? item.ColorValue : $"url({item.ColorPhoto})"; }
+                        <div class="color-swatch" title="@item.ColorName" style="background: @background;"></div>
+                        <div>@item.ColorName</div>
+                    </div>
+                    <div class="col-12 col-lg-1 m-0 p-0">@item.SizeValue</div>
+                    <div class="col-12 col-lg-2 m-0 p-0">@(item.Amount / (item.PartsCount <= 0 ? 1 : item.PartsCount))</div>
+                    <div class="col-12 col-lg-2 m-0 p-0">@item.Amount</div>
+                } else {
+                    <div class="col-12 col-lg-9 m-0 p-3 text-left">@item.Description</div>
+                }
+                <div class="col-lg-3 col-md-3 col-sm-12 d-md-flex align-self-stretch">
+                    <div class="row">
+                        <div class="col-12 bg-light d-flex align-self-stretch align-items-center">
+                            <p class="text-dark m-auto p-3">
+                                Цена <b> @item.PriceFormated </b>
+                            </p>
+                        </div>
+                        <div class="col-12 bg-secondary d-flex align-self-stretch align-items-center">
+                            <p class="text-white m-auto p-3">Итого <b>@item.TotalPriceFormated</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="d-flex my-1 flex-wrap d-block bg-dark text-white align-items-center p-2">
+            <div>
+                <p class="m-auto">Итого:</p>
+            </div>
+            <div class="ml-auto"></div>
+            <div class="ml-auto">@Model.Lines.Sum(i => (i.Currency == InvoiceCurrency.USD ? i.TotalPrice : i.TotalPriceInRub)).ToTwoDecimalPlaces() @Model.CurrencySign</div>
+        </div>
+    }
+
+    @if (Model.HasAttachedFile) {
+        <a asp-action="InvoiceDownload" asp-controller="Personal" asp-route-id="@Model.Id" class="btn btn-basic btn-main btn-sm px-3 mt-3">Скачать счет на оплату</a>
+    }
+</div>

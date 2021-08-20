@@ -1,0 +1,22 @@
+[
+  {
+    "outputFileName": "wwwroot/css/min/media.min.css",
+    "inputFiles": [
+      "wwwroot/css/slider.css",
+      "wwwroot/css/about.css",
+      "wwwroot/css/youtube.css",
+      "wwwroot/css/dynamic-pages.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/min/media.min.js",
+    "inputFiles": [
+      "wwwroot/js/pages/dynamic-pages.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

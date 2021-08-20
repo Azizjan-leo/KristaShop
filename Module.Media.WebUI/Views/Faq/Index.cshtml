@@ -1,0 +1,99 @@
+﻿@model Module.Media.Business.DTOs.FaqViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="/media/css/faq-page.css" rel="stylesheet" type="text/css" />
+
+@{
+    foreach (var item in Model.Faqs)
+    {
+        <a asp-action="Index" asp-controller="Faq" asp-route-faqId="@item.Id">
+            <div class="faq-block" style="background: @item.ColorCode">
+                <span id="faq-id" hidden>@item.Id</span>
+                <span style="margin-left: 20px; margin-top: 10px; display: block">@item.Title</span>
+            </div>
+        </a>
+    }
+}
+<div id="faq-section-container" class="faq-section-container">
+    @{
+        if (Model.SelectedFaqSections != null)
+        {
+            foreach (var faqSection in Model.SelectedFaqSections)
+            {
+
+                <div class="content-block">
+                    <div class="faq-section-block" style="background: @Model.SelectedSectionColorCode;">
+                        <div class="faq-section-block-iconblock">
+                            <picture>
+                                <source srcset="@faqSection.IconUrl?format=webp" type="image/webp">
+                                <img style="width:50%; height:50%; margin-top:20px;" srcset="@faqSection.IconUrl" />
+                            </picture>
+                        </div>
+                        <div class="faq-section-block-titleblock">
+                            @faqSection.Title
+                        </div>
+                    </div>
+                    <div hidden class="faq-section-content-block" id="faq-section-content-block">
+                        <div class="faq-section-content-block-container">
+                            @{
+                                if (faqSection.FaqSectionContents != null)
+                                {
+                                    foreach (var content in faqSection.FaqSectionContents)
+                                    {
+                                        <div class="faqContent-section-container">
+                                            <br />
+                                            @Html.Raw(content.Content)
+                                        </div>
+                                        foreach (var file in content.FaqSectionContentFileDtos)
+                                        {
+                                            if (file.Type == KristaShop.Common.Enums.FaqFileType.Video)
+                                            {
+                                                <div class="faqContent-section-container">
+                                                    <video width="320" height="240" controls><source src="@file.FileUrl"></video>
+                                                </div>
+                                            }
+                                            else if (file.Type == KristaShop.Common.Enums.FaqFileType.Image)
+                                            {
+                                                <a href="@file.FileUrl?height=720" data-lightbox="image">
+                                                    <div class="faqContent-section-container">
+                                                        <img id="myImg" class='faq-section-content-image image-block' src="@file.FileUrl?width=320&height=320">
+                                                    </div>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <div class="faqContent-section-container">
+                                                    Документ: <a href="@file.FileUrl">скачать</a>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+@section scripts
+{
+
+    <script>
+        $(document).on('click', '.faq-section-block', function () {
+            var faqSectionContentBlock = $(this).closest('.content-block').find('#faq-section-content-block');
+            var isHidden = faqSectionContentBlock.is(":hidden");
+            if (isHidden) {
+                faqSectionContentBlock.attr('hidden', false);
+            }
+            else {
+                faqSectionContentBlock.attr('hidden', true);
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "404 - Товар не найден";
+}
+<h1 class="text-center my-4 text-basic">@ViewData["Title"]</h1>
+
+<div class="img-container-block">
+     <img srcset="/common/img/model-404.svg" class="img-fluid">
+</div>
+<div class="container col-sm-12 col-md-8 col-lg-4 my-4">
+    <div class="row justify-content-center">
+        <div class="col">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-block btn-basic btn-active">Вернуться на главную</a>
+        </div>
+        <div class="col">
+            <a href="#" class="btn btn-block btn-basic btn-active">Поиск</a>
+        </div>
+    </div>
+</div>

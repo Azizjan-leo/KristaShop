@@ -1,0 +1,18 @@
+﻿@model (string Header, string Message)
+@{
+    ViewData["Title"] = Model.Header;
+}
+
+<h1 class="text-center my-4 text-basic">@Model.Header</h1>
+<h2 class="text-center my-4">@Model.Message</h2>
+<div class="text-center">
+    <img src="/common/img/success.svg" class="img-fluid" alt="success">
+</div>
+<div class="container col-sm-12 col-md-6 col-lg-2 my-4">
+    <div class="row justify-content-center">
+        <div class="col">
+            <a asp-action="Index" asp-controller="Catalog" class="btn btn-block btn-basic btn-main">Вернуться в каталог</a>
+        </div>
+    </div>
+</div>
+

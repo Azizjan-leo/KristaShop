@@ -1,0 +1,68 @@
+@model IEnumerable<PaymentDocumentDTO<DocumentItemDetailedDTO>>
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = "Магазин | Документы по выплате поставщику";
+}
+
+@if (Model.Any()) {
+    <partial name="_BasicDocumentItemsFilter"/>
+    @foreach (var document in Model) {
+        <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseItems_@(document.Id)">
+            <div class="font-weight-bold my-auto">
+                @if (document.State == State.NotPaid) {
+                    <span>Список к выплате поставщику по движениям на складе</span>
+                } else {
+                    <span>@document.Descriptor</span>
+                }
+            </div>
+            <div class="ml-auto">
+                <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill" data-toggle="collapse" href="#collapseItems_@(document.Id)" role="button" aria-expanded="false" aria-controls="collapseItems_@(document.Id)"></span>
+            </div>
+        </div>
+        <div class="collapse show pb-3 mb-4" id="collapseItems_@(document.Id)">
+            <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"itemsTable_{document.Id}")">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Информация о модели</th>
+                    <th>Цвета</th>
+                    <th>Размер</th>
+                    <th>Кол-во</th>
+                    <th>На сумму</th>
+                    <th>Тип документа</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center py-1 pl-3 pr-1">
+                            <div class="font-weight-bold">
+                                <span>Итого: </span>
+                                <span>@document.Totals.TotalAmount</span>
+                                <span>ед на сумму</span>
+                                <span class="ml-1">@document.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                            </div>
+                            <div class="ml-auto">
+                                @if (document.State != State.None) {
+                                    <span class="btn btn-basic btn-shop dynamic-height btn-@document.State.GetHighlightColor() not-interactive">
+                                        Статус выплаты: @document.State.GetDisplayName()
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">У вас нет счетов для отображения</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/partners/js/payments/index.js" asp-append-version="true"></script>
+}

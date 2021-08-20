@@ -1,0 +1,154 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model Module.Catalogs.WebUI.Models.SearchAllViewModel
+@{
+    ViewData["Title"] = "Найденные модели";
+    const int maxLength = 8;
+    const int maxLineLength = 25;
+}
+
+<div class="container p-2" method="get" asp-action="Products">
+    <div class="form-row align-items-center my-3">
+        @if (!Model.HasDescription) {
+            <div class="col-sm-12 col-lg-9 text-center text-lg-left">
+                <h1 class="text-center text-md-left text-lg-left text-xl-left header-font h1 text-uppercase">@Model.SearchTitle</h1>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <a type="button" href="@Url.Action("Search", new {
+                                           Model.Filter.Articul,
+                                           Model.Filter.Categories,
+                                           Model.Filter.Sizes,
+                                           Model.Filter.SizeLines,
+                                           Model.Filter.Colors,
+                                           Model.Filter.CatalogUri,
+                                           Model.Filter.CatalogId,
+                                           Model.Filter.MinPrice,
+                                           Model.Filter.MaxPrice
+                                       })"
+                   class="btn btn-basic btn-main w-100">
+                    ПАРАМЕТРЫ ПОИСКА
+                </a>
+            </div>
+        } else {
+            <div class="row py-2">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 align-self-center">
+                    <h1 class="text-uppercase text-center text-md-left text-lg-left text-xl-left header-font h1">@Model.SearchTitle</h1>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="gradient-separator"></div>
+                    @await Component.InvokeAsync("DynamicPageBody", new {url = Model.DescriptionSettingKey})
+                </div>
+            </div>
+        }
+    </div>
+    @if (Model.SearchProducts.Keys.Any()) {
+        var firstCatalogId = Model.SearchProducts.Keys.First();
+        @foreach (var catalogId in Model.SearchProducts.Keys) {
+             var catalog = Model.Catalogs[catalogId];
+             @if (catalog.IsOpen && !string.IsNullOrEmpty(catalog.AdditionalDescription) && (!User.Identity.IsAuthenticated || User.IsGuest())) {
+                  <div class="row">
+                      <div class="px-2 text-center text-justify text-md-center text-lg-left">
+                          <div class="two-halfs-block two-row lg-one-row">
+                              <div class="left-wrapper text-main">
+                                  @Html.Raw(catalog.AdditionalDescription)
+                              </div>
+                              <div class="right-wrapper wrapper-3">
+                                  <button data-toggle="ajax-modal" data-target="#registerModal" data-target-tab="#register-tab" class="btn-lg btn-basic btn-main mb-3 mr-3">Зарегистрируйтесь и узнайте цену</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              }
+
+             <div class="d-flex my-3 flex-wrap d-block bg-dark rounded-1 text-white align-items-center p-2" data-toggle="collapse" href="#collapse-@catalog.Id" role="button" aria-expanded="@Html.AddValue(catalogId == firstCatalogId, "true", "false")" aria-controls="collapsePreorder">
+                 <div class="">
+                     <p class="m-auto">
+                         <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span> @catalog.Name
+                     </p>
+                 </div>
+                 <div class="ml-auto">
+                     Найдено моделей: @Model.SearchProducts[catalogId].Count
+                 </div>
+             </div>
+             <div class="form-row row-cols-1 row-cols-md-2 row-cols-lg-3 collapse @Html.AddValue(catalogId == firstCatalogId, "show")" id="collapse-@catalog.Id">
+                 @foreach (var item in Model.SearchProducts[catalogId]) {
+                     <div class="col mb-2">
+                         <div class="card rounded-1 border-0 h-100 left-corner-container">
+                             <a asp-action="Product" asp-controller="Catalog" asp-route-articul="@item.Descriptor.Articul" asp-route-catalog="@catalogId">
+                                 <div class="image-fix-height-wrapper ratio150">
+                                     <picture>
+                                         <source data-srcset="@item.Descriptor.MainPhoto?width=400&height=600&format=webp 576w, @item.Descriptor.MainPhoto?width=700&height=1050&format=webp 768w" type="image/webp">
+                                         <img class="lazy image rounded-1" data-srcset="@item.Descriptor.MainPhoto?width=400&height=600 576w, @item.Descriptor.MainPhoto?width=700&height=1050 768w" alt="@item.Descriptor.AltText" />
+                                     </picture>
+                                 </div>
+                             </a>
+                             @if (item.Descriptor.IsLimited && item.CatalogId.ToProductCatalog1CId() == CatalogType.Preorder) {
+                                 <div class="left-corner" title="Лимитированная модель">
+                                     <span>Лимитировано</span>
+                                 </div>
+                             }
+                             <div class="card-body p-2 font-weight-5">
+                                 <div class="my-2">
+                                     <span class="text-main-grey">Артикул: </span><span>@item.Descriptor.Articul</span>
+                                 </div>
+                                 <div class="my-2">
+                                     <span class="text-main-grey mr-2">Серия:</span>
+                                     @{
+                                         var added = 0;
+                                     }
+                                     @foreach (var size in item.Sizes)
+                                     {
+                                         if (size.Contains("-"))
+                                         {
+                                             if (added + size.Length > maxLineLength)
+                                             {
+                                                 <span class="ml-1">...</span>
+                                                 break;
+                                             }
+                                         }
+                                         else
+                                         {
+                                             if (added + size.Length > maxLength)
+                                             {
+                                                 <span class="ml-1">...</span>
+                                                 break;
+                                             }
+                                         }
+                                         added += size.Length;
+                                         <span class="size-swatch">@size</span>
+                                     }
+                                 </div>
+                                 <div class="my-2">
+                                     <span class="text-main-grey mr-2">Цвет:</span>
+                                     @foreach (var color in item.Colors.Take(5))
+                                     {
+                                         var background = string.IsNullOrEmpty(color.Image) ? color.Code : $"url({color.Image})";
+                                         <span class="color-swatch" style="background: @background;" data-toggle="tooltip" data-placement="top" title="@color.Name"></span>
+                                     }
+                                     @if (item.Colors.Count > 5)
+                                     {
+                                         <span class="ml-1">...</span>
+                                     }
+                                 </div>
+                                 @if (User.Identity.IsAuthenticated && !User.IsGuest() && !catalog.IsOpen)
+                                 {
+                                     <div class="my-2">
+                                         <span class="text-main-grey">Цена за единицу: </span><span>@item.CommonPrice.ToTwoDecimalPlaces() $ | @item.CommonPriceInRub.ToTwoDecimalPlaces() р</span>
+                                     </div>
+                                 }
+                                 <div class="mt-3">
+                                     <a class="btn btn-basic btn-main-colored" asp-controller="Catalog" asp-action="Product" asp-route-articul="@item.Descriptor.Articul" asp-route-catalog="@catalogId">
+                                         Подробнее
+                                     </a>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 }
+             </div>
+         }
+    } else {
+        <p class="text-center h3">По Вашему запросу модели отсутствуют.</p>
+    }
+</div>

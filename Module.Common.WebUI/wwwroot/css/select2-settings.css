@@ -1,0 +1,8 @@
+﻿.select2-container {
+    width: 100% !important;
+    height: 38px !important;
+}
+
+.select2-selection { height: 100% !important; }
+
+.select2-selection .select2-selection__rendered, .select2-selection .select2-selection__arrow { margin: 5px 0 !important; }

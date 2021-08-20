@@ -1,0 +1,105 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<ItemsWithTotalsDTO<ModelGroupedDTO>>
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = "Магазин | Резервации";
+    var firstEntry = true;
+}
+
+@if (Model.Any()) {
+    @foreach (var dateItem in Model) {
+        var dateCreated = dateItem.CreateDate.ToJointString();
+        <div class="reservationItemInMainList" id="@dateCreated">
+            <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center py-1 px-3" data-toggle="collapse" href="#collapseShipment_@(dateCreated)">
+                <div class="font-weight-bold my-auto">
+                    <span>Отправка от @dateItem.CreateDate.ToBasicString() (единиц: @dateItem.Totals.TotalAmount) на сумму @dateItem.Totals.TotalSum.ToTwoDecimalPlaces()$</span>
+                </div>
+                <div class="ml-auto">
+                    <a class="btn btn-success btn-basic btn-shop mx-1" id="startIncomeBtn_@dateCreated" data-income-reservation="@dateItem.CreateDate.ToBasicString()">Начать приходование через сканер</a>
+                    <a class="btn btn-success btn-basic btn-shop mx-1" id="autoIncomeBtn_@dateCreated" data-total-amount="@dateItem.Totals.TotalAmount" data-total-price="@dateItem.Totals.TotalSum" data-auto-income-reservation="@dateItem.CreateDate.ToBasicString()">Оприходовать автоматически</a>
+                    <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill" data-toggle="collapse" href="#collapseShipment_@(dateCreated)" role="button" aria-expanded="false" aria-controls="collapseShipment_@(dateCreated)"></span>
+                </div>
+            </div>
+            <div class="my-4 d-none" id="hiddenInputsBlock_@dateCreated">
+                <div class="row mx-0">
+                    <div class="col-md-3 px-1 main-font text-left">
+                        <h7 class="text-bold main-font" style="line-height: 24px;">Отсканируйте штрихкод</h7>
+                    </div>
+                    <div class="col-md-9 px-1 main-font text-left">
+                        <h7 class="text-bold main-font" style="line-height: 24px;">Информация о модели</h7>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-md-3 px-1 main-font text-left m-auto">
+                        <input class="form-control white-control barcodeInputes" id="barcodeInput_@dateCreated"/>
+                    </div>
+                    <div class="col px-1 main-font text-left m-auto">
+                        <input class="form-control white-control" id="modelInfo_@dateCreated" readonly/>
+                    </div>
+                    <div class="col-auto px-1 main-font text-left">
+                        <a class="btn btn-success btn-basic btn-shop" data-accept-model>Подтвердить</a>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse @(firstEntry ? "show pb-3" : "") mb-4" id="collapseShipment_@(dateCreated)">
+                <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"shipmentItemsTable_{dateItem.CreateDate.ToJointString()}")" id="table_@(dateCreated)">
+                    <thead>
+                    <tr>
+                        <th class="hide-arrows">
+                            <div class="row mx-0 no-gutters">
+                                <div class="col-3">
+                                    <span class="sorting" data-sort-target-col="modelKey">Информация о модели</span>
+                                </div>
+                                <div class="col-9">
+                                    <div class="row mx-0 no-gutters">
+                                        <div class="col-2">
+                                            <div class="px-2">Цвета</div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="px-2">Размер</div>
+                                        </div>
+                                        <div class="col-3">
+                                            <span class="sorting" data-sort-target-col="totalAmount">Кол-во</span>
+                                        </div>
+                                        <div class="col-2">
+                                            <span class="sorting" data-sort-target-col="totalSum">На сумму</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                        <th>Кол-во</th>
+                        <th>На сумму</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                                <div class="font-weight-bold">
+                                    <span>Итого: </span>
+                                    <span>@dateItem.Totals.TotalAmount</span>
+                                    <span>ед на сумму</span>
+                                    <span class="ml-1">@dateItem.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        firstEntry = false;
+    }
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/partners/js/table-render-helper.js" asp-append-version="true"></script>
+    <script src="/partners/js/shop/barcodes-handler.js" asp-append-version="true"></script>
+    <script src="/partners/js/shop/reservations.js" asp-append-version="true"></script>
+}

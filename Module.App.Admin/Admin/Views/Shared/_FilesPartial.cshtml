@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Module.App.Admin.Admin.Models.FileViewModel>
+
+@foreach (var item in Model) {
+    <div class="card rounded-0 my-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-auto mr-auto">
+                    @item.Filename
+                </div>
+                <div class="col-auto">
+                    <a asp-action="@ViewData["LinkAction"]" asp-controller="@ViewContext.RouteData.Values["controller"]" asp-route-id="@item.Id" class="fa fa-download fa-1x"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

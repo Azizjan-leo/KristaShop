@@ -1,0 +1,25 @@
+.shortcut-buttons-flatpickr-button {
+    display: inline-block;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+    border-style: none;
+    border: 0 solid;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 20.49px;
+    padding: 4px 8px;
+    text-shadow: none;
+}
+
+.shortcut-buttons-flatpickr-button {
+    color: #000000;
+    background: #ffffff;
+}
+
+.shortcut-buttons-flatpickr-button:hover {
+    color: #ffffff;
+    background: #569ff7;
+}

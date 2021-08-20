@@ -1,0 +1,67 @@
+﻿@model P.Pager.IPager<Module.Media.Business.DTOs.BlogItemDTO>
+@{
+    ViewData["Title"] = "Instagram blog";
+}
+
+<div class="container-fluid">
+    <partial name="_TitleDescriptionPartialWide" model="@(new TitleDescriptionViewModel(ViewData["Title"].ToString(), ViewBag?.Description, isHeading: true))"/>
+    <div class="row row-cols-xl-4 row-cols-lg-2 row-cols-md-2 row-cols-1">
+        @foreach (var item in Model)
+        {
+            <div class="col mb-2">
+                <div class="card mb-3 border-0 rounded-1 h-100">
+                    <div class="image-fix-height-wrapper">
+                        <picture class="card-img-top rounded-1 lazy image">
+                            <source srcset="@item.ImagePath?format=webp&width=480" type="image/webp">
+                            <img class="card-img-top rounded-1 lazy image" srcset="@item.ImagePath?width=480" alt="@item.Title" />
+                        </picture>
+                    </div>  
+                    <div class="card-body border rounded-bottom-1 p-3">
+                        <div class="main-font h5 font-weight-bold">
+                            @item.Title
+                        </div>
+                        <div class="main-font h5 card-text text-overflow card-description-text">
+                            @Html.Raw(item.Description)
+                        </div>
+                        <div>
+                            <a href="@item.Link" class="main-font h5 link-base link-dark" target="_blank">
+                                <span class="card-text">
+                                    <picture class="mr-2 align-text-bottom">
+                                        <source srcset="/media/img/svg/insta.png?format=webp&width=20" type="image/webp">
+                                        <img srcset="/media/img/svg/insta.png?width=20" class="mr-2 align-text-bottom" alt="instagram logo" width="20">
+                                    </picture>@item.LinkText
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @Html.Pager(Model, page => Url.Action("Index", new
+    {
+        page
+    }), new PagerOptions
+    {
+        ClassToPagerContainer = "d-flex justify-content-center my-5",
+        TextToPreviousPage = "&larr;",
+        TextToNextPage = "&rarr;",
+        ClassToUl = "list-inline",
+        ClassToLi = "list-inline-item",
+        PageClass = "nopageclass text-decoration-none text-dark",
+        ClassToActiveLi = "niloclass",
+        TextForDelimiter = "|"
+    })
+</div>
+
+@section Scripts{
+    <script>
+        function resetForm() {
+            document.getElementById("searchForm").reset();
+            $(":checkbox").attr("checked", false);
+        }
+        $(document).ready(function () {
+            $('.niloclass a').html('<img src="/common/img/svg/paginator-current.svg" alt="image alt text" width="17px">');
+        })
+    </script>
+}

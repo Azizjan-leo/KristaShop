@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Module.Catalogs.Business.Models.CatalogItemBriefDTO>
+@{
+    ViewData["Title"] = "Ваши избранные модели";
+    var confirmationTitle = "Удаление из избранного";
+    var confirmationMessage = "Вы уверены, что хотите удалить модель '{0}' из избранного?";
+}
+
+<div class="container-fluid">
+    <div class="row catalog-top-text-row">
+        <div class="text-uppercase text-center text-md-left text-lg-left text-xl-left">
+            <h1 class="header-font h1 text-uppercase">
+                @ViewData["Title"]
+            </h1>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-12">
+            <!-- Start Model -->
+            @if (Model.Any()) {
+                <div class="row row-cols-xl-6 row-cols-lg-4 row-cols-md-3 row-cols-1 px-3">
+                    @foreach (var item in Model) {
+                        <div class="col p-2">
+                            <div class="card rounded-0 border-0 h-100">
+                                <div class="close" style="z-index: 10;">
+                                    <div class="ajax-background-form" data-use-response-message="True" data-success-callback="deleteFavorite" data-include-confirmation="True" data-confirmation-title="@confirmationTitle" data-confirmation-message="@string.Format(confirmationMessage, item.Articul)">
+                                        <form name="favorite" method="post" asp-action="DeleteFavorite" asp-controller="Favorite">
+                                            <input type="hidden" asp-for="@item.Articul" name="@nameof(item.Articul)" />
+                                            <input type="hidden" asp-for="@item.CatalogId" name="@nameof(item.CatalogId)" />
+                                            <button type="submit" class="btn">
+                                                <span class="bx bx-x-circle text-danger icon-font-24px"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <a asp-controller="Catalog" asp-action="Product" asp-route-articul="@item.Articul" asp-route-catalog="@item.CatalogId" asp-route-page="0">
+                                    <div class="image-fix-height-wrapper ratio150">
+                                        <picture>
+                                            <source data-srcset="@item.MainPhoto?width=400&height=600&format=webp 576w, @item.MainPhoto?width=700&height=1050&format=webp 768w" type="image/webp">
+                                            <img class="lazy image" data-srcset="@item.MainPhoto?width=400&height=600 576w, @item.MainPhoto?width=700&height=1050 768w, @item.MainPhoto?width=400&height=600 992w" alt="@item.AltText" />
+                                        </picture>
+                                    </div>
+                                </a>
+                                <div class="card-body p-1 pr-3">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <p class="m-0">Артикул: @item.Articul</p>
+                                        </div>
+                                        <div class="col-5 px-0">
+                                            <div class="w-100">
+                                                <a class="btn btn-basic btn-basic-sm btn-main w-100" asp-controller="Catalog" asp-action="Product" asp-route-catalog="@item.CatalogId" asp-route-articul="@item.Articul">
+                                                    Подробнее
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="m-0">@ViewBag.CatalogNames[item.CatalogId]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            } else {
+                <p class="text-center h3">Ваш список избранных моделей пуст.</p>
+            }
+            <!-- End Model -->
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <environment include="Production, Staging">
+        <script src="/catalogs/js/min/catalog.min.js" asp-append-version="true"></script>
+    </environment>
+}

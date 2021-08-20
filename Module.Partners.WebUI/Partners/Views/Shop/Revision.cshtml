@@ -1,0 +1,110 @@
+﻿@model ItemsGroupedBase<ModelGroupedDTO, PaymentTotalInfo>
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = "Магазин | Ревизия";
+    var totalModelsCount = Model.Items.Sum(x => x.GetUniqueModelsCount());
+}
+<!--Models Table-->
+<div>
+    <partial name="_BasicFilter"/>
+    <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center py-1 px-3" data-toggle="collapse" href="#collapseStorehouseItems">
+        <div class="font-weight-bold">
+            <span>Наличие на складе</span> / <span>@totalModelsCount моделей</span> / <span class="totals">@Model.Totals.TotalAmount единиц</span>
+        </div>
+        <div class="ml-auto">
+            <button class="btn btn-success btn-basic btn-shop mx-1" id="lackBtn" style="display: none" type="button"></button>
+            <button type="button" class="btn btn-basic btn-success btn-shop mx-1 startBtn" id="topStartBtn" data-toggle="modal">Начать ревизию</button>
+            <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill" data-toggle="collapse" href="#collapseStorehouseItems"></span>
+        </div>
+    </div>
+    <div class="collapse show mb-4" id="collapseStorehouseItems">
+        <table class="table table-striped table-bordered text-break border dataTable w-100 revisionTable">
+            <thead>
+            <tr>
+                <th class="hide-arrows">
+                    <div class="row mx-0 no-gutters">
+                        <div class="col-3">
+                            <span class="sorting" data-sort-target-col="modelKey">Информация о модели</span>
+                        </div>
+                        <div class="col-9">
+                            <div class="row mx-0 no-gutters">
+                                <div class="col-2">Цвета</div>
+                                <div class="col-2">Размер</div>
+                                <div class="col-3">
+                                    <span class="sorting" data-sort-target-col="totalAmount">Кол-во</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="sorting" data-sort-target-col="totalSum">На сумму</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th>Цвета</th>
+                <th>Размеры</th>
+                <th>Кол-во</th>
+                <th>На сумму</th>
+                <th id="actionColumn"></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="d-flex my-2 flex-wrap d-block  bg-main-info-light rounded-2 align-items-center p-3">
+                        <div class="font-weight-bold">
+                            <span class="mx-1">Итого:</span>
+                            <span>@Model.Totals.TotalAmount единиц</span>
+                            <span class="mx-1">на сумму @Model.Totals.TotalSum.ToTwoDecimalPlaces()$</span>
+                        </div>
+                        <div class="ml-auto">
+                            <button type="button" data-toggle="modal" class="btn btn-success btn-basic btn-shop dynamic-height startBtn" hidden="hidden" id="bottomStartBtn"></button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Model revision Modal -->
+<div class="modal fade" id="revisionItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="main-font h1 text-bold pb-3 mb-3">
+                    <span>Таблица ревизии: Арт:</span> <span class="revisionModalName main-font h1 text-bold"></span>
+                </div>
+                <span class="main-font h2 text-bold revision-modal-db-storehouse-title">Информация по наличию модели на складе</span>
+                <div id="dbStorehouseAmounts" class="my-4 pb-3"></div>
+                <span class="main-font h2 text-bold">Укажите количество по факту ревизии</span>
+                <div id="realStorehouseAmounts" class="my-4 pb-2"></div>
+                <div>
+                    <div class="my-4">
+                        <div class="main-font h2 text-bold">Итого по модели</div>
+                        <div>Арт <span class="revisionModalName"></span></div>
+                    </div>
+                    <div class="my-4">
+                        <div class=" main-font h2 text-bold">Единиц на складе</div>
+                        <div>
+                            <span id="modelItemsCount"></span>
+                        </div>
+                    </div>
+                    <div class="payment-wrapper my-4" style="display: none;">
+                        <div class="main-font h2 text-bold">Сумма к выплате поставщику по недостаче</div>
+                        <div class="payment d-flex"></div>
+                    </div>
+                </div>
+                <a class="btn btn-basic btn-main-gradient my-3 accept-model-revision-btn">Подтвердить</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/partners/js/table-render-helper.js" asp-append-version="true"></script>
+    <script src="/partners/js/shop/revision.js" asp-append-version="true"></script>
+}

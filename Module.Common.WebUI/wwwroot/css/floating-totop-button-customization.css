@@ -1,0 +1,7 @@
+﻿a.to-top-button {
+    background: #000000;
+}
+
+a.to-top-button:hover {
+    background: linear-gradient(90deg, #7000FF 0%, #D400A6 100%), #7000FF;
+}

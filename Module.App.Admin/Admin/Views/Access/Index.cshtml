@@ -1,0 +1,30 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model IEnumerable<Module.App.Business.Models.RoleDTO>
+@{
+    ViewData["Title"] = "Роли";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> { new MenuButtonsViewModel("Новая запись", "CreateRole", "", "krista-plus") };
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        debugger;
+        const dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/app-admin/js/Access/index.js" asp-append-version="true" type="text/javascript"></script>
+}

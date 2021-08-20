@@ -1,0 +1,46 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+
+<script src="/common/lib/jquery/dist/jquery.min.js"></script>
+<script src="/common/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/common/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="/common/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" integrity="sha512-ubuT8Z88WxezgSqf3RLuNi5lmjstiJcyezx34yIU2gAHonIi27Na7atqzUZCOoY4CExaoFumzOsFQ2Ch+I/HCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/common/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+<script src="/common/lib/parallax.js-1.5.0/parallax.js"></script>
+<script src="/common/lib/lightbox2/js/lightbox.min.js"></script>
+<script src="/common/lib/simple-image-inner-zoom/jquery.zoom-new.js"></script>
+<script src="/common/lib/floating-back-top-button/js/floating-totop-button.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-ru_RU.min.js" integrity="sha512-vCLvbS0EcZMA9JDGOl0T8qNfJobkIzv2yaypJ9SPbG3lTK+Ljbz1oExQgHZ1/HZ8PBww5z/sPdLeVs6wQaNGFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js" integrity="sha256-BCA32nU+myeLCd/w96c+FjtijDVZiEQuuYOJMSLF7Uk=" crossorigin="anonymous"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=@Configuration["googleReCaptcha:SiteKey"]"></script>
+
+<environment include="Development">
+    <script src="/common/lib/lodash-4.17.15/lodash.js"></script>
+    <script src="/common/js/site.js" asp-append-version="true"></script>
+    <script src="/common/js/core/notifications.js" asp-append-version="true"></script>
+    <script src="/common/js/core/core.js" asp-append-version="true"></script>
+    <script src="/app/js/identity.js" asp-append-version="true"></script>
+    <script src="/common/js/lightbox-zoom-integration.js" asp-append-version="true"></script>
+    <script src="/common/js/core/jquery-extension.js" asp-append-version="true"></script>
+    <script src="/common/js/core/types.js" asp-append-version="true"></script>
+    <script src="/common/js/core/modal-windows.js" asp-append-version="true"></script>
+    <script src="/common/js/core/tab-forms-handler.js" asp-append-version="true"></script>
+    <script src="/common/js/core/background-form-handler.js" asp-append-version="true"></script>
+    <script src="/common/js/core/disabled-button-warning.js" asp-append-version="true"></script>
+    <script src="/common/js/core/datatables-customization.js" asp-append-version="true"></script>
+    <script src="/common/js/core/validation/required-this-or-other-validation.js" asp-append-version="true"></script>
+    <script src="/common/js/core/validation/is-true-validation.js" asp-append-version="true"></script>
+    <script src="/catalogs/js/favorite.js" asp-append-version="true"></script>
+    <script src="/cart/js/cart-navbar.js" asp-append-version="true"></script>
+    <script src="/common/js/back-to-top-button.js" asp-append-version="true"></script>
+    <script src="/app/js/feedback-forms.js" asp-append-version="true"></script>
+</environment>
+<environment include="Production, Staging">
+    <script src="/common/js/min/site.min.js" asp-append-version="true"></script>
+    <script src="/app/js/min/pages.min.js" asp-append-version="true"></script>
+    <script src="/cart/js/min/cart.min.js" asp-append-version="true"></script>
+    <script src="/media/js/min/media.min.js" asp-append-version="true"></script>
+    <script src="/common/js/min/custom-validation.min.js" asp-append-version="true"></script>
+</environment>

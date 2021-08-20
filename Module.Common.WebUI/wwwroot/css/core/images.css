@@ -1,0 +1,49 @@
+﻿.img-max-width {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-cover {
+    -webkit-object-fit: cover;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.img-background {
+    background-repeat: no-repeat, repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-color: #cccccc !important;
+}
+
+/* #Start Wrapper 
+    Wrapper for images, to prevent contnet moving after image was loaded
+*/
+
+.image-fix-height-wrapper {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+}
+
+.image-fix-height-wrapper .image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.image-fix-height-wrapper.ratio150 {
+    padding-bottom: 150%;
+    /* 👆 image aspect ratio: image (height / width * 100%) */
+}
+
+.image-fix-height-wrapper.ratio100 {
+    padding-bottom: 100%;
+}
+
+.image-fix-height-wrapper.ratio75 {
+    padding-bottom: 75%;
+}
+
+/* #End Wrapper*/

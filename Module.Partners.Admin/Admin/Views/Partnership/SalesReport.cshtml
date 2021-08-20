@@ -1,0 +1,67 @@
+﻿@using Module.Common.WebUI.Infrastructure
+@model (KristaShop.Common.Models.Filters.ReportsFilter Filter, Module.Common.Business.Models.ItemsGrouped<KristaShop.Common.Models.DTOs.PartnerSalesReportItem> Data)
+@{
+    ViewData["Title"] = "Отчет по продажам партнеров";
+}
+<div class="row m-0 mb-4">
+    <div class="col-12 px-0 pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-12 px-0">
+        <div class="dataTables_customTotalsWrapper p-4 mb-2">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label>Единиц продано</label>
+                    <input type="text" class="form-control" readonly="readonly" value="@Model.Data.Totals.TotalAmount" id="Totals_TotalAmount">
+                </div>
+                <div class="form-group col-6">
+                    <label>Сумма вознаграждения</label>
+                    <input type="text" class="form-control" readonly="readonly" value="@Model.Data.Totals.TotalSum$" id="Totals_TotalReward">
+                </div>
+            </div>
+            <div class="form-row pt-2">
+                <div class="form-group col-12 col-lg-3 my-auto">
+                    <a asp-action="PartnerSalesDecryptedReport" class="btn btn-main-primary btn-block font-weight-bold">Расшифровать по моделям</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form asp-action="SalesReport" method="post" id="SalesReportForm">
+    <div class="dataTables_customSearchWrapper border-0 p-0">
+        <partial name="Reports/_ReportFilterWithDateRange" model="Model.Filter" />
+        <div class="form-row justify-content-end">
+            <div class="form-group col-4">
+                <button type="button" class="btn btn-main-danger btn-block" onclick="ResetReportFilter();">Сбросить фильтр</button>
+            </div>
+            <div class="form-group col-4">
+                <button type="submit" class="btn btn-main-primary btn-block" id="filterSubmitBtn">Применить фильтр</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered text-break dataTable salesTable" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Партнер Id</th>
+                <th>Партнер</th>
+                <th>Город Id</th>
+                <th>Город</th>
+                <th>Менеджер Id</th>
+                <th>Менеджер</th>
+                <th>Кол-во</th>
+                <th>Сумма</th>
+                @*<th>Просмотреть</th>*@
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+    var tableData = @Html.AsJsObject(Model.Data.Items);
+    </script>
+    <script src="/partners-admin/js/Partnership/sales-report.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common-admin/js/datetime-picker.js" asp-append-version="true" type="text/javascript"></script>
+}

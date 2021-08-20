@@ -1,0 +1,270 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@using Module.Common.WebUI.Models
+@model Module.Catalogs.WebUI.Models.NomFilterViewModel
+@{
+    ViewData["Title"] = $"Каталог - {Model.Catalog.Name}";
+    const int maxLength = 8;
+    const int maxLineLength = 25;
+    var preorderParts = (List<Dictionary<string, bool>>) ViewData["PreorderParts"];
+    var processedItems = new Dictionary<string, bool>();
+}
+<div class="container-fluid px-3">
+<partial name="_TitleDescriptionPartial" model="@(new TitleDescriptionViewModel("Каталог", Model.Catalog.AdditionalDescription, isHeading: true))"/>
+@if (!Context.User.Identity.IsAuthenticated) {
+    <div class="row">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="text-center pl-0 pl-lg-4">
+                <div class="row">
+                    <div class="col-12 col-lg-4 flex-grow-0 flex-xl-grow-1 col-xl">
+                        <div class="iconify icon-font-70px text-dark-grey" data-inline="false" data-icon="bx:bxs-lock-alt"></div>
+                        <div>
+                            <button data-toggle="ajax-modal" data-target="#registerModal" data-target-tab="#register-tab" class="btn-lg btn-basic btn-main-gradient mb-3 mr-3 text-uppercase jsShowRegiatrationForm">Зарегистрироваться</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8 col-xl-9 main-font h3 text-center text-lg-left pt-0 pt-lg-5">
+                        <div class="pt-0 pt-lg-3">
+                            <div>Для того, чтобы видеть оптовые цены и основной каталог</div>
+                            <div>Вам необходимо пройти регистрацию.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row flex-wrap flex-lg-nowrap mx-3">
+    <div class="col-12 col-md-12 col-lg-auto px-2">
+        <form id="searchForm">
+            <div class="catalog-filter-title px-2 px-lg-0">
+                <div class="d-flex my-1 flex-wrap d-block bg-dark text-white rounded-1 align-items-center p-2 mb-3 mt-2" onclick="SwitchCatalogFilter(this);">
+                    <div class="mr-auto">
+                        <p class="m-auto">Показать фильтр</p>
+                    </div>
+                </div>
+            </div>
+            <div class="catalog-filter-wrapper px-2 px-lg-0 mb-lg-0" id="collapseCatalogFilter">
+                <input type="hidden" name="CatalogUri" value="@Model.Filter.CatalogUri"/>
+                @await Component.InvokeAsync("SearchPanel", new {
+                    catalogId = Model.Catalog.Id,
+                    searchingType = SearchingType.Catalog,
+                    filter = Model.Filter
+                })
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-md-12 col-lg flex-lg-grow-1 px-2">
+
+        <div class="container-fluid px-0 px-lg-3">
+            <div class="row border rounded-1 px-0 mb-3 mx-2">
+                <div class="col-auto p-1">
+                    @foreach (var item in Model.Catalogs) {
+                        <a asp-action="Index" asp-route-catalogUri="@item.Uri" class="btn btn-basic btn-main-white mr-2 @Html.AddValue(item.Id == Model.Filter.CatalogId, "active")">
+                            @item.Name
+                        </a>
+                    }
+                </div>
+                @if (Model.Models.Any()) {
+                    <div class="col-auto flex-grow-1 p-1 text-right">
+                        <a href="@Url.Action("Index", new {Name = Model.Filter.Articul, Categories = Model.Filter.Categories, Sizes = Model.Filter.Sizes, SizeLines = Model.Filter.SizeLines, Colors = Model.Filter.Colors, PriceMin = Model.Filter.MinPrice, PriceMax = Model.Filter.MaxPrice, OrderDirection = Model.Filter.OrderType == CatalogOrderType.OrderByDate ? Model.Filter.OrderDirection.Invert() : Model.Filter.OrderDirection, OrderType = CatalogOrderType.OrderByDate, CatalogId = Model.Filter.CatalogId})"
+                           class="btn btn-basic btn-main-white btn-iconed @Html.AddValue(Model.Filter.OrderType == CatalogOrderType.OrderByDate, "active")">
+                            <div class="btn-icon-wrapper">
+                                <span class="text">По новизне</span>
+                                <span class="icon mx-0">
+                                    @if (Model.Filter.OrderType == CatalogOrderType.OrderByDate && Model.Filter.OrderDirection == CatalogOrderDir.Asc) {
+                                        <span class="iconify ml-2" data-inline="false" data-icon="entypo:triangle-up"></span>
+                                    }
+                                    else if (Model.Filter.OrderType == CatalogOrderType.OrderByDate && Model.Filter.OrderDirection == CatalogOrderDir.Desc) {
+                                        <span class="iconify ml-2" data-inline="false" data-icon="entypo:triangle-down"></span>
+                                    }
+                                </span>
+                            </div>
+                        </a>
+                        @if (Context.User.Identity.IsAuthenticated) {
+                            <a href="@Url.Action("Index", new {Name = Model.Filter.Articul, Categories = Model.Filter.Categories, Sizes = Model.Filter.Sizes, SizeLines = Model.Filter.SizeLines, Colors = Model.Filter.Colors, PriceMin = Model.Filter.MinPrice, PriceMax = Model.Filter.MaxPrice, OrderDirection = Model.Filter.OrderType == CatalogOrderType.OrderByPrice ? Model.Filter.OrderDirection.Invert() : Model.Filter.OrderDirection, OrderType = CatalogOrderType.OrderByPrice, CatalogId = Model.Filter.CatalogId})"
+                               class="btn btn-basic btn-main-white btn-iconed @Html.AddValue(Model.Filter.OrderType == CatalogOrderType.OrderByPrice, "active")">
+                                <div class="btn-icon-wrapper">
+                                    <div class="text">По цене</div>
+                                    <div class="icon">
+                                        @if (Model.Filter.OrderType == CatalogOrderType.OrderByPrice && Model.Filter.OrderDirection == CatalogOrderDir.Asc) {
+                                            <span class="iconify ml-2" data-inline="false" data-icon="entypo:triangle-up"></span>
+                                        }
+                                        else if (Model.Filter.OrderType == CatalogOrderType.OrderByPrice && Model.Filter.OrderDirection == CatalogOrderDir.Desc) {
+                                            <span class="iconify ml-2" data-inline="false" data-icon="entypo:triangle-down"></span>
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                @*<div class="col-12 col-lg-3 mx-2 mx-md-0">
+                @if (Model.Catalog.OrderForm == (int) OrderFormType.Preorder && !Model.Catalog.IsOpen && Model.Catalog.CloseTime != null) {
+                    <div class="d-flex flex-row justify-content-center" style="flex: none;">
+                        <div class="d-block countdown-wrapper text-center bg-gradient text-white width-fit-content px-3 py-3">
+                            <div>До закрытия раздела</div>
+                            <ul class="countdown mb-0" data-countdown="@Model.Catalog.CloseTime.ToComputedString()" data-server-date="@DateTimeOffset.UtcNow.ToComputedString()" data-redirect-oncomplete="@Url.Action("Index", "Home")">
+                                @{ var time = Model.Catalog.CloseTime.Value.Subtract(DateTimeOffset.UtcNow);}
+                                <li><span class="days"> @time.Days.ToString("D2")</span><p class="days_text text-white">Дней</p></li>
+                                <li class="seperator">:</li><li><span class="hours"> <span class="px-1">@time.Hours.ToString("D2")</span></span><p class="hours_text text-white">Часов</p></li>
+                                <li class="seperator">:</li><li><span class="minutes"> <span class="px-1">@time.Minutes.ToString("D2")</span></span><p class="minutes_text text-white">Минут</p></li>
+                                <li class="seperator">:</li><li><span class="seconds"> <span class="px-1">@time.Seconds.ToString("D2")</span></span><p class="seconds_text text-white">Секунд</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>*@
+            </div>
+            @if (Model.Models.Any()) {
+                <div class="row mx-0">
+                    <div class="col-12 mx-0 px-0">
+                        @for (int i = 0; i < preorderParts.Count; i++) {
+                            @if (Model.Models.Any(x => preorderParts[i].ContainsKey(x.Descriptor.Articul))) {
+                                <div class="d-flex flex-wrap d-block bg-dark text-white align-items-center rounded-1 p-2 mb-3 mt-2 mx-2">
+                                    <div class="">
+                                        <p class="m-auto">&nbsp;</p>
+                                    </div>
+                                    <div class="mr-auto">@(i + 1)-я очередь</div>
+                                </div>
+                            }
+
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 mx-0">
+                                @foreach (var item in Model.Models) {
+                                    @if (!preorderParts[i].ContainsKey(item.Descriptor.Articul)) {
+                                        if (i == (preorderParts.Count - 1)) {
+                                            if (processedItems.ContainsKey(item.Descriptor.Articul)) continue;
+                                        }
+                                        else {
+                                            continue;
+                                        }
+                                    }
+                                    @if (!processedItems.ContainsKey(item.Descriptor.Articul)) {
+                                        processedItems.Add(item.Descriptor.Articul, true);
+                                    }
+                                    else {
+                                        continue;
+                                    }
+                                    <div class="col p-2">
+                                        <div class="card main-font h4 rounded-0 border-0 h-100">
+                                            <a asp-controller="Catalog" asp-action="Product" asp-route-articul="@item.Descriptor.Articul" asp-route-catalog="@Model.Catalog.Id" asp-route-page="@Model.Page">
+                                                <div class="image-fix-height-wrapper ratio150">
+                                                    <picture class="rounded-1">
+                                                        <source data-srcset="@item.Descriptor.MainPhoto?width=400&height=600&format=webp 576w, @item.Descriptor.MainPhoto?width=700&height=1050&format=webp 768w" type="image/webp">
+                                                        <img class="lazy image rounded-1" data-srcset="@item.Descriptor.MainPhoto?width=400&height=600 576w, @item.Descriptor.MainPhoto?width=700&height=1050 768w" alt="@item.Descriptor.AltText" />
+                                                    </picture>
+                                                </div>
+                                            </a>
+                                            <div class="card-body p-2 font-weight-5">
+                                                <div class="my-2">
+                                                    <span class="text-main-grey">Артикул: </span><span>@item.Descriptor.Articul</span>
+                                                </div>
+                                                <div class="my-2">
+                                                    <span class="text-main-grey mr-2">Серия:</span>
+                                                    @{
+                                                        var added = 0;
+                                                    }
+                                                    @foreach (var size in item.Sizes) {
+                                                        if (size.Contains("-")) {
+                                                            if (added + size.Length > maxLineLength) {
+                                                                <span class="ml-1">...</span>
+                                                                break;
+                                                            }
+                                                        }
+                                                        else {
+                                                            if (added + size.Length > maxLength) {
+                                                                <span class="ml-1">...</span>
+                                                                break;
+                                                            }
+                                                        }
+                                                        added += size.Length;
+                                                        <span class="size-swatch">@size</span>
+                                                    }
+                                                </div>
+                                                <div class="my-2">
+                                                    <span class="text-main-grey mr-2">Цвет:</span>
+                                                    @foreach (var color in item.Colors.Take(5)) {
+                                                        var background = string.IsNullOrEmpty(color.Image) ? color.Code : $"url({color.Image})";
+                                                        <span class="color-swatch" style="background: @background;" data-toggle="tooltip" data-placement="top" title="@color.Name"></span>
+                                                    }
+                                                    @if (item.Colors.Count > 5) {
+                                                        <span class="ml-1">...</span>
+                                                    }
+                                                </div>
+                                                @if (!Model.Catalog.IsOpen && User.Identity.IsAuthenticated /* && !User.IsGuest()*/) {
+                                                    <div class="my-2">
+                                                        <span class="text-main-grey">Цена за единицу: </span><span>@item.CommonPrice.ToTwoDecimalPlaces() $ | @item.CommonPriceInRub.ToTwoDecimalPlaces() р</span>
+                                                    </div>
+                                                }
+                                                <div class="mt-3">
+                                                    <a class="btn btn-basic btn-main-colored" asp-controller="Catalog" asp-action="Product" asp-route-catalog="@Model.Catalog.Id" asp-route-articul="@item.Descriptor.Articul">
+                                                        Подробнее
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else {
+                <p class="text-center h3 mt-5">По Вашему запросу в каталоге модели отсутствуют.</p>
+            }
+        </div>
+
+        <!-- End Catalogs -->
+    </div>
+</div>
+</div>
+@if (Model.Catalog.OrderForm == (int) OrderFormType.Preorder && !string.IsNullOrEmpty(Model.Catalog.PreviewPath) && !string.IsNullOrEmpty(Model.Catalog.VideoPath)) {
+    <div class="row m-0 p-0 pt-2 mt-4">
+        <div class="col-12 m-0 p-0">
+            <div class="card border-0 rounded-0 m-0 p-0">
+                <div class="position-relative">
+                    <picture class="card-img-top rounded-0 w-100 img-max-width img-cover">
+                        <source srcset="@Model.Catalog.PreviewPath?height=850&format=webp" type="image/webp">
+                        <img srcset="@Model.Catalog.PreviewPath?height=850" class="card-img-top rounded-0 w-100 img-max-width img-cover" alt="..." style="max-height: 620px;">
+                    </picture>
+                    <a class="d-block" data-toggle="video-modal" data-target="#videoModal" data-source="@Model.Catalog.VideoPath">
+                        <div class="card-img-overlay cursor-pointer d-flex flex-column justify-content-center text-white">
+                            <span class="h3 card-text text-center text-overflow">
+                                <i class="bx bxl-youtube icon-font-100px text-red"></i>
+                            </span>
+                        </div>
+                        <div class="card-img-overlay cursor-pointer d-flex flex-column justify-content-center overlay overlay-transparent text-white">
+                            <div class="overlay-bg"></div>
+                            <span class="h3 card-text text-center text-overflow position-relative">
+                                <i class="bx bxl-youtube icon-font-100px text-red"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<partial name="_VideoModalPartial"/>
+
+@section Styles {
+    <environment include="Development">
+        <link rel="stylesheet" href="/catalogs/css/countdown-timer.css" asp-append-version="true"/>
+    </environment>
+}
+
+@section Scripts {
+    <script src="/common/lib/epiksel-countdown/jquery.countdown.min.js" asp-append-version="true"></script>
+
+    <environment include="Development">
+        <script src="/common/js/core/countdown-timer.js" asp-append-version="true"></script>
+    </environment>
+}
+
+@if (ViewBag.ShowRegistartionFrom) {
+    <script>
+        var ShowRegistrationForm = true;
+    </script>
+}

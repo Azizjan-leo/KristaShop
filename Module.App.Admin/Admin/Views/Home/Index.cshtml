@@ -1,0 +1,26 @@
+﻿@using Module.Common.WebUI.Models
+@{
+    ViewData["Title"] = "Главная";
+    var partnershipsCount = new ComponentOutValue<int>(0);
+    var registrationsCount = new ComponentOutValue<int>(0);
+    var promoRegistrationsCount = new ComponentOutValue<int>(0);
+    var ordersCount = new ComponentOutValue<int>(0);
+}
+
+<div class="dashboard">
+    @await Component.InvokeAsync("NewPartnershipRequests", new { itemsCount = partnershipsCount })
+    @await Component.InvokeAsync("NewRegistrations", new {itemsCount = registrationsCount})
+    @await Component.InvokeAsync("NewPromoRegistrations", new {itemsCount = promoRegistrationsCount, showTitle = registrationsCount.Value == 0})
+    @await Component.InvokeAsync("NewOrders", new { itemsCount = ordersCount })
+    
+    @if (partnershipsCount.Value == 0 && registrationsCount.Value == 0 && promoRegistrationsCount.Value == 0 && ordersCount.Value == 0) {
+        <div class="text-center">
+            <h1 class="display-4">Добро пожаловать!</h1>
+            <p>Админ панель Krista.</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="/app-admin/js/Home/Index.js" asp-append-version="true" type="text/javascript"></script>
+}

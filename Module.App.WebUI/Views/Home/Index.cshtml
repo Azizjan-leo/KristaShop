@@ -1,0 +1,18 @@
+﻿@using Module.Common.WebUI.Infrastructure
+@{
+    Html.IgnoreNavbarShift();
+    ViewData["Title"] = "Главная страница";
+}
+
+<script>
+    var showLoginFormFlag = @(ViewBag.ShowLoginForm ? "true" : "false");
+</script>
+
+@await Component.InvokeAsync("Slider")
+@await Component.InvokeAsync("Catalog")
+@await Component.InvokeAsync("Category")
+@await Component.InvokeAsync("Gallery")
+@await Component.InvokeAsync("Instagram")
+@await Component.InvokeAsync("Youtube")
+@await Component.InvokeAsync("VideoGallery")
+@await Component.InvokeAsync("About")

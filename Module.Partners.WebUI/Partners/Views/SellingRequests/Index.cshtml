@@ -1,0 +1,35 @@
+@model (List<SellingRequestDocumentDTO<ModelGroupedDTO>> Requests, ItemsGroupedBase<ModelGroupedDTO, PaymentTotalInfo> StorehouseItems)
+@{
+    Layout = "_KristaHelpLayout";
+   ViewData["Title"] = "Магазин | Склад";
+}
+
+<partial name="_Requests" model="Model"/>
+@if (Model.Requests.All(x => x.State != State.Created)) {
+    <partial name="_CreateSellingRequest" model="Model.StorehouseItems"/>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        const dataModel = @Html.AsJsObject(Model.Requests);
+        const storehouseDataModel = @Html.AsJsObject(Model.StorehouseItems.Items);
+    </script>
+    <script src="/partners/js/table-render-helper.js" asp-append-version="true"></script>
+    <script src="/partners/js/selling-requests/storehouse-modal.js" asp-append-version="true"></script>
+    <script src="/partners/js/selling-requests/create-selling-request.js" asp-append-version="true"></script>
+    <script src="/partners/js/selling-requests/requests.js" asp-append-version="true"></script>
+}
+
+<!-- Modal -->
+<div class="modal fade" id="createSellingRequestStorehouseItem" tabindex="-1" role="dialog" aria-labelledby="createSellingRequestStorehouseItem" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <span class="main-font h2 text-bold">Выберите цвет и размер</span>
+                <div id="sellingRequestAmounts" class="my-4 pb-2"></div>
+                <div id="requestedTotalAmount" class="text-bold"></div>
+                <a class="btn btn-basic btn-main-gradient my-3 accept-model-request-btn">Подтвердить запрос</a>
+            </div>
+        </div>
+    </div>
+</div>

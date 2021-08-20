@@ -1,0 +1,70 @@
+﻿@model Module.Catalogs.Admin.Admin.Models.Model1CViewModel
+@{
+    var photoPath = string.IsNullOrEmpty(Model.ImagePath) ? "/common/img/nophoto.png?width=400" : $"{Model.ImagePath}?width=400";
+}
+<div class="row py-5 px-4 mx-2">
+    <div class="col-auto">
+        <picture class="img-fluid img-thumbnail">
+            <source srcset="@photoPath&format=webp" type="image/webp">
+            <img srcset="@photoPath" class="img-fluid img-thumbnail" width="400" alt="@Model.Articul" />
+        </picture>
+    </div>
+    <div class="col px-3">
+        <div class="form-group">
+            <label>Параметры</label>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" asp-for="IsVisible">
+                <label class="custom-control-label" asp-for="IsVisible"></label>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" asp-for="IsLimited">
+                <label class="custom-control-label" asp-for="IsLimited"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedDate" class="control-label"></label>
+            <div class="input-group date" id="datetimepicker2" data-target-input="nearest" data-datetime-picker>
+                <input asp-for="CreatedDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                    <div class="input-group-text">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                </div>
+            </div>
+            <span asp-validation-for="CreatedDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control form-control-sm html-editor" cols="40" rows="7"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Matherial" class="control-label"></label>
+            <input asp-for="Matherial" class="form-control form-control-sm" />
+            <span asp-validation-for="Matherial" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageAlternativeText" class="control-label"></label>
+            <input asp-for="ImageAlternativeText" class="form-control form-control-sm" />
+            <span asp-validation-for="ImageAlternativeText" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DefaultPrice" class="control-label"></label>
+            <p class="form-control form-control-sm">@string.Format("{0:N2}", Model.DefaultPrice)</p>
+        </div>
+        <div class="form-group">
+            <label asp-for="Catalogs" class="control-label"></label>
+            <p class="form-control form-control-sm">@string.Join(", ", Model.Catalogs)</p>
+        </div>
+        <div class="form-group">
+            <label asp-for="Categories" class="control-label"></label>
+            <p class="form-control form-control-sm">@string.Join(", ", Model.Categories)</p>
+        </div>
+        <div class="form-group">
+            <label asp-for="CatalogsInvisibility" class="control-label"></label>
+            <select asp-for="CatalogsInvisibility" asp-items="ViewBag.CatalogsInvisibility" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true">
+            </select>
+        </div>
+        <button class="btn btn-main-primary mt-2" type="submit">Сохранить изменения</button>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model Module.App.Admin.Admin.Models.ManagerDetailsViewModel
+@{
+    ViewData["Title"] = "Пункт меню - Изменить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("Назад к списку", "Index", classes: "btn-main-info")
+    };
+}
+
+<div class="main-container">
+    <div class="row py-3">
+        <div class="col">
+            <h4 class="font-weight-bold">@Model.Name</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control form-control-sm" readonly="readonly" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleId" class="control-label"></label>
+                    <select asp-for="RoleId" asp-items="Model.Roles" class="form-control form-control-sm"></select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+                <hr class="my-5" />
+                <div class="form-group">
+                    <label asp-for="ManagerIdsForOrdersAccess" class="control-label"></label>
+                    <select asp-for="ManagerIdsForOrdersAccess" asp-items="@Model.Managers" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true">
+                    </select>
+                    <span asp-validation-for="ManagerIdsForOrdersAccess" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ManagerIdsForRegistrationsAccess" class="control-label"></label>
+                    <select asp-for="ManagerIdsForRegistrationsAccess" asp-items="@Model.Managers" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" multiple data-actions-box="true">
+                        <option value="0">Не выбран</option>
+                    </select>
+                    <span asp-validation-for="ManagerIdsForRegistrationsAccess" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RegistrationsQueueNumber" class="control-label"></label>
+                    <input asp-for="RegistrationsQueueNumber" class="form-control form-control-sm" />
+                    <span asp-validation-for="RegistrationsQueueNumber" class="text-danger"></span>
+                </div>
+                <hr class="my-5" />
+                <div class="form-group">
+                    <label asp-for="NotificationsEmail" class="control-label"></label>
+                    <input asp-for="NotificationsEmail" class="form-control form-control-sm" />
+                    <span asp-validation-for="NotificationsEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" asp-for="SendNewRegistrationsNotification">
+                        <label class="custom-control-label" asp-for="SendNewRegistrationsNotification"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" asp-for="SendNewOrderNotification">
+                        <label class="custom-control-label" asp-for="SendNewOrderNotification"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-main-primary">Подтвердить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

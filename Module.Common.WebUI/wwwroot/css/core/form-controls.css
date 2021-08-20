@@ -1,0 +1,309 @@
+﻿/*#region --- Grey form control --- */
+.form-control.grey-control {
+    background-color: #C4C4C4;
+    color: #000000;
+    -ms-opacity: 1;
+    opacity: 1;
+    -ms-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    height: 54px;
+    padding: 6px 20px;
+}
+
+.form-control.light-control {
+    font-size: 14px;
+    background-color: #ffedeb;
+    color: #000000;
+    -ms-opacity: 1;
+    opacity: 1;
+    -ms-background-clip: border-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    padding: 6px 20px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.form-control.grey-control::placeholder,
+.form-control.light-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #000000;
+    opacity: 1; /* Firefox */
+}
+
+.form-control.grey-control:-ms-input-placeholder,
+.form-control.light-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #000000;
+}
+
+.form-control.grey-control::-ms-input-placeholder,
+.form-control.light-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #000000;
+}
+
+.form-control.grey-control:focus,
+.form-control.light-control:focus {
+    outline: 0;
+    border: 1px solid #363636;
+    box-shadow: none;
+}
+
+.form-control-sm.light-control {
+    font-weight: bold;
+}
+/*#endregion --- Grey form control --- */
+
+/*#region --- Checkbox with gradient check --- */
+input[type=checkbox].grey-control {
+    vertical-align: middle;
+}
+
+input[type=checkbox].grey-control,
+input[type=checkbox].grey-control ~ .custom-control-label::before,
+input[type=checkbox].grey-control ~ .custom-control-label::after {
+    width: 25px;
+    height: 25px;
+}
+
+input[type=checkbox].grey-control ~ .custom-control-label,
+input[type=checkbox].grey-control ~ .custom-control-label {
+    padding: 6px 0 0 5px;
+}
+
+input[type=checkbox].grey-control:checked ~ .custom-control-label::before {
+    color: white !important;
+    background-color: #C4C4C4 !important;
+    border-color: #C4C4C4 !important;
+}
+
+input[type=checkbox].grey-control:checked ~ .custom-control-label::after {
+    background-image: url(/common/img/svg/checkbox-check-gradient.svg) !important;
+}
+
+/*#endregion --- Checkbox with gradient check --- */
+
+/*#region filter form controls*/
+.filter-form input.form-control {
+    font-size: 14px;
+    line-height: 24px;
+    height: 40px;
+    border: 0;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.filter-form input.form-control:focus {
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #d400a6;
+}
+
+.filter-form .form-control::placeholder,
+.filter-form .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #bdbdbd;
+    opacity: 1; /* Firefox */
+}
+
+.filter-form .form-control:-ms-input-placeholder,
+.filter-form .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #bdbdbd;
+}
+
+.filter-form .form-control::-ms-input-placeholder,
+.filter-form .form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #bdbdbd;
+}
+
+.filter-form .container-checkbox:hover input ~ .checkmark {
+    border: 1px solid #d400a6;
+}
+
+.filter-form .container-checkbox:hover .checkmark-label {
+    color: #d400a6;
+}
+/*#endregion filter form controls*/
+.filter-form-bordered input.form-control {
+    font-size: 14px;
+    line-height: 24px;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.filter-form-bordered .input-group-prepend ~ input.form-control {
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.filter-form-bordered .input-group-prepend ~ input.form-control:focus {
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.filter-form-bordered input.form-control.has-append-group {
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.filter-form-bordered input.form-control.has-append-group:focus {
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.filter-form-bordered .input-group-prepend .input-group-text,
+.filter-form-bordered .input-group-append .input-group-text {
+    border-color: #e0e0e0;
+    background-color: #ffffff;
+    border-right: 0;
+}
+
+.filter-form-bordered .input-group-prepend .input-group-text { 
+    padding-right: 0;
+}
+
+.filter-form-bordered .input-group-append .input-group-text {
+    padding-left: 0;
+}
+
+.filter-form-bordered .input-group-append button {
+    background: transparent !important;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    border-left: 0;
+    padding-left: 0;
+}
+
+.filter-form-bordered .input-group-append button * {
+    font-size: 22px;
+    vertical-align: middle;
+    color: #828282;
+}
+
+.filter-form-bordered .input-group-append button:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.filter-form-bordered .input-group-append button:hover * {
+    color: #484848;
+}
+
+.filter-form-bordered input.form-control:focus {
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid #e0e0e0;
+}
+
+.filter-form-bordered .form-control::placeholder,
+.filter-form-bordered .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #bdbdbd;
+    opacity: 1; /* Firefox */
+}
+
+.filter-form-bordered .form-control:-ms-input-placeholder,
+.filter-form-bordered .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #bdbdbd;
+}
+
+.filter-form-bordered .form-control::-ms-input-placeholder,
+.filter-form-bordered .form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #bdbdbd;
+}
+
+.filter-form-bordered .container-checkbox:hover input ~ .checkmark {
+    border: 1px solid #e0e0e0;
+}
+
+.filter-form-bordered .container-checkbox:hover .checkmark-label {
+    color: #e0e0e0;
+}
+
+.filter-form-bordered .dropdown { 
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.filter-form-bordered .dropdown > button {
+    height: 100%;
+    background-color: #ffffff;
+    border: 0;
+}
+
+.filter-form-bordered .dropdown > button:focus {
+    box-shadow: 0 0 0 .2rem #ffffff !important;
+}
+
+.filter-form-bordered .dropdown > button:active,
+.filter-form-bordered .dropdown > button.active,
+.filter-form-bordered .dropdown > button.dropdown-toggle {
+    background-color: #ffffff;
+    border: 0;
+}
+
+.filter-form-bordered .dropdown .filter-option {
+    display: -ms-flexbox !important;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+
+/*#region radio buttons*/
+
+.radio-rectangle-button input[type="radio"],
+.radio-circle-button input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.radio-rectangle-button label,
+.radio-circle-button label {
+    display: inline-block;
+    background-color: #F4EDF8;
+    padding: 8px;
+    border: 1px solid #F4EDF8;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.radio-circle-button label {
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+}
+
+.radio-rectangle-button label:hover,
+.radio-circle-button label:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.radio-rectangle-button input[type="radio"]:focus + label,
+.radio-circle-button input[type="radio"]:focus + label {
+    border: 1px solid #F4EDF8;
+}
+
+.radio-rectangle-button input[type="radio"]:checked + label,
+.radio-circle-button input[type="radio"]:checked + label {
+    background-color: #ffffff;
+    border-color: #D400A6;
+}
+
+
+/*#endregion radio buttons*/

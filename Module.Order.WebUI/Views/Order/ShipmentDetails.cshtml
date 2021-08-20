@@ -1,0 +1,72 @@
+﻿@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model (Module.Common.Business.Models.ItemsGrouped<Module.Common.Business.Models.ItemsGroupedWithDateName<Module.Order.Business.Models.ShipmentsItemDTO>> Shipments, Dictionary<string, string[]> Documents)
+@{
+    Layout = GetLayout();
+    ViewData["Title"] = "История отправок";
+}
+
+@if (Model.Shipments.Items.Any()) {
+    @foreach (var group in Model.Shipments.Items) {
+        <div>
+            <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseItems_@(group.CreateDate.ToJointString())_@(group.Name)" role="button" aria-expanded="false" aria-controls="collapseItems_@(group.CreateDate.ToJointString())_@(group.Name)">
+                <div class="font-weight-bold">
+                    <span>@group.CreateDate.ToBasicString()</span>
+                    <span class="mx-2">/</span>
+                    <span>@group.Totals.TotalAmount</span>
+                    <span>единиц на сумму</span>
+                    <span class="ml-1">@group.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                </div>
+                <div class="ml-auto">
+                    @if (Model.Documents.ContainsKey(group.Name)) {
+                        foreach (var document in Model.Documents[group.Name]) {
+                            <a class="link-base link-dark mx-2" data-save-filepath="/@(group.Name)/@document" data-save-file-name="Акт">
+                                <span class="iconify" data-icon="ic:outline-save-alt" data-inline="false"></span>
+                                @StringExtensions.GetMoneyFileName(document)
+                            </a>
+                        }
+                    }
+                    <a class="link-base link-dark link-decoration-none mx-2" asp-action="ShipmentDetailsPrint" asp-route-date="@group.CreateDate.ToBasicString()" target="_blank" onclick="stopPropagation(event)"><span class="iconify icon-font-24px" data-icon="mdi-light:content-save" data-inline="false"></span></a>
+                    <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+                </div>
+            </div>
+            <div class="collapse mb-4" id="collapseItems_@(group.CreateDate.ToJointString())_@(group.Name)">
+                <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"itemsTable_{group.CreateDate.ToJointString()}_{group.Name}")">
+                    <thead>
+                    <tr>
+                        <th>Информация о модели</th>
+                        <th>Цвета</th>
+                        <th>Линейки</th>
+                        <th>Единицы</th>
+                        <th>На сумму</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                                <div class="font-weight-bold">
+                                    <span>Итого: </span>
+                                    <span>@group.Totals.TotalAmount</span>
+                                    <span>единиц на сумму</span>
+                                    <span class="ml-1">@group.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    }
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+}
+
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Shipments.Items);
+    </script>
+    <script src="/order/js/shipment-details.js" asp-append-version="true"></script>
+}

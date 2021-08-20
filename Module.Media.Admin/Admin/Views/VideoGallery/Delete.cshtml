@@ -1,0 +1,44 @@
+﻿@model VideoGalleryViewModel
+@{
+    ViewData["Title"] = "Видео галерея - Удалить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("Назад к списку", "Index", classes: "btn-main-info")
+    };
+}
+
+<div class="col-auto">
+    <a asp-action="Index">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Назад к списку
+    </a>
+</div>
+<hr />
+<h3 class="text-danger">Вы уверены что хотите удалить данные?</h3>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.Raw(Model.Description)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteGallery">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger btn-block col-4">Удалить</button>
+    </form>
+</div>

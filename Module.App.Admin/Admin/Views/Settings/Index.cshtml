@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Настройки";
+    var isRoot = (bool)ViewData["IsRoot"];
+}
+<div class="row">
+    <div class="col-12 col-xl pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+    @if (isRoot) {
+        <div class="col-12 col-xl d-flex justify-content-end">
+            <button type="button" class="btn btn-main-primary my-2 my-xl-0" data-toggle="modal" data-target="#create-modal">
+                <span class="btn-icon"><svg class="krista-icon krista-plus"><use xlink:href="#krista-plus"></use></svg></span>
+                Новая запись
+            </button>
+        </div>
+        <partial name="_CreatePartial" />
+        <partial name="_DeletePartial" />
+    }
+</div>
+<partial name="_EditPartial" />
+<table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Порядок</th>
+            <th>Ключ</th>
+            <th>Значение</th>
+            <th>Описание</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts {
+    <script src="/common-admin/js/Setting/Index.js" asp-append-version="true" type="text/javascript"></script>
+}

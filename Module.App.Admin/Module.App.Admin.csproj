@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+        <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.3.0" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\KristaShop.Common\KristaShop.Common.csproj" />
+        <ProjectReference Include="..\Module.App.Business\Module.App.Business.csproj" />
+        <ProjectReference Include="..\Module.App.WebUI\Module.App.WebUI.csproj" />
+        <ProjectReference Include="..\Module.Client.Business\Module.Client.Business.csproj" />
+        <ProjectReference Include="..\Module.Common.Admin\Module.Common.Admin.csproj" />
+        <ProjectReference Include="..\Module.Order.Business\Module.Order.Business.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\CreateUser.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\GuestAccessLink.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\Login.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\UpdateUser.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Identity\_LinkPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="Admin\Views\Shared\Components\UserInfo\Default.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Identity\GuestAccess.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Identity\Index.js" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">app-admin</StaticWebAssetBasePath>
+    </PropertyGroup>
+</Project>

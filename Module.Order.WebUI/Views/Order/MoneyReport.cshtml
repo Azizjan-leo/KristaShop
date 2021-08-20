@@ -1,0 +1,117 @@
+@using KristaShop.Common.Extensions
+@using KristaShop.Common.Models
+@using Module.Common.WebUI.Infrastructure
+@model IEnumerable<Module.Order.Business.Models.MoneyDocumentDTO>
+@{
+    Layout = "_PersonalLayout";
+    ViewData["Title"] = "Личный кабинет";
+}
+
+
+
+@await Component.InvokeAsync("MoneyReportTotals")
+@if (Model.Any()) {
+    <div class="py-2 border rounded-top-2">
+        <div class="align-items-center">
+            <div class="container-fluid">
+                <div class="row text-main-grey-lighter font-weight-bold bg-white m-0 py-3 sticky-top border-bottom">
+                    <div class="col-3">
+                        <span>Документ</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="ml-1">Баланс на начало</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="ml-1">Оплата</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="ml-1">Отправка</span>
+                    </div>
+                    <div class="col-3">
+                        <span class="ml-1">Баланс</span>
+                    </div>
+                </div>
+
+
+                @foreach (var document in Model) {
+                    <div class="row m-0">
+                        <div class="col-12 d-block bg-main-info-light rounded-2 align-items-center px-0 py-3 my-2" data-toggle="collapse" href="#collapseItems_@(document.Id)" role="button" aria-expanded="false" aria-controls="collapseItems_@(document.Id)">
+                            <div class="container-fluid px-0 font-weight-bold">
+                                <div class="row mx-0">
+                                    <div class="col-3">
+                                        <span>@document.Name.GetDisplayName()</span>
+                                        <span> от @document.CreateDate.ToBasicString()</span>
+                                    </div>
+                                    <div class="col-2">
+                                        <span class="ml-1">@document.InitialBalance.ToTwoDecimalPlaces() $ </span>
+                                    </div>
+                                    <div class="col-2">
+                                        @if (Math.Abs(document.Income) > GlobalConstant.Epsilon) {
+                                            <span class="ml-1">@document.Income.ToTwoDecimalPlaces() $ </span>
+                                        }
+                                    </div>
+                                    <div class="col-2">
+                                        @if (Math.Abs(document.ToPay) > GlobalConstant.Epsilon) {
+                                            <span class="ml-1">@document.ToPay.ToTwoDecimalPlaces() $ </span>
+                                        }
+                                    </div>
+                                    <div class="col-2">
+                                        <span class="ml-1">@document.FinalBalance.ToTwoDecimalPlaces() $ </span>
+                                    </div>
+                                    <div class="col-1 text-right">
+                                        @if (document.Items.Any()) {
+                                            <div class="ml-auto">
+                                                <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            @if (document.Items.Any()) {
+                                <div class="collapse mb-4" id="collapseItems_@(document.Id)">
+                                    <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"itemsTable_{document.Id}")">
+                                        <thead>
+                                        <tr>
+                                            <th>Информация о модели</th>
+                                            <th>Цвета</th>
+                                            <th>Линейки</th>
+                                            <th>Единицы</th>
+                                            <th>На сумму</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                                                    <div class="font-weight-bold">
+                                                        <span>@document.Name.GetDisplayName()</span>
+                                                        <span> от @document.CreateDate.ToBasicString()</span>
+                                                        <span class="mx-2">/</span>
+                                                        <span class="ml-1">@document.Items.Sum(x=>x.Amount) единиц </span>
+                                                        <span class="ml-1">на сумму @document.ToPay.ToTwoDecimalPlaces() $</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        const dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/order/js/money-report.js" asp-append-version="true"></script>
+}

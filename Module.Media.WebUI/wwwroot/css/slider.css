@@ -1,0 +1,208 @@
+﻿.carousel-inner .carousel-item { width: 100%; }
+
+.carousel-inner .carousel-item .carousel-caption {
+    max-width: 568px;
+    left: auto;
+    right: 9.5%;
+    bottom: 15%;
+    padding: 0;
+    text-align: left;
+}
+
+@media only screen and (max-width: 992px) {
+    .carousel-control-next, .carousel-control-prev {
+        opacity: 0;
+    }
+}
+
+.carousel-inner .carousel-item .carousel-caption .carousel-caption-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.3);
+    -moz-filter: blur(30px);
+    -webkit-filter: blur(30px);
+    filter: blur(30px);
+    -ms-border-radius: 51px;
+    border-radius: 51px;
+}
+
+.carousel-inner .carousel-item .carousel-caption .date {
+    color: #ffffff;
+}
+
+.carousel-title-xs {
+    position: absolute;
+    width: auto;
+    height: 41px;
+    left: 16px;
+    top: 120px;
+    font-family: PT Sans Narrow;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 41px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+    .carousel-title-xs p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+
+.carousel-text-xs {
+    position: absolute;
+    max-width: 379px;
+    padding-right: 10px;
+    height: 66px;
+    left: 16px;
+    top: 169px;
+    font-family: Manrope;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+    color: #FFFFFF;
+    overflow: hidden;
+}
+.carousel-text-xs p {
+    margin: 0 0 0 0;
+}
+
+.carousel-date-xs {
+    position: absolute;
+    width: auto;
+    height: 26px;
+    left: 17px;
+    top: 251px;
+    font-family: Manrope;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 26px;
+    /* identical to box height, or 186% */
+
+    color: #FFFFFF;
+}
+
+.carousel-button-xs {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 24px;
+    position: absolute;
+    width: 184px;
+    height: 44px;
+    left: 16px;
+    top: 293px;
+    background: linear-gradient(266.79deg, #7000FF 0%, #D500A6 100%);
+    border-radius: 6px;
+}
+@media (max-width: 370px){
+    .carousel-date-xs{
+        display: none;
+    }
+    .carousel-button-xs {
+        top: 258px;
+    }
+}
+@media (min-width: 470px) and (max-width: 526px) {
+    .carousel-title-xs {
+        top: 235px;
+    }
+    .carousel-text-xs {
+        top: 285px;
+    }
+    .carousel-date-xs {
+        top: 350px;
+    }
+    .carousel-button-xs {
+        top: 390px;
+    }
+}
+@media (min-width: 526px) and (max-width: 600px) {
+    .carousel-title-xs {
+        top: 275px;
+    }
+    .carousel-text-xs {
+        top: 325px;
+    }
+    .carousel-date-xs {
+        top: 400px;
+    }
+    .carousel-button-xs {
+        top: 440px;
+    }
+}
+@media (min-width: 600px) and (max-width: 680px) {
+    .carousel-title-xs {
+        top: 325px;
+    }
+    .carousel-text-xs {
+        top: 375px;
+    }
+    .carousel-date-xs {
+        top: 450px;
+    }
+    .carousel-button-xs {
+        top: 490px;
+    }
+}
+@media (min-width: 680px) and (max-width: 880px) {
+    .carousel-title-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 117px;
+    }
+
+    .carousel-text-xs {
+        left: 50.69%;
+        right: 10px;
+        top: 160px;
+    }
+
+    .carousel-date-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 232px;
+    }
+
+    .carousel-button-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 265px;
+    }
+}
+@media (min-width: 881px) and (max-width: 991px) {
+    .carousel-title-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 187px;
+    }
+    .carousel-text-xs {
+        left: 50.69%;
+        right: 10px;
+        top: 233px;
+    }
+    .carousel-date-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 304px;
+    }
+    .carousel-button-xs {
+        left: 50.69%;
+        right: 20px;
+        top: 340px;
+    }
+}
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

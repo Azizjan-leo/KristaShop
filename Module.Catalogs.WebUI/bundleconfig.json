@@ -1,0 +1,22 @@
+[
+  {
+    "outputFileName": "wwwroot/css/min/catalog.min.css",
+    "inputFiles": [
+      "wwwroot/css/categories-grid.css",
+      "wwwroot/css/countdown-timer.css",
+      "wwwroot/css/catalog-product.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/min/catalog.min.js",
+    "inputFiles": [
+      "wwwroot/js/product-details.js",
+      "wwwroot/js/favorite.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -1,0 +1,36 @@
+﻿@if (User.Identity.IsAuthenticated && !User.IsGuest()) {
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <div class="navbar-nav">
+            <div class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </div>
+            <div class="nav-item d-none d-sm-inline-block">
+                <a class="nav-link">@ViewData["Title"]</a>
+            </div>
+        </div>
+
+        <!-- Right navbar links --> 
+        <div class="navbar-nav ml-auto" data-updatable="true" data-route="@Url.Action("GetTopMenuValues", "Dashboard")" data-update="always" data-interval="90" data-update-callback="topDashboardUpdated">
+            <div class="nav-item">
+                <a class="nav-link" title="Пользователи ожидающие активации" asp-action="Index" asp-controller="Identity" asp-area="Admin" asp-route-newUsersOnly="true">
+                    <i class="fa fa-user"></i>
+                    <span class="badge badge-secondary navbar-badge" data-update-name="newUsers">0</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" title="Заказы ожидающие обработки">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="badge badge-secondary navbar-badge" data-update-name="newOrders">0</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" asp-action="Logout" asp-controller="Identity" asp-area="Admin">
+                    <i class="fa fa-sign-out-alt"></i> Выход
+                </a>
+            </div>
+        </div>
+    </nav>
+}

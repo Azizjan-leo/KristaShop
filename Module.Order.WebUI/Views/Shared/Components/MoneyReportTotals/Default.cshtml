@@ -1,0 +1,39 @@
+﻿@using KristaShop.Common.Extensions
+@model Module.Order.Business.Models.MoneyDocumentsTotalDTO
+
+<div class="container-fluid font-weight-bold bg-main-info-light rounded-2 align-items-center p-3 mt-2 mb-4">
+    <div class="row">
+        <div class="col-3">
+            <span>Итого за период</span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">Баланс на начало</span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">Оплата</span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">Отправка</span>
+        </div>
+        <div class="col-3">
+            <span class="ml-1">Баланс</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <span>@Model.InitialDate.ToBasicString() - @Model.FinalDate.ToBasicString()</span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">@Model.InitialBalance.ToTwoDecimalPlaces() $</span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">@Model.Income.ToTwoDecimalPlaces() $ </span>
+        </div>
+        <div class="col-2">
+            <span class="ml-1">@Model.ToPay.ToTwoDecimalPlaces() $ </span>
+        </div>
+        <div class="col-3">
+            <span class="ml-1">@Model.FinalBalance.ToTwoDecimalPlaces() $ </span>
+        </div>
+    </div>
+</div>

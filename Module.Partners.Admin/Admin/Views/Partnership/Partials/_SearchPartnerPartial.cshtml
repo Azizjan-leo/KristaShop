@@ -1,0 +1,46 @@
+﻿@model KristaShop.Common.Models.Filters.PartnersFilter
+<div class="dataTables_customSearchWrapper border-0 p-0 mx-0">
+    <form asp-action="Index" method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col px-0">
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-4 col-lg my-xl-0">
+                            <select asp-for="Cities" asp-items="Model.CitiesSelect" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="cityName" title="Город">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4 col-lg my-xl-0">
+                            <select asp-for="Partners" asp-items="Model.PartnersSelect" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="fullName" title="Партнер">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4 col-lg my-xl-0">
+                            <select asp-for="Managers" asp-items="Model.ManagersSelect" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="managerName" title="Менеджер">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <br />
+            <div class="row">
+                <div class="col px-0">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <input asp-for="PaymentDate" class="form-control flatpickr flatpickr-input active" data-val="false" value="@Model.PaymentDate.ToString()" data-date-period-picker type="text" placeholder="Выберите период по выплатам"/>
+                        </div>
+                        <div class="form-group col-6">
+                            <input asp-for="RevisionDate" class="form-control flatpickr flatpickr-input active" data-val="false" value="@Model.RevisionDate.ToString()" data-date-period-picker type="text" placeholder="Выберите период по ревизии"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row justify-content-end">
+                <div class="form-group col-4">
+                    <button type="button" class="btn btn-main-danger btn-block" onclick="ResetFilter();">Сбросить фильтр</button>
+                </div>
+                <div class="form-group col-4">
+                    <button type="submit" class="btn btn-main-primary btn-block">Применить фильтр</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

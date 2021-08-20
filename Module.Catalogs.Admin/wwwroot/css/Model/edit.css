@@ -1,0 +1,19 @@
+﻿@media (min-width: 576px) {
+    .rounded-nav {
+        border-radius: 50rem !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .rounded-nav .nav-link {
+        border-radius: 50rem !important;
+    }
+}
+
+.nav-pills .nav-link {
+    color: #555;
+}
+/*
+.image-upload > input {
+    display: none;
+}*/

@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="container-fluid px-3 my-4">
+    <div class="row m-0">
+        <div class="col-12 px-2 mt-5 mb-2">
+            <span>@UserSession.User.FullName</span>
+        </div>
+    </div>
+    <div class="row m-0 mb-4">
+        <div class="col-3 px-2">
+            <breadcrumb></breadcrumb>
+        </div>
+        <div class="col-9 px-0">
+            <div class="container-fluid px-3 mx-0">
+                <div class="row border rounded-1 mx-0">
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "Index")">Необработанные заказы</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="ProcessingOrder" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "ProcessingOrder")">Заказы в работе</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="OrdersHistory" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "OrdersHistory")">История заявок</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="ShipmentDetails" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "ShipmentDetails")">История отправок</a>
+                    </div>
+                    <feature name="@GlobalConstant.FeatureFlags.FeaturePartners">
+                        @if (UserSession.IsPartner) {
+                            <div class="col-auto p-1">
+                                <a asp-area="Partners" asp-controller="Shop" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsAreaSelected("Partners")">Мой магазин</a>
+                            </div>
+                        }
+                    </feature>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-12 col-md-3 px-2">
+            @await Component.InvokeAsync("OrdersSummary")
+        </div>
+        <div class="col-12 col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="/common/css/core/datatables-customization.css" asp-append-version="true"/>
+    @await RenderSectionAsync("Styles", false)
+}
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script>
+    <script src="/common/lib/datatables-rowsGroups/datatables-rowsGroups.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/locale/ru.min.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+}

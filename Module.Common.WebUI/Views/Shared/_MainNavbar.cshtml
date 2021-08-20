@@ -1,0 +1,141 @@
+﻿@model NavbarViewModel
+<div class="row w-100 m-0">
+    <ul class="navbar-nav col-12 col-xl-auto">
+        <li class="nav-item">
+            <a class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("Home")" asp-action="Index" asp-controller="Home" asp-area="">ГЛАВНАЯ</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("Catalog")" data-toggle="dropdown">КАТАЛОГ</a>
+            @await Component.InvokeAsync("CatalogMenu")
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("VideoGallery")" data-toggle="dropdown">ВИДЕОГАЛЕРЕЯ</a>
+            @await Component.InvokeAsync("VideoGalleryMenu")
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("About")" data-toggle="dropdown">О КОМПАНИИ</a>
+            @await Component.InvokeAsync("DynamicPagesMenu", new {ControllerName = "About"})
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("Cooperation")" data-toggle="dropdown">УСЛОВИЯ СОТРУДНИЧЕСТВА</a>
+            @await Component.InvokeAsync("DynamicPagesMenu", new {ControllerName = "Cooperation"})
+        </li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link link-base link-light header-font h5 my-0 mx-xl-3 p-0 @Html.IsControllerSelected("Contacts")" data-toggle="dropdown">КОНТАКТЫ</a>
+            @await Component.InvokeAsync("DynamicPagesMenu", new {ControllerName = "Contact"})
+        </li>
+    </ul>
+    <div class="col-12 col-xl p-0 px-xl-3 py-xl-3">
+        <div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-end navbar-nav-right-padding">
+            @if (!User.Identity.IsAuthenticated || User.IsGuest()) {
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a class="btn btn-basic btn-main-gradient d-block d-xl-inline-block" href="#" data-toggle="ajax-modal" data-target="#registerModal" data-target-tab="#register-tab">
+                        Регистрация
+                    </a>
+                </div>
+            }
+            @if (!User.Identity.IsAuthenticated || User.IsGuest()) {
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a class="btn btn-basic btn-main-gradient btn-iconed d-block d-xl-inline-block jsTopLoginButton" href="#" data-toggle="ajax-modal" data-target="#registerModal">
+                        <div class="btn-icon-wrapper">
+                            <div class="icon icon-left"><span class="iconify icon-font-24px" data-icon="carbon:user-avatar-filled-alt" data-inline="false"></span></div>
+                            <div class="text">Войти</div>
+                        </div>
+                    </a>
+                </div>
+
+                @if (User.IsGuest()) {
+                    <!-- Cart section -->
+                    <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                        <a asp-action="Index" asp-controller="Cart" asp-area="" class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl @Html.IsActionSelected("Cart", "Index")" target="_blank">
+                            <div class="btn-icon-wrapper jsCartNavbar @(Model.CartCount >= 1 ? "jsHasElements" : "")">
+                                <div class="icon icon-left jsCartEmpty" style="@(Model.CartCount >= 1 ? "display: none;" : "")"><span class="iconify icon-font-24px" data-inline="false" data-icon="simple-line-icons:basket"></span></div>
+                                <div class="icon icon-left main-font h5 cart-badge jsCartFull" style="@(Model.CartCount < 1 ? "display: none;" : "")"><span class="jsCartCountValue">@Model.CartCount</span></div>
+                                <div class="text">Корзина</div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            } else if (UserSession.IsManager) {
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a asp-action="Index" asp-controller="Manager" asp-area="" class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl @Html.IsActionSelected("Manager", "Index")">
+                        <div class="btn-icon-wrapper">
+                            <div class="icon icon-left"><span class="iconify icon-font-24px" data-inline="false" data-icon="mdi:key-chain"></span></div>
+                            <div class="text">Панель управления</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a asp-action="Logout" asp-controller="Account" asp-area="" class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl">
+                        <div class="btn-icon-wrapper">
+                            <div class="icon icon-left"><span class="iconify icon-font-24px" data-inline="false" data-icon="icomoon-free:exit"></span></div>
+                            <div class="text">Выход</div>
+                        </div>
+
+                    </a>
+                </div>
+            } else {
+                <feature name="@GlobalConstant.FeatureFlags.FeaturePartnersPromo">
+                    <!-- Become partner section -->
+                    @if (!UserSession.IsPartner) {
+                        <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                            <a asp-action="Index" asp-controller="Partnership" asp-area="" class="btn btn-basic btn-main-gradient-animated d-block d-xl-inline-block">Эксклюзив</a>
+                        </div>
+                    }
+                </feature>
+                <!-- Favorite section -->
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a asp-action="Index" asp-controller="Favorite" asp-area="" class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl @Html.IsActionSelected("Favorite", "Index")">
+                        <div class="btn-icon-wrapper">
+                            <div class="icon icon-left"><span class="iconify icon-font-24px" data-inline="false" data-icon="mdi-light:diamond"></span></div>
+                            <div class="text">Избранное</div>
+                        </div>
+                    </a>
+                </div>
+                <!-- Cart section -->
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a asp-action="Index" asp-controller="Cart" asp-area="" class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl @Html.IsActionSelected("Cart", "Index")" target="_blank">
+                        <div class="btn-icon-wrapper jsCartNavbar @(Model.CartCount >= 1 ? "jsHasElements" : "")">
+                            <div class="icon icon-left jsCartEmpty" style="@(Model.CartCount >= 1 ? "display: none;" : "")"><span class="iconify icon-font-24px" data-inline="false" data-icon="simple-line-icons:basket"></span></div>
+                            <div class="icon icon-left main-font h5 cart-badge jsCartFull" style="@(Model.CartCount < 1 ? "display: none;" : "")"><span class="jsCartCountValue">@Model.CartCount</span></div>
+                            <div class="text">Корзина</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- User section -->
+                <div class="mx-0 my-1 mx-xl-1 my-xl-0">
+                    <a class="btn btn-basic btn-main-white-outline-gradient btn-iconed btn-expand d-block btn-collapse-xl d-xl-inline-block btn-expand-xxl @Html.IsControllerSelected("Personal")" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <div class="btn-icon-wrapper">
+                            <div class="icon icon-left"><span class="iconify icon-font-24px" data-icon="carbon:user-avatar-filled-alt" data-inline="false"></span></div>
+                            <div class="text">Личный кабинет</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right px-2 py-3 p-lg-4 m-1 m-lg-2 text-center">
+                        <p class="text-nowrap text-capitalize">@UserSession.User.FullName</p>
+                        <div class="mb-1">
+                            <a asp-action="Index" asp-controller="Order" asp-area="" class="btn btn-basic btn-main-gradient text-uppercase d-block">Личный кабинет</a>
+                        </div>
+                        <div>
+                            <a asp-action="Search" asp-controller="Catalog" asp-area="" class="btn btn-basic btn-main text-uppercase d-block">
+                                <span class="iconify icon-font-24px align-top" data-inline="false" data-icon="radix-icons:magnifying-glass"></span>
+                                <span class="text">Поиск</span>
+                            </a>
+                        </div>
+                        <p class="text-nowrap my-3">
+                            <b>Свяжитесь с нами</b>
+                        </p>
+                        <p>
+                            +996 700 241 175
+                            <br />
+                            krista.fashion@gmail.com
+                            <br />
+                            www.krista.fashion
+                        </p>
+                        <a asp-action="Logout" asp-controller="Account" asp-area="" class="btn btn-basic btn-main btn-block text-uppercase">Выйти</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

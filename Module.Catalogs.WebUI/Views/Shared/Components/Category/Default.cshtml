@@ -1,0 +1,43 @@
+﻿@using Module.Common.WebUI.Models
+@model IEnumerable<Module.Catalogs.Business.Models.CategoryDTO>
+<!-- Start Categories -->
+<div class="container-fluid px-2 px-lg-3">
+    <partial name="_TitleDescriptionPartial" model="@(new TitleDescriptionViewModel("Категории", "DynamicPageBody", new {Url = "/Category/Index"}, Url.Action("Index", "Category")))"/>
+    <div class="pt-2 px-2">
+        <div class="grid">
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model.Take(6)) {
+                <div class="card text-white mb-3 gallery-item gallery__item--@(++i) d-flex flex-column justify-content-center border-0">
+                    <div class="cover rounded-1"></div>
+                    <picture class="gallery__img rounded-1">
+                        <source srcset="@item.ImagePath?format=webp" type="image/webp">
+                        <img srcset="@item.ImagePath" class="gallery__img rounded-1" alt="@item.Name" href="#">
+                    </picture>
+                    <div class="gallery-item-name">
+                        <div class="header-font h3 text-uppercase">@item.Name</div>
+                    </div>
+                    <a style="display:block" href="@Url.Action("Products", "Catalog", new {Categories = new List<int> {item.CategoryId1C}})">
+                        <div class="card-img-overlay overlay overlay-transparent h-100 description d-flex flex-column justify-content-center rounded-1">
+                            <div class="description-caption header-font h3 text-uppercase">
+                                @item.Name
+                            </div>
+                            <div class="description-content main-font h4">
+                                @Html.Raw(item.Description)
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center pt-3">
+            <a asp-controller="Category" asp-action="Index" class="btn btn-basic btn-main-gradient">
+                Смотреть все категории
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End Categories -->

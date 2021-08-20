@@ -1,0 +1,38 @@
+﻿<!-- Youtube -->
+<div class="container-fluid p-0 pt-3 mt-5">
+    <div class="row mx-0 mt-2 px-4 py-5 bg-gradient">
+        <div class="col col-lg-6 d-flex flex-column align-items-center align-items-lg-start header-font h2 text-white px-3 pb-3">
+            <div class="text-uppercase mb-2">
+                <div class="font-weight-bold">Будьте первым,</div>
+                <div class="font-weight-bold">Кто увидит наши новинки</div>
+            </div>
+            <div class="pt-4">
+                <a href="@ViewData["YoutubeSubscribe"]" target="_blank" class="btn btn-basic btn-iconed btn-main-white-outline">
+                    <div class="btn-icon-wrapper">
+                        <span class="icon icon-left"><span class="iconify icon-font-24px" data-inline="false" data-icon="ant-design:youtube-outlined"></span></span>
+                        <span class="text">Подпишитесь на наш канал</span>
+                    </div>
+                </a>
+                <a asp-action="Index" asp-controller="VideoGallery" class="btn btn-basic btn-main-white-outline">Смотреть наши ролики</a>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 px-0">
+            <div class="container-fluid h-100 px-0">
+                <div class="row h-100 no-gutters">
+                    <div class="col-12 col-xl-6 d-flex flex-row align-items-center justify-content-center justify-content-xl-start">
+                        <div class="pt-4 pt-lg-0">
+                            <a href="@ViewData["Youtube"]" target="_blank"><img src="/media/img/svg/youtube-watch.svg" width="235" style="max-width: 100%" alt="Youtube"/></a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-6 d-flex flex-row align-items-center justify-content-center justify-content-xl-start">
+                        <div class="pt-4 pt-lg-0">
+                            <img src="/common/img/svg/krista-logo.svg" class="img-max-width mr-3" width="129" height="34" alt="Krista Logo" />
+                            <img src="/common/img/svg/krista-pic-transparent-sm.gif" class="youtube-krista-icon-image-img" alt="Криста" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Youtube -->

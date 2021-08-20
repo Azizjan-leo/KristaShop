@@ -1,0 +1,71 @@
+﻿@model Module.Order.WebUI.Models.OrderViewModel
+<form asp-action="OrderProducts" asp-controller="MakeOrder" method="post" id="orderForm">
+    <div class="row d-flex">
+        <div class="col-lg-9 col-md-8 col-sm-12 mb-3 create-order">
+            <div class="card rounded-0">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="HasExtraPackage" class="control-label"></label>
+                        <select asp-for="HasExtraPackage" class="form-control rounded-0">
+                            <option value="False">Стандартная упаковка</option>
+                            <option value="True">Дополнительная упаковка</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control rounded-0" rows="8" cols="40"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="button-hover" style="position: absolute; width: 100%; height: 55px; z-index: 999;"></div>
+                        <div class="text-danger">
+                            <p>
+                                Основной единицей расчета за изделие является доллар ($). Курс доллара к рублю не привязывается к заказу.
+                                Стоимость изделия в рублях будет меняться в зависимости от курса доллара на момент выставления счета. В долларах стоимость изделия останется неизменной.
+                            </p>
+                            <p>
+                                Все претензии и вопросы по качеству товара и предьявления брака принимаются в течении 48 часов с момента получения заказа.
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-basic btn-main btn-block" id="submitBtn" disabled>Оформить заказ <i class="bx bx-right-arrow-alt align-middle icon-font-30px"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-12 d-flex flex-column mb-3">
+            <div class="form-group">
+                <a class="btn btn-lg btn-block btn-basic btn-main-gradient" asp-controller="Catalog" asp-action="Index">Продолжить покупки</a>
+            </div>
+            <div class="form-group">
+                <a target="_blank" href="@ViewData["DeliveryDetailsUri"]" class="btn btn-lg btn-outline-dark btn-block">Информация о доставке</a>
+            </div>
+            <div class="form-group">
+                <a target="_blank" href="@ViewData["PaymentDetailsUri"]" class="btn btn-lg btn-outline-dark btn-block">Информация об оплате</a>
+            </div>
+            <p class="text-justify">
+                Уважаемый партнер!
+            </p>
+            <p class="text-justify">
+                Напоминаем вам, что оплата за товар ИЗ НАЛИЧИЯ должна быть произведена в течение 3 дней с момента оформления заказа. В случае неуплаты резерв будет автоматически расформирован.
+            </p>
+            <p class="text-justify">
+                Предоплата за ПРЕДЗАКАЗ должна быть произведена в течение 7 дней с момента его оформления. После формирования резерва из предзаказа полная оплата за резерв должна быть внесена в течение 3 дней. В случае неуплаты резерв будет автоматически расформирован.
+            </p>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" asp-for="Accepted">
+                    <label class="custom-control-label identity-label" asp-for="Accepted">Я ознакомился(лась) с условиями</label>
+                    <span asp-validation-for="Accepted" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group text-center bg-light p-3 m-0 flex-grow-1 align-items-center">
+                <p>
+                    Дата формирования заказа:
+                </p>
+                <p class="h4">
+                    @DateTime.Now.Date.ToString("dd.MM.yyyy")
+                </p>
+            </div>
+        </div>
+    </div>
+</form>

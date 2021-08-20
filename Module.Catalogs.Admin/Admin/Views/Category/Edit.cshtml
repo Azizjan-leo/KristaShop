@@ -1,0 +1,77 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model Module.Catalogs.Admin.Admin.Models.CategoryViewModel
+@{
+    ViewData["Title"] = "Категории - Изменить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new MenuButtonsViewModel("Назад к списку", "Index", classes: "btn-main-info")
+    };
+    var photoPath = string.IsNullOrEmpty(Model.ImagePath) ? "/common/img/nophoto.png?width=370" : $"{Model.ImagePath}?width=370";
+}
+
+<div class="main-container">
+    <div class="row py-3">
+        <div class="col">
+            <h4 class="font-weight-bold">@Model.Name</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id"/>
+                    <input type="hidden" asp-for="Order"/>
+                    <div class="col-auto">
+                        <div class="image-upload">
+                            <label asp-for="Image">
+                                <picture class="img-fluid img-thumbnail">
+                                    <source srcset="@photoPath&format=webp" type="image/webp">
+                                    <img srcset="@photoPath" class="img-fluid img-thumbnail" width="370" alt="Превью категории" />
+                                </picture>
+                            </label>
+                            <input asp-for="Image" type="file" data-img-uploader="img" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-main-danger">Удалить</button>
+                            <button type="button" class="btn btn-main-primary" data-img-uploader-btn>Загрузить новое</button>
+                        </div>
+                    </div>
+                    <div class="col px-3">
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsVisible">
+                                <label class="custom-control-label" asp-for="IsVisible"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control form-control-sm" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CategoryId1C" class="control-label"></label>
+                            <select asp-for="CategoryId1C" asp-items="ViewBag.AllCetgoriesFrom1C" class="form-control form-control-sm"></select>
+                            <span asp-validation-for="CategoryId1C" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control form-control-sm html-editor" cols="40" rows="5"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-main-primary">Подтвердить</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_WysiwygScriptsPartial");
+    }
+    <script src="/common-admin/js/ImgUploader.js" asp-append-version="true" type="text/javascript"></script>
+}

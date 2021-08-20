@@ -1,0 +1,62 @@
+﻿@model Module.Media.Admin.Admin.Models.DynamicPageViewModel
+@{
+    ViewData["Title"] = "Контент статичных страниц - Удалить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("Назад к списку", "Index", classes: "btn-main-info")
+    };
+}
+
+<div class="col-auto">
+    <a asp-action="Index">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Назад к списку
+    </a>
+</div>
+<hr />
+<h3 class="text-danger">Вы уверены что хотите удалить данные?</h3>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.URL)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.URL)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Layout)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Layout)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MetaTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MetaTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MetaDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MetaDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MetaKeywords)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MetaKeywords)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger btn-block col-4">Удалить</button>
+    </form>
+</div>

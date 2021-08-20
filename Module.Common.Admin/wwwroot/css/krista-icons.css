@@ -1,0 +1,23 @@
+﻿.krista-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.krista-icon-size20 {
+    width: 20px;
+    height: 20px;
+}
+
+.krista-icon-size18 {
+    width: 18px;
+    height: 18px;
+}
+
+.krista-icon-size16 {
+    width: 16px;
+    height: 16px;
+}

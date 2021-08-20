@@ -1,0 +1,14 @@
+﻿.about-bg {
+    background: transparent;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.about-container {
+    width: auto;
+    min-height: 444px;
+    max-height: 1186px;
+}
+
+.about-container .about-container-text * {
+    line-height: 24px !important;
+}

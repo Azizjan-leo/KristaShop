@@ -1,0 +1,6 @@
+﻿@model (string Header, string Message)
+@{
+    ViewData["Title"] = Model.Header;
+}
+
+@await Component.InvokeAsync("Success", new { header = Model.Header, message = Model.Message })

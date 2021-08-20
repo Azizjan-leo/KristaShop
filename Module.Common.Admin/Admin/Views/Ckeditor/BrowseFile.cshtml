@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Загрузка файлов</title>
+    <link rel="stylesheet" href="/common-admin/adminlte/css/adminlte.min.css" asp-append-version="true">
+    <style type="text/css">
+        .image-container {
+            position: relative;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            height: 350px;
+        }
+
+        .image-container:hover {
+            cursor: pointer;
+        }
+
+        .image-container .img-wrapper {
+            max-height: 300px;
+            overflow-x: hidden;
+        }
+
+        .img-wrapper img { max-width: 100%; }
+
+        .image-container .text {
+            position: absolute;
+            text-align: center;
+            padding: 10px 20px;
+            bottom: 0;
+        }
+    </style>
+
+    <script src="/common/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/common/lib/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var funcNum = @(Context.Request.Query["CKEditorFuncNum"] + ";");
+            $('#fileExplorer').on('click',
+                'img',
+                function() {
+                    var fileUrl = '@(ViewBag.Directory)/' + $(this).attr('title');
+                    window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+                    window.close();
+                });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid" id="fileExplorer">
+    <div class="row">
+        @foreach (var fileInfo in ViewBag.FileInfos) {
+            <div class="col-3 py-2">
+                <div class="image-container">
+                    <div class="img-wrapper">
+                        <picture class="img-fluid img-thumbnail">
+                            <source srcset="@ViewBag.Directory/@fileInfo.Name?format=webp" type="image/webp" />
+                            <img srcset="@ViewBag.Directory/@fileInfo.Name" alt="thumb" title="@fileInfo.Name" />
+                        </picture>
+                    </div>
+                    <div class="text">@fileInfo.Name</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+</body>
+</html>

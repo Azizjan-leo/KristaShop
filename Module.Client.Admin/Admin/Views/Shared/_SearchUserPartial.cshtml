@@ -1,0 +1,106 @@
+﻿@model Module.Client.Admin.Admin.Models.Filters.UsersFilter
+<div class="dataTables_customSearchWrapper border-0 p-0 mx-0">
+    <form id="users-filter-form">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col px-0">
+                    <div class="form-row">
+                        <div id="basic-searchbox" class="form-group col-sm-12 col-md-4 col-lg my-0">
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4 col-lg my-xl-0">
+                            <input type="text" asp-for="Person" class="form-control user-input localStorageFilter" placeholder="Клиент" data-target-col="person" />
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4 col-lg my-xl-0">
+                            <select asp-for="CartStatus" class="selectpicker form-control show-menu-arrow localStorageFilter" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="cartStatus">
+                                <option value="">Статус корзины</option>
+                                <option value="true">Есть</option>
+                                <option value="false">Нет</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-auto my-1 my-xl-0">
+                            <button type="button" class="btn btn-main-primary" data-toggle="toggle-collapse" data-target="#collapseUserSearch">
+                                <span class="btn-icon"><svg class="krista-icon krista-filter"><use xlink:href="#krista-filter"></use></svg></span>
+                                Открыть фильтр
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="collapseUserSearch" class="collapse-right">
+            <div class="row">
+                <div class="col-8 pr-4">
+                    <div class="form-row">
+                        <div class="container-fluid">
+                            <div class="row pb-4">
+                                <div class="col-5">
+                                    <span class="h4 font-weight-bold">Фильтр</span>
+                                </div>
+                                <div class="col-7 pt-2">
+                                    <a href="#" class="text-main-danger" onclick="ResetUserAllValues()">Сбросить фильтр</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="custom-control custom-switch default-switch mt-2">
+                                <input type="checkbox" class="custom-control-input localStorageFilter" asp-for="NewUsersOnly">
+                                <label class="custom-control-label" asp-for="NewUsersOnly"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input type="text" asp-for="CityName" class="form-control user-input localStorageFilter" placeholder="Город" data-target-col="cityName"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input type="text" asp-for="Phone" class="form-control user-input localStorageFilter" placeholder="Номер телефона" data-target-col="phone"/>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <select asp-for="Manager" asp-items="@ViewBag.ManagersList" class="selectpicker form-control show-menu-arrow localStorageFilter" data-size="10" data-live-search="true" data-actions-box="true" data-target-col="managerName">
+                                <option value="">Менеджер клиента</option>
+                                <option value="---">Без менеджера</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="input-group user-input date localStorageFilter" id="lastSignInFromPicker" data-target-input="nearest" data-datetime-picker>
+                                <input asp-for="LastSignInFrom" type="text" class="form-control datetimepicker-input" placeholder="Последний вход от" data-target="#lastSignInFromPicker" data-target-range-col="lastSignIn" data-target-range-type="from"/>
+                                <div class="input-group-append" data-target="#lastSignInFromPicker" data-toggle="datetimepicker">
+                                    <div class="input-group-text">
+                                        <svg class="krista-icon krista-icon-size18 krista-calendar"><use xlink:href="#krista-calendar"></use></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="input-group user-input date localStorageFilter" id="lastSignInToPicker" data-target-input="nearest" data-datetime-picker>
+                                <input asp-for="LastSignInTo" type="text" class="form-control datetimepicker-input" placeholder="Последний вход до" data-target="#lastSignInToPicker" data-target-range-col="lastSignIn" data-target-range-type="to"/>
+                                <div class="input-group-append" data-target="#lastSignInToPicker" data-toggle="datetimepicker">
+                                    <div class="input-group-text bg-white">
+                                        <svg class="krista-icon krista-icon-size18 krista-calendar"><use xlink:href="#krista-calendar"></use></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row pt-3">
+                        <button type="button" class="btn btn-main-primary" data-toggle="toggle-collapse" data-target="#collapseUserSearch">
+                            <span class="btn-icon"><svg class="krista-icon krista-filter"><use xlink:href="#krista-filter"></use></svg></span>
+                            Применить фильтр
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-content-hover"></div>
+    </form>
+</div>

@@ -1,0 +1,86 @@
+﻿.bg-dark {
+    background-color: #000000 !important;
+}
+
+.bg-dark-transpanent {
+    background-color: #000000 !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.bg-grey {
+    background-color: #C4C4C4 !important;
+}
+
+.bg-red {
+    background-color: #EB5757 !important;
+}
+
+.bg-main-light {
+    background-color: #ffedeb !important;
+}
+
+.bg-main-info-light {
+    background-color: #e9eef6 !important;
+}
+
+.bg-main-info {
+    background-color: #4691f6 !important;
+}
+
+.bg-main-success {
+    background-color: #2dd373 !important;
+}
+
+.bg-main-warning {
+    background-color: #fdd353 !important;
+}
+
+.bg-main-danger {
+    background-color: #ff5858 !important;
+}
+
+.bg-main-warning-dim {
+    background-color: #ffedb6 !important;
+}
+
+.bg-balance {
+    background: #109B37;
+    color: #ffffff;
+}
+
+.bg-active {
+    background-color: #772684 !important;
+}
+
+.bg-gradient {
+    background: linear-gradient(266.79deg, #7000FF 0%, #D500A6 100%);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #7DE2FD 0%, #7A00F3 42.71%, #772684 100%);
+}
+
+.bg-gradient-exclusive {
+    background: linear-gradient(90.25deg, #2F72D0 0%, #B336D9 100%);
+}
+
+.bg-gradient-backwards {
+    background: linear-gradient(250.97deg, #7DE2FD 1.18%, #754DF0 80.06%, #772684 165.79%), #C4C4C4;
+}
+
+.bg-gradient-radial {
+    background: radial-gradient(137.69% 301.28% at -24.08% 20.93%, #7DE2FD 0%, #754DF0 51.04%, #772889 100%);
+}
+
+.bg-gradient-revert {
+    background: linear-gradient(259.79deg, #7DE2FD -13.52%, #754DF0 46.13%, #772684 107.03%), #754DF0;
+    color: white;
+    padding: 10px;
+    width: auto;
+    width: fit-content;
+    width: -moz-fit-content;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    margin: 10px 0;
+}

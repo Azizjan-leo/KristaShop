@@ -1,0 +1,40 @@
+﻿@model TitleDescriptionViewModel
+
+<div class="row mx-0 mt-3 py-3 py-xl-5 mt-xl-4 mb-xl-2">
+    <div class="col-12 col-md-6 px-2 px-xl-4 pt-0 pt-xl-2">
+        <div class="text-uppercase text-left">
+            @if (string.IsNullOrEmpty(Model.Link)) {
+                if (Model.IsHeading) {
+                    <h1 class="header-font h2 font-weight-bold text-uppercase">@Model.Title</h1>
+                } else {
+                    <h2 class="header-font h2 font-weight-bold text-uppercase">@Model.Title</h2>
+                }
+            } else {
+                if (Model.IsHeading) {
+                    <h1>
+                        <a class="link-base link-dark header-font h2 font-weight-bold" href="@Model.Link">@Model.Title</a>
+                    </h1>
+                } else {
+                    <h2>
+                        <a class="link-base link-dark header-font h2 font-weight-bold" href="@Model.Link">@Model.Title</a>
+                    </h2>
+                }
+            }
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.Description)) {
+        <div class="col-12 col-md-6 pl-0 pr-3 pr-xl-4 pt-2">
+            <div class="gradient-separator"></div>
+            <div class="main-font h4 text-dark-grey">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    } else if (!string.IsNullOrEmpty(Model.ComponentName)) {
+        <div class="col-12 col-md-6 pl-0 pr-3 pr-xl-4 pt-2">
+            <div class="gradient-separator"></div>
+            <div class="main-font h4 text-dark-grey">
+                @await Component.InvokeAsync(Model.ComponentName, Model.ComponentParams)
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Routing
+@model List<Module.Media.Business.DTOs.DynamicPageDTO>
+<div class="px-0 px-xl-5">
+    <div class="container-fluid px-0 py-5 p-xl-5">
+        <div class="row px-0 px-xl-5 mx-0 mx-xl-5">
+            @{
+                var last = Model.Count % 2;
+            }
+            @for (var j = 0; j < 2; j++) {
+                <div class="col-12 col-lg-6 px-0 d-flex flex-column">
+                    @for (var i = j; i < Model.Count - last; i += 2) {
+                        <div id="@Model[i].GetActionName()" class="p-3 flex-fill">
+                            <div class="bg-main-light px-4 py-3 rounded-2 h-100">
+                                <div class="header-font h4">
+                                    @if (!string.IsNullOrEmpty(Model[i].TitleIconPath)) {
+                                        <img src="@Model[i].TitleIconPath" class="img-max-width" width="40" height="40" alt="" style="max-height: 40px" />
+                                    }
+                                    @if (Model[i].GetActionName().Equals(ViewData["DynamicAction"])) {
+                                        <h1 class="d-inline-block ml-3 align-text-top">@Model[i].Title</h1>
+                                    } else {
+                                        <h2 class="d-inline-block ml-3 align-text-top">@Model[i].Title</h2>
+                                    }
+                                </div>
+                                <div class="px-2 px-md-5 mx-0 mx-md-4">
+                                    @Html.Raw(Model[i].Body)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>    
+            }
+        </div>
+        @if (last > 0) {
+            <div class="row px-0 px-xl-5 mx-0 mx-xl-5">
+                <div id="@Model[^1].GetActionName()" class="col-12 p-3">
+                    <div class="bg-main-light px-4 py-3 rounded-2 h-100">
+                        <div class="header-font h4">
+                            @if (!string.IsNullOrEmpty(Model[^1].TitleIconPath)) {
+                                <img src="@Model[^1].TitleIconPath" class="img-max-width" width="40" height="40" alt="" style="max-height: 40px"/>
+                            }
+                            @if (Model[^1].GetActionName().Equals(ViewData["DynamicAction"])) {
+                                <h1 class="d-inline-block ml-3 align-text-top">@Model[^1].Title</h1>
+                            } else {
+                                <h2 class="d-inline-block ml-3 align-text-top">@Model[^1].Title</h2>
+                            }
+                        </div>
+                        <div class="px-2 px-md-5 mx-0 mx-md-4">
+                            @Html.Raw(Model[^1].Body)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model Module.Common.Business.Models.ItemsGrouped<Module.Common.Business.Models.ItemsGroupedWithDate<Module.Order.Business.Models.OrderHistoryItemDTO>>
+@{
+    Layout = "_PersonalLayout";
+    ViewData["Title"] = "История заявок";
+}
+
+@if (Model.Items.Any()) {
+    @foreach (var group in Model.Items) {
+        <div>
+            <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseItems_@(group.CreateDate.ToJointString())" role="button" aria-expanded="false" aria-controls="collapseItems_@(group.CreateDate.ToJointString())">
+                <div class="font-weight-bold">
+                    <span>@group.CreateDate.ToBasicString()</span>
+                    <span class="mx-2">/</span>
+                    <span>@group.Totals.TotalAmount</span>
+                    <span>единиц на сумму</span>
+                    <span class="ml-1">@group.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                </div>
+                <div class="ml-auto">
+                    <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+                </div>
+            </div>
+            <div class="collapse mb-4" id="collapseItems_@(group.CreateDate.ToJointString())">
+                <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"itemsTable_{group.CreateDate.ToJointString()}")">
+                    <thead>
+                    <tr>
+                        <th>Информация о модели</th>
+                        <th>Цвета</th>
+                        <th>Линейки</th>
+                        <th>Единицы</th>
+                        <th>На сумму</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                                <div class="font-weight-bold">
+                                    <span>Итого: </span>
+                                    <span>@group.Totals.TotalAmount</span>
+                                    <span>единиц на сумму</span>
+                                    <span class="ml-1">@group.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    }
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Items);
+    </script>
+    <script src="/order/js/orders-history.js" asp-append-version="true"></script>
+}

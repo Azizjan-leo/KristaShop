@@ -1,0 +1,84 @@
+﻿@model FooterViewModel
+<div class="container-fluid px-2 py-5 m-0 bg-gradient">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 h-100 p-0 m-0">
+        <div class="col px-3">
+            <div class="mb-3"><img src="/common/img/svg/krista-logo.svg?width=100" class="img-max-width" alt="Krista Logo" /></div>
+            <div>© @DateTime.Now.Year KRISTAUNIQUE</div>
+            <div class="mb-4">Все права на изображения принадлежат KRISTAUNIQUE, любое использование запрещено.</div>
+            <a href="@Model.TermsOfUseUri" class="link-base link-light plain">Политика конфиденциальности</a>
+        </div>
+        <div class="col px-3 pt-5 pt-lg-0">
+            <div class="header-font h5 text-uppercase font-weight-bold mb-4">Карта сайта</div>
+            <div class="main-font h4 font-weight-6">
+                <div class="my-4"><a asp-controller="Home" asp-action="Index" class="link-base link-light plain">Главная</a></div>
+                <div class="my-4"><a asp-controller="Catalog" asp-action="Index" class="link-base link-light plain">Каталог</a></div>
+                <div class="my-4"><a asp-controller="Category" asp-action="Index" class="link-base link-light plain">Категории</a></div>
+                <div class="my-4"><a href="/About/Index" class="link-base link-light plain">О компании</a></div>
+                <div class="my-4"><a href="/Cooperation/Index" class="link-base link-light plain">Условия сотрудничества</a></div>
+            </div>
+        </div>
+        <div class="col px-3 pt-5 pt-lg-0">
+            <div>
+                <div class="header-font h5 text-uppercase font-weight-bold mb-4">Связь с менеджером</div>
+                @await Component.InvokeAsync("FooterContacts")
+                <div>
+                    <div class="my-3">
+                        <a href="https://wa.me/996990001488" target="_blank" class="btn btn-basic btn-iconed btn-main-white-outline">
+                            <div class="btn-icon-wrapper">
+                                <span class="icon icon-left"><span class="iconify icon-font" data-inline="false" data-icon="bx:bxl-whatsapp"></span></span>
+                                <span class="text">Написать в WhatsApp</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="my-3">
+                        <a href="https://t.me/kristaunique" target="_blank" class="btn btn-basic btn-iconed btn-main-white-outline">
+                            <div class="btn-icon-wrapper">
+                                <span class="icon icon-left">
+                                    <span class="iconify icon-font" data-inline="false" data-icon="cib:telegram-plane"></span>
+                                </span>
+                                <span class="text">Написать в Telegram</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-4">
+                <div class="header-font h5 text-uppercase font-weight-bold mb-3">Обратная связь</div>
+                <div class="main-font h4 font-weight-6">
+                    @if (User.Identity.IsAuthenticated && !User.IsGuest())
+                    {
+                        <div class="my-4"><a class="link-base link-light plain" data-toggle="ajax-modal" data-target="#feedbackContactsModal">Связь с руководством</a></div>
+                        <div class="my-4"><a class="link-base link-light plain" data-toggle="ajax-modal" data-target="#feedbackModal">Книга жалоб и предложений</a></div>
+                    }
+                    else
+                    {
+                        <div class="my-4"><a class="link-base link-light plain" data-toggle="ajax-modal" data-target="#feedbackModal">Задать вопрос</a></div>
+                    }
+                    <div class="my-4"><a class="link-base link-light plain" data-toggle="ajax-modal" data-target="#feedbackModal">Обратная связь</a></div>
+                    <div class="my-4"><a href="/Contact/Index" class="link-base link-light plain">Контакты</a></div>
+                    <div class="my-4"><a href="@Model.DeliveryDetails" class="link-base link-light plain">Доставка</a></div>
+                    <div class="my-4"><a href="@Model.PaymentDetails" class="link-base link-light plain">Оплата</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col px-3 pt-5 pt-lg-0">
+            <div>
+                <div class="header-font h5 text-uppercase font-weight-bold mb-4">Социальные сети</div>
+                <div class="main-font h4 font-weight-6">
+                    <div class="my-2"><a class="link-base link-light plain" href="@Model.YoutubeLink"><span class="iconify icon-font-24px mr-3" data-inline="false" data-icon="ant-design:youtube-outlined"></span> Youtube</a></div>
+                    <div class="my-2"><a class="link-base link-light plain" href="@Model.InstagramLink"><span class="iconify icon-font-24px mr-3" data-inline="false" data-icon="ant-design:instagram-outlined"></span> Instagram</a></div>
+                    <div class="my-2"><a class="link-base link-light plain" href="@Model.FacebookLink"><span class="iconify icon-font-24px mr-3" data-inline="false" data-icon="ant-design:facebook-filled"></span> Facebook</a></div>
+                </div>
+            </div>
+            <div class="pt-4 mt-3">
+                <div class="header-font h5 text-uppercase font-weight-bold mb-3">Медиа</div>
+                <div class="text-uppercase h6 mb-2"></div>
+                <div class="main-font h4 font-weight-6">
+                    <div class="my-4"><a asp-controller="VideoGallery" asp-action="Index" class="link-base link-light plain">Видеогалерея</a></div>
+                    <div class="my-4"><a asp-controller="InstaBlog" asp-action="Index" class="link-base link-light plain">Instagram блог</a></div>
+                    <div class="my-4"><a asp-controller="Gallery" asp-action="Index" class="link-base link-light plain">Krista Stories</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

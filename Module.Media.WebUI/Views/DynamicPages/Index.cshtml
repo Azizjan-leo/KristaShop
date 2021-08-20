@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.DynamicPageDTO>
+<div class="dynamic-page">
+    <div class="container-fluid dynamic-page-content p-0">
+        @if (Model.Any()) {
+            <partial name="@Model.First().Layout" model="Model"/>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <environment include="Development">
+        <link rel="stylesheet" href="/media/css/dynamic-pages.css" asp-append-version="true"/>
+    </environment>
+}
+
+@section Scripts {
+    <environment include="Development">
+        <script src="/media/js/pages/dynamic-pages.js" asp-append-version="true"></script>
+    </environment>
+    <environment include="Production, Staging">
+        <script src="/media/js/min/dynamic-pages.min.js" asp-append-version="true"></script>
+    </environment>
+}

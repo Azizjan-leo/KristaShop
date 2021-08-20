@@ -1,0 +1,14 @@
+@model string
+@if (!string.IsNullOrEmpty(Model))
+{
+    <div class="d-flex flex-row">
+        <div class="phones-section font-weight-6">
+            <div class="phone-logos">
+                <span class="iconify icon-font-24px" data-inline="false" data-icon="ic:baseline-call"></span>
+            </div>
+            <div class="phone-numbers">
+                @Html.RemoveTags(Model)
+            </div>
+        </div>
+    </div>
+}

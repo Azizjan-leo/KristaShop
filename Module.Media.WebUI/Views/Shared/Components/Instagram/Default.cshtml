@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.BlogItemDTO>
+<!-- Insta story -->
+<div class="container-fluid px-2 px-xl-3">
+    <partial name="_TitleDescriptionPartial" model="@(new TitleDescriptionViewModel("Instagram blog", ViewBag.InstagramDescription, Url.Action("Index", "InstaBlog")))" />
+    <div class="row row-cols-xl-4 row-cols-lg-2 row-cols-md-2 row-cols-1 m-0 pt-2">
+        @foreach (var item in Model) {
+            <div class="col px-2 mb-2">
+                <div class="card mb-3 border-0 rounded-1 h-100">
+                    <a href="@item.Link" class="d-block" target="_blank">
+                        <div class="image-fix-height-wrapper">
+                            <picture class="card-img-top rounded-top-1 lazy image">
+                                <source srcset="@item.ImagePath?width=480&format=webp" type="image/webp">
+                                <img class="card-img-top rounded-top-1 lazy image" srcset="@item.ImagePath?width=480" alt="@item.Title" />
+                            </picture>
+                        </div>
+                    </a>
+                    <div class="card-body border rounded-bottom-1 p-3">
+                        <a href="@item.Link" class="link-base link-dark link-decoration-none main-font h5 font-weight-bold">@item.Title</a>
+                        <div class="main-font h5 card-text text-overflow card-description-text">
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row justify-content-center mt-3 pt-2">
+        <div class="col-12 d-flex flex-column justify-content-center flex-md-row text-center">
+            <div class="mb-2 mr-md-0 mr-0 mr-md-2">
+                <a href="@ViewData["InstagramLink"]" target="_blank" class="btn btn-basic btn-main-gradient btn-iconed">
+                    <div class="btn-icon-wrapper">
+                        <div class="icon icon-left"><span class="iconify icon-font-35px" data-inline="false" data-icon="ant-design:instagram-outlined"></span></div>
+                        <span class="text">Подпишитесь на наш инстаграм</span>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a asp-action="Index" asp-controller="InstaBlog" class="btn btn-basic btn-main-gradient">
+                    Смотреть все публикации
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Insta story -->

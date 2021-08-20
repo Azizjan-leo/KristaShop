@@ -1,0 +1,100 @@
+﻿@using KristaShop.Common.Models
+@{
+    Layout = "_Layout";
+}
+<div class="container-fluid px-3 my-4">
+    <div class="row m-0">
+        <div class="col-12 px-2 mt-5 mb-2">
+            <span>@UserSession.User.FullName</span>
+        </div>
+    </div>
+    <div class="row m-0 mb-5 pb-4">
+        <div class="col-3 px-2">
+            <breadcrumb></breadcrumb>
+        </div>
+        <div class="col-9 px-0">
+            <div class="container-fluid px-3 mx-0 pb-3">
+                <div class="row border rounded-1 mx-0">
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "Index")">Необработанные заказы</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="ProcessingOrder" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "ProcessingOrder")">Заказы в работе</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="OrdersHistory" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "OrdersHistory")">История заявок</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="" asp-controller="Order" asp-action="ShipmentDetails" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Order", "ShipmentDetails")">История отправок</a>
+                    </div>
+                    @if (UserSession.IsPartner) {
+                        <div class="col-auto p-1">
+                            <a asp-area="Partners" asp-controller="Shop" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsControllerSelected("Shop")">Мой магазин</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-12 col-md-3 px-2">
+            @await Component.InvokeAsync("Sidebar")
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="container-fluid px-0 mb-4 pb-2">
+                <div class="row border rounded-1 mx-0">
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Shop" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Shop", "Index")">Склад</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Shop" asp-action="Reservations" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Shop", "Reservations")">Резервы в пути</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Shop" asp-action="Selling" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Shop", "Selling")">Продажа</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Shop" asp-action="Revision" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Shop", "Revision")">Ревизия</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Payments" asp-action="Index" class="btn btn-basic btn-main-white mr-2 @Html.IsActionSelected("Payments", "Index")">Взаиморасчеты</a>
+                    </div>
+                    <div class="col-auto p-1">
+                        <a asp-area="Partners" asp-controller="Reports" asp-action="Movements" class="btn btn-basic btn-main-white mr-2 @Html.IsControllerSelected(new List<string> {"Reports", "Documents"})">История и отчеты</a>
+                    </div>
+                    <feature name="@GlobalConstant.FeatureFlags.FeatureAdvancedFunctionality">
+                        <div class="col-auto p-1">
+                            <a asp-area="Partners" asp-controller="SellingRequests" asp-action="Index" class="btn btn-basic btn-main-gradient mr-2 @Html.IsControllerSelected(new List<string> {"SellingRequests", "Index"})">Krista Help!</a>
+                        </div>
+                    </feature>
+                </div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/themes/light.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css" integrity="sha512-OtwMKauYE8gmoXusoKzA/wzQoh7WThXJcJVkA29fHP58hBF7osfY0WLCIZbwkeL9OgRCxtAfy17Pn3mndQ4PZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.3.1/dist/themes/light.min.css" integrity="sha256-K/eiWixsT9BLqqIxeuQizQxVNto+qFsPAdkjoOtiXwg=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="/common/css/core/datatables-customization.css" asp-append-version="true"/>
+    @await RenderSectionAsync("Styles", false)
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js" integrity="sha512-+ruHlyki4CepPr07VklkX/KM5NXdD16K1xVwSva5VqOVbsotyCQVKEwdQ1tAeo3UkHCXfSMtKU/mZpKjYqkxZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/l10n/ru.min.js" integrity="sha512-iroHsXu3u9hn51N59WgDAVQatymvZBcTmJAT6ByZoZTe/+Ccw1Gdnay91Gzrwd8Dauhv2CYiTgHM8FXRC2/31A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.3.1/dist/shortcut-buttons-flatpickr.min.js" integrity="sha256-OvIzWLwcLxcqN2bJ1MqFXbxPBkeg56f3bMjEAMN124s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.5/plugin/customParseFormat.min.js" integrity="sha512-CZECBVOVkkXIjkzLE5o62KmWfDtLoL/JoLu91sKH6Y914Zlm6lVvbhqHt5U9hNEf/dYRaIIZleb0j5+gxVSR7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.5/dayjs.min.js" integrity="sha512-n6mJ6AqoohFfbgx3x7N162B/zRNs5x8uvsStlHC+LCvqwKW7oiucE07Ehatg62ybx6Vo1ctaZwm/4sSRUTSIQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.5/locale/ru.min.js" integrity="sha512-jnRKzKjGUgD4gsW1ew7OOpLoH9123zRCe+25pvBwhs/Qb7tbizs6lTEhMJQkVWAJzBV/fvPeGaWPeXgigBaUQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        dayjs.extend(window.dayjs_plugin_customParseFormat);
+        dayjs.locale('ru');
+    </script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script>
+    <script src="/common/lib/datatables-rowsGroups/datatables-rowsGroups.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", false)
+}

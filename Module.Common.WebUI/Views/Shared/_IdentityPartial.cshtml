@@ -1,0 +1,31 @@
+﻿<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-3">
+            <div class="modal-body px-5 pt-3 pb-4">
+                <ul class="nav nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link link-base link-dark active d-block w-100 header-font h3" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true" data-url="@Url.Action("Login", "Account")">ВХОД</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-base link-dark d-block w-100 header-font h3" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false" data-url="@Url.Action("Register", "Account")">РЕГИСТРАЦИЯ</a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-4 pt-1" id="myTabContent">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+
+                    </div>
+                </div>
+            </div>
+            <div class="collapse rounded-3" id="loginFooterCollapse" style="margin-bottom: -1px;">
+                <div class="modal-footer text-center p-3 rounded-3">
+                    Если вы забыли пароль
+                    то свяжитесь с менеджером
+                    и он отправит ссылку для востановления пароля
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

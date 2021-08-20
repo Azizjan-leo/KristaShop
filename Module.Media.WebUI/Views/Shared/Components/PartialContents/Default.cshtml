@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.DynamicPageDTO>
+@{
+    var requestPath = Context.Request.RouteValues.ContainsKey("uri") ? Context.Request.RouteValues["uri"] : Context.Request.Path;
+}
+<ul class="list-unstyled text-right py-2">
+    @foreach (var item in Model)
+    {
+        <li class="my-3">
+            <div class="two-halfs-block">
+                <div class="left-wrapper main">
+                    <a href="@item.URL" class="text-dark h5 text-uppercase text-decoration-none"> @item.Title</a>
+                </div>
+                <div class="right-wrapper icon">
+                    @if (item.URL.Equals(requestPath)) {
+                        <img src="/common/img/svg/selector-current.svg" class="img-selector" width="13" height="10"/>
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>

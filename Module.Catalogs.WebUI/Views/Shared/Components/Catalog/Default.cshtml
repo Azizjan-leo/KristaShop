@@ -1,0 +1,36 @@
+﻿@using Module.Common.WebUI.Models
+@model Module.Catalogs.WebUI.Models.CatalogWithItemsViewModel
+<!-- Start Catalogs -->
+<div class="container-fluid px-2 px-xl-3">
+    <partial name="_TitleDescriptionPartial" model="@(new TitleDescriptionViewModel(Model.Catalog.Name, Model.Catalog.Description, Url.Action("Index", "Catalog", new {catalogUri = Model.Catalog.Uri})))"/>
+    <div class="row row-cols-2 row-cols-xl-6 mx-0 pt-2">
+        @foreach (var item in Model.Items) {
+            <div class="col px-2 mb-2">
+                <a class="d-block" asp-controller="Catalog" asp-action="Product" asp-route-catalog="@item.CatalogId" asp-route-articul="@item.Articul">
+                    <div class="card text-white mb-3 border-0 rounded-1">
+                        <div class="image-fix-height-wrapper ratio150">
+                            <picture>
+                                <source data-srcset="@item.MainPhoto?width=300&height=450&format=webp 430w, @item.MainPhoto?width=400&height=600&format=webp 576w, @item.MainPhoto?width=700&height=1050&format=webp 768w, @item.MainPhoto?width=400&height=600&format=webp 992w, @item.MainPhoto?width=300&height=450&format=webp 1200w" type="image/webp">
+                                <img class="lazy image rounded-1" data-srcset="@item.MainPhoto?width=300&height=450 430w, @item.MainPhoto?width=400&height=600 576w, @item.MainPhoto?width=700&height=1050 768w, @item.MainPhoto?width=400&height=600 992w, @item.MainPhoto?width=300&height=450 1200w" alt="@item.AltText" />
+                            </picture>
+                        </div>
+                        <div class="card-img-overlay d-flex flex-column justify-content-start justify-content-xl-center overlay overlay-transparent h-100">
+                            <div class="overlay-bg rounded-1"></div>
+                            <div class="card-text text-left text-xl-center text-overflow-long position-relative">
+                                @Html.Raw(item.Description)
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="row pt-2">
+        <div class="col text-center">
+            <a asp-controller="Catalog" asp-action="Index" asp-route-catalogUri="@Model.Catalog.Uri" class="btn btn-basic btn-main-gradient">
+                Смотреть каталог
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End Catalogs -->

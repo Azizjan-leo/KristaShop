@@ -1,0 +1,50 @@
+﻿@using KristaShop.Common.Extensions
+@using Microsoft.AspNetCore.Routing
+@using Module.Common.Admin.Admin.Models
+@model IEnumerable<Module.App.Business.Models.MenuItemDTO>
+@{
+    var buttons = ViewData["NavbarButtons"] as List<MenuButtonsViewModel>;
+}
+
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <div class="container-fluid">
+        <div class="row m-0 w-100">
+            <div class="col-12 col-xl p-0">
+                <div class="navbar-nav flex-wrap flex-xl-nowrap">
+                    <div class="nav-item d-block d-lg-none py-1 py-xl-0">
+                        <a href="#" class="nav-link" data-widget="pushmenu" data-enable-remember="true">
+                            <svg class="krista-icon krista-manu-bars krista-icon-size18 mb-1"><use xlink:href="#krista-menu-bars"></use></svg>
+                            <span>Меню</span>
+                        </a>
+                    </div>
+                    @foreach (var item in Model) {
+                        <div class="nav-item py-1 py-xl-0">
+                            <a href="@item.Url" class="nav-link @Html.IsControllerAndActionSelected(item.ControllerName, item.ActionName)">
+                                <span>@item.Title</span>
+                                @if (!string.IsNullOrEmpty(item.BadgeTarget)) {
+                                    <span class="nav-link-badge" style="display: none;" data-update-name="@item.BadgeTarget"></span>
+                                }
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-12 col-xl-auto pt-1 px-4">
+                @if (buttons != null) {
+                    foreach (var button in buttons) {
+                        <a class="btn @(string.IsNullOrEmpty(button.Classes) ? "btn-main-primary" : button.Classes) mr-1 my-1 my-xl-0" 
+                           onclick="@(!string.IsNullOrEmpty(button.OnClickJSCode) ? button.OnClickJSCode : "return true")"
+                           asp-action="@button.Action" 
+                           asp-controller="@(!string.IsNullOrEmpty(button.Controller) ? button.Controller : Context.GetRouteData().GetController())" 
+                           asp-all-route-data="button.RouteValues">
+                            @if (!string.IsNullOrEmpty(button.IconName)) {
+                                <span class="btn-icon"><svg class="krista-icon @button.IconName"><use xlink:href="#@button.IconName"></use></svg></span>
+                            }
+                            @button.Title
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,58 @@
+﻿@using KristaShop.Common.Extensions
+<div class="modal fade rounded-3" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <ul class="nav nav-justified" id="feedbackTab" role="tablist">
+                    @if (Context.User.Identity.IsAuthenticated && !Context.User.IsGuest()) {
+                        <li class="nav-item">
+                            <a class="nav-link link-base link-dark active header-font h3 text-uppercase m-auto" id="feedback-complaints-tab" data-toggle="tab" href="#feedback-complaints" role="tab" aria-controls="feedback" aria-selected="true" data-url="@Url.Action("GetWithFile", "Feedback")" data-callback="feedbackSendCallback">Книга жалоб и предложений</a>
+                        </li>
+                    } else {
+                        <li class="nav-item">
+                            <a class="nav-link link-base link-dark active header-font h3 text-uppercase m-auto" id="feedback-tab" data-toggle="tab" href="#feedback" role="tab" aria-controls="feedback" aria-selected="true" data-url="@Url.Action("Get", "Feedback")" data-callback="feedbackSendCallback">Обратная связь</a>
+                        </li>
+                    }
+                </ul>
+                <div class="tab-content mt-4" id="feedbackTabContent">
+                    @if (Context.User.Identity.IsAuthenticated && !Context.User.IsGuest()) {
+                        <div class="tab-pane fade show active" id="feedback-complaints" role="tabpanel" aria-labelledby="feedback-complaints-tab">
+
+                        </div>
+                    } else {
+                        <div class="tab-pane fade show active" id="feedback" role="tabpanel" aria-labelledby="feedback-tab">
+
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="collapse" id="authenticatedFeedbackModalCollapse">
+                <div class="modal-footer text-center text-white bg-active m-auto p-3">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Context.User.Identity.IsAuthenticated && !Context.User.IsGuest()) {
+    <div class="modal fade" id="feedbackContactsModal" tabindex="-1" role="dialog" aria-labelledby="feedbackContactsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="nav nav-justified" id="feedbackContactsTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link link-base link-dark active header-font h3 text-uppercase m-auto" id="feedback-management-contacts-tab" data-toggle="tab" href="#feedback-management-contacts" role="tab" aria-controls="feedback" aria-selected="true" data-url="@Url.Action("GetManagementContacts", "Feedback")" data-callback="feedbackSendCallback">Связь с руководством</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-5" id="feedbackContactsTabContent">
+                        <div class="tab-pane fade show active" id="feedback-management-contacts" role="tabpanel" aria-labelledby="feedback-management-contacts-tab">
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse" id="feedbackModalCollapse">
+                    <div class="modal-footer text-center text-white bg-active m-auto p-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

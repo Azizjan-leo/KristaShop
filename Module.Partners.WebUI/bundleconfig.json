@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "wwwroot/css/min/partnership.min.css",
+    "inputFiles": [
+      "wwwroot/css/partnership.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/min/partnership.min.js",
+    "inputFiles": [
+      "wwwroot/js/partnership.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

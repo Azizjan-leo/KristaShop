@@ -1,0 +1,56 @@
+﻿@model FaqSectionContentDto
+@{
+    ViewData["Title"] = "Добавить содержимое секции";
+    var sectionId = (Guid)ViewBag.SectionId;
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <a asp-action="Index">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Назад к списку
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateSectionContent" method="post" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <input style="margin-top:10px;" class="form-control" asp-for="FaqSectionId" hidden value="@sectionId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Content" class="control-label">Содержимое секции</label>
+                                <textarea asp-for="Content" class="form-control form-control-sm html-editor" cols="40" rows="5"></textarea>
+                                <span asp-validation-for="Content" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Document" class="control-label">Документ</label>
+                                <input style="margin-top:10px;" class="form-control" asp-for="Document" type="file" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label">Картинка</label>
+                                <input style="margin-top:10px;" class="form-control" asp-for="Image" type="file" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Video" class="control-label">Видео</label>
+                                <input style="margin-top:10px;" class="form-control" asp-for="Video" type="file" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block shadow">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_WysiwygScriptsPartial");
+    }
+}

@@ -1,0 +1,24 @@
+﻿@model Module.App.WebUI.Models.AuthFeedbackViewModel
+<div class="ajax-post-form">
+    <form method="post" asp-action="CreateWithFile" asp-controller="Feedback">
+        <div class="ajax-post-form-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()"/>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Message" class="sr-only"></label>
+                    <textarea asp-for="Message" class="form-control grey-control rounded-0" placeholder="Сообщение" rows="5"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="custom-file cursor-pointer">
+                <input type="file" asp-for="File" class="custom-file-input">
+                <label class="custom-file-label" asp-for="File" data-browse="Обзор">Выберите файл...</label>
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-basic btn-main-gradient w-100 text-uppercase">Отправить</button>
+        </div>
+    </form>
+</div>

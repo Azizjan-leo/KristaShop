@@ -1,0 +1,142 @@
+﻿body {
+    font-family: Nunito;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/*#region backgrounds*/
+.bg-main-success {
+    background: #00a03e !important;
+}
+
+.bg-main-danger {
+    background: #eb5757 !important;
+}
+
+.bg-main {
+    background-color: #f1f5f8 !important;
+}
+/*#endregion backgrounds*/
+
+/*#region font colors*/
+.text-main-secondary {
+    color: #828282 !important;
+}
+/*#endregion font colors*/
+
+/* Basic image input customization*/
+.image-upload > input {
+    display: none;
+}
+
+.cart-not-empty {
+    color: #000000;
+    background-color: #EB5757;
+}
+
+.cart-notif {
+    vertical-align: text-top;
+    margin-right: -35px;
+    font-size: 10px;
+}
+
+td p.form-control {
+    margin: 0;
+}
+
+table.order-details th {
+    text-align: center;
+}
+table.order-details.th-left th {
+    text-align: left !important;
+}
+table.order-details td {
+    vertical-align: middle;
+}
+table.order-details td.tal {
+    text-align: left;
+}
+span.color-round {
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    float: left;
+    margin: 0px 5px;
+    padding: 0px;
+}
+table.order-details td .total {
+    float: right;
+    font-weight: bold;
+}
+
+.cart-item-spinner {
+    width: 125px;
+}
+
+.cart-spinner-btn {
+    width: 24px;
+    height: 24px;
+    background-color: #6c757d;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.cart-spinner-btn.dn {
+    float: left;
+}
+
+.cart-spinner-btn.up {
+    float: right;
+}
+
+h1.dashboard-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+.dashboard-header {
+    border-radius: 19px;
+    padding: 10px;
+    color: #ffffff;
+    margin: 25px 0px 5px 0px;
+    padding: 15px 35px;
+}
+.dashboard-header.violet-g {
+    background: linear-gradient(98.59deg, #BB6BD9 0%, #9B51E0 100%);
+}
+.dashboard-header.green-g {
+    background: linear-gradient(98.59deg, #07953E 0%, #27AE60 100%);
+}
+.dashboard-header.orange-g {
+    background: linear-gradient(98.59deg, #F2C94C 0%, #F2994A 100%);
+}
+.dashboard-header h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+}
+.dashboard-header h3 svg {
+    margin-top: -4px;
+}
+.dashboard-header h2 {
+    font-size: 27px;
+    font-weight: 700;
+}
+span.gray-text {
+    color: #828282;
+}

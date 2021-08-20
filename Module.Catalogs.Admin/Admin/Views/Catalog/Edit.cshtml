@@ -1,0 +1,214 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Models
+@using Module.Common.Admin.Admin.Models
+@using Module.Common.WebUI.Infrastructure
+@model Module.Catalogs.Admin.Admin.Models.CatalogViewModel
+@{
+    ViewData["Title"] = "Каталоги - Изменить запись";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("Назад к списку", "Index", classes: "btn-main-info")
+    };
+    var photoPath = string.IsNullOrEmpty(Model.PreviewPath) ? "/common/img/nophoto.png?width=370" : $"{Model.PreviewPath}?width=370";
+}
+
+<div class="main-container">
+    <div class="row py-3">
+        <div class="col">
+            <h4 class="font-weight-bold">@Model.Name</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="Order" />
+                    <input type="hidden" asp-for="PreviewPath" />
+                    <div class="col-auto">
+                        <div class="image-upload">
+                            <label asp-for="Preview">
+                                <picture class="img-fluid img-thumbnail">
+                                    <source srcset="@photoPath&format=webp" type="image/webp">
+                                    <img srcset="@photoPath" class="img-fluid img-thumbnail" width="370" alt="Превью каталога" />
+                                </picture>
+                            </label>
+                            <input asp-for="Preview" type="file" data-img-uploader="img" />
+                            <span asp-validation-for="Preview" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-main-danger">Удалить</button>
+                            <button type="button" class="btn btn-main-primary" data-img-uploader-btn>Загрузить новое</button>
+                        </div>
+                        <feature name="@GlobalConstant.FeatureFlags.FeatureAdvancedFunctionality">
+                            <div class="my-4 mx-1 pr-5">
+                                <div class="form-group mb-0">
+                                    <label class="control-label h3">Наценки</label>
+                                </div>
+                                <div class="bg-main-light rounded-1 p-4">
+                                    <div>
+                                        <div id="extraCharges">
+                                            @{
+                                                await Html.RenderPartialAsync("_ExtraChargesPartial", Model.CatalogExtraCharges);
+                                            }
+                                        </div>
+
+                                        <div class="row pt-2">
+                                            <div class="col-12 mx-auto btn btn-success" onclick="openExtraChargeModal()">
+                                                <span class="text-light">Добавить наценку</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </feature>
+                    </div>
+                    <div class="col px-3">
+                        <div class="form-group mb-0">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsDisableDiscount">
+                                <label class="custom-control-label" asp-for="IsDisableDiscount"></label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsVisible">
+                                <label class="custom-control-label" asp-for="IsVisible"></label>
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsOpen">
+                                <label class="custom-control-label" asp-for="IsOpen"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="IsSet">
+                                <label class="custom-control-label" asp-for="IsSet"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Id" class="control-label"></label>
+                            <select asp-for="Id" asp-items="ViewBag.AllCatalogsFrom1C" class="form-control form-control-sm" disabled title="Номер каталога нельзя редактировать"></select>
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control form-control-sm" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OrderForm" class="control-label"></label>
+                            <select asp-for="OrderForm" asp-items="Html.GetEnumSelectList<OrderFormType>()" class="form-control form-control-sm"></select>
+                            <span asp-validation-for="OrderForm" class="text-danger"></span>
+                        </div>
+                        <div class="form-group close-time">
+                            <label asp-for="CloseTime" class="control-label"></label>
+                            <div class="input-group date" id="datetimepicker" data-target-input="nearest" data-datetime-picker>
+                                <input asp-for="CloseTime" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="CloseTime" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Uri" class="control-label"></label>
+                            <input asp-for="Uri" class="form-control form-control-sm" />
+                            <span asp-validation-for="Uri" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control form-control-sm html-editor" cols="40" rows="5"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AdditionalDescription" class="control-label"></label>
+                            <textarea asp-for="AdditionalDescription" id="Body" class="form-control form-control-sm html-editor" cols="40" rows="5"></textarea>
+                            <span asp-validation-for="AdditionalDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="VideoPath" class="control-label"></label>
+                            <input asp-for="VideoPath" class="form-control form-control-sm" />
+                            <span asp-validation-for="VideoPath" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MetaTitle" class="control-label"></label>
+                            <input asp-for="MetaTitle" class="form-control form-control-sm" />
+                            <span asp-validation-for="MetaTitle" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MetaKeywords" class="control-label"></label>
+                            <input asp-for="MetaKeywords" class="form-control form-control-sm" />
+                            <span asp-validation-for="MetaKeywords" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MetaDescription" class="control-label"></label>
+                            <textarea asp-for="MetaDescription" class="form-control form-control-sm" cols="40" rows="5"></textarea>
+                            <span asp-validation-for="MetaDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-main-primary">Подтвердить</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-extra-charge-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold" id="headerText"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group text-center">
+                    <div class="form-group">
+                        <select id="extraChargeType" class="selectpicker form-control show-menu-arrow" asp-items="Html.GetEnumSelectList<ExtraChargeType>()">
+                            <option selected="selected" value="0">Тип наценки</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <div class="form-group">
+                        <label class="control-label">Сумма</label>
+                        <input type="text" id="extraChargeSum" class="form-control form-control-sm" placeholder="Введите сумму наценки" />
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-6" data-toggle="modal" data-target="#edit-extra-charge-modal">
+                        <button id="cancelBtn" class="btn btn-warning btn-block py-2 font-weight-bold text-light">Отменить</button>
+                        <button id="deleteBtn" class="btn btn-danger btn-block py-2 font-weight-bold text-light d-none m-0" onclick="deleteCatalogExtraCharge()">Удалить</button>
+                    </div>
+                    <div class="col-6">
+                        <button onclick="addOrSetCatalogExtraCharge(@Html.AsJsObject(Model.Id))" class="btn btn-success btn-block py-2 font-weight-bold">Подтвердить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_WysiwygScriptsPartial");
+    }
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/ru.min.js"></script>
+
+    <script src="/common-admin/js/ImgUploader.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/catalogs-admin/js/Catalog/catalog-edit.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common-admin/js/datetime-picker.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common/js/core/constants.js" asp-append-version="true" type="text/javascript"></script>
+}

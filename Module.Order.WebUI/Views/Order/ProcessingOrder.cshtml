@@ -1,0 +1,185 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Extensions
+@using Module.Common.WebUI.Infrastructure
+@model (Module.Order.Business.Models.UserComplexOrderDTO Order, Dictionary<string, string[]> Documents)
+@{
+    Layout = "_PersonalLayout";
+    ViewData["Title"] = "Личный кабинет";
+}
+
+@if (Model.Order.ProcessedItems.Items.Any()) {
+    <div>
+        <div>
+            <div class="dataTables_customSearchWrapper bg-main-info-light border p-2 my-auto">
+                <div class="container-fluid p-0">
+                    <div class="form-row pl-1">
+                        <div class="form-group col-12 col-md-4 pl-2 m-auto">
+                            <input type="text" class="form-control" placeholder="Поиск по артикулу" data-target-col="itemInfo" id="inputSearchArticul" name="inputSearchArticul" value="">
+                        </div>
+                        <div class="form-group col-12 col-md-4 m-auto">
+                            <input type="text" class="form-control" placeholder="Поиск по цвету" data-target-col="colorName" id="inputSearchColor" name="inputSearchColor" value="">
+                        </div>
+                        <div class="form-group col-12 col-md-2 m-0">
+                            <button type="button" class="btn-basic btn-main btn-block" data-apply-filter>Найти</button>
+                        </div>
+                        <div class="form-group col-12 col-md-2 m-0">
+                            <button type="button" class="btn-basic btn-main-white btn-block" data-clear-filter>Очистить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (var collectionGroup in Model.Order.ProcessedItems.Items) {
+            <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseItems_@(collectionGroup.Id)" role="button" aria-expanded="false" aria-controls="collapseItems_@(collectionGroup.Name)">
+                <div class="font-weight-bold">
+                    <span>@collectionGroup.Name</span>
+                    <span class="mx-2">/</span>
+                    <span>@collectionGroup.Totals.TotalAmount</span>
+                    <span>ед на сумму</span>
+                    <span class="ml-1">@collectionGroup.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                    <span class="mx-2">/</span>
+                    <span> предоплата @collectionGroup.Totals.PrepayPercentAsString() % = </span>
+                    <span class="ml-1">@collectionGroup.Totals.GetTotalPricePrepay().ToTwoDecimalPlaces() $</span>
+                    <span class="mx-2">/</span>
+                    <span>@collectionGroup.CreateDate.ToBasicString()</span>
+                </div>
+                <div class="ml-auto">
+                    <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+                </div>
+            </div>
+            <div class="collapse mb-4" id="collapseItems_@(collectionGroup.Id)">
+                <table class="table table-striped table-bordered text-break dataTable border w-100 @Html.AddValue(true, $"itemsTable_{collectionGroup.Id}")">
+                    <thead>
+                    <tr class="rounded-2">
+                        <th></th>
+                        <th width="7%" class="border-0 small-paddings sorting" data-sort-target-col="createDate">Дата</th>
+                        <th width="26%" class="border-0 small-paddings sorting" data-sort-target-col="itemInfo">Информация о модели</th>
+                        <th width="14%" class="border-0 hide-arrows">Цвета</th>
+                        <th class="border-0 small-paddings sorting" data-sort-target-col="orderedTotalAmount">Было заказано</th>
+                        <th class="border-0 small-paddings sorting" data-sort-target-col="manufacturingTotalAmount">Ожидает запуска</th>
+                        <th class="border-0 small-paddings sorting" data-sort-target-col="cuttingTotalAmount">Крой</th>
+                        <th class="border-0 small-paddings sorting" data-sort-target-col="sewingTotalAmount">Пошив</th>
+                        <th class="border-0 small-paddings sorting" data-sort-target-col="reservationTotalAmount">Резерв</th>
+                        <th class="border-0 small-paddings rounded-top-right-2 sorting" data-sort-target-col="shipmentTotalAmount">Отправка</th>
+                    </tr>
+                    </thead>
+                    <tfoot class="text-bold">
+                    @{
+                        var manufactureItem = Model.Order.ManufactureItems.Items.FirstOrDefault(x => x.Id == collectionGroup.Id);
+                    }
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-right">Единиц</td>
+                        <td>@(Model.Order.OrderedItems.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalAmount ?? 0)</td>
+                        @if (manufactureItem != null) {
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.Zapusk).TotalAmount</td>
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.Kroy, ManufactureState.KroyComplete).TotalAmount</td>
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.VPoshive, ManufactureState.SkladGP).TotalAmount</td>
+                        } else {
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        }
+                        <td>@(Model.Order.Reservations.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalAmount ?? 0)</td>
+                        <td>@(Model.Order.Shipments.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalAmount ?? 0)</td>
+                    </tr>
+                    <tr class="">
+                        <td colspan="3"></td>
+                        <td class="text-right">На сумму</td>
+                        <td>@(Model.Order.OrderedItems.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalSum.ToTwoDecimalPlaces() ?? "0") $</td>
+                        @if (manufactureItem != null) {
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.Zapusk).TotalSum.ToTwoDecimalPlaces() $</td>
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.Kroy, ManufactureState.KroyComplete).TotalSum.ToTwoDecimalPlaces() $</td>
+                            <td>@manufactureItem.GetTotalsByState(ManufactureState.VPoshive, ManufactureState.SkladGP).TotalSum.ToTwoDecimalPlaces() $</td>
+                        } else {
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        }
+                        <td>@(Model.Order.Reservations.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalSum.ToTwoDecimalPlaces() ?? "0") $</td>
+                        <td>@(Model.Order.Shipments.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Totals.TotalSum.ToTwoDecimalPlaces() ?? "0") $</td>
+                    </tr>
+                    <tr>
+                        <td colspan="10">
+                            <div class="text-right d-block bg-main-info-light rounded-2 p-3">
+                                <div class="font-weight-bold">
+                                    <span>Итого: </span>
+                                    <span>@collectionGroup.Totals.TotalAmount</span>
+                                    <span>ед на сумму</span>
+                                    <span class="ml-1">@collectionGroup.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div>
+                    @{
+                        var shipmentGroups = Model.Order.Shipments.Items.FirstOrDefault(x => x.Id == collectionGroup.Id)?.Items;
+                    }
+                    @if (shipmentGroups != null) {
+                        @foreach (var shipmentGroup in shipmentGroups) {
+                            <div class="px-2">
+                                <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseShipment_@(collectionGroup.Id)_@(shipmentGroup.CreateDate.ToJointString())_@(shipmentGroup.Name)" role="button" aria-expanded="false" aria-controls="collapseShipment@(collectionGroup.Id)_@(shipmentGroup.CreateDate.ToJointString())_@(shipmentGroup.Name)">
+                                    <div class="font-weight-bold">
+                                        <span>Отправка от @shipmentGroup.CreateDate.ToBasicString() / </span>
+                                        <span>@shipmentGroup.Totals.TotalAmount</span>
+                                        <span>ед на сумму</span>
+                                        <span class="ml-1">@shipmentGroup.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        @if (Model.Documents.ContainsKey(shipmentGroup.Name)) {
+                                            foreach (var document in Model.Documents[shipmentGroup.Name]) {
+                                                <a class="link-base link-dark mx-2" data-save-filepath="/@(shipmentGroup.Name)/@document" data-save-file-name="Акт">
+                                                    <span class="iconify" data-icon="ic:outline-save-alt" data-inline="false"></span>
+                                                    @StringExtensions.GetMoneyFileName(document)
+                                                </a>
+                                            }
+                                        }
+                                        <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span>
+                                    </div>
+                                </div>
+                                <div class="collapse mb-4" id="collapseShipment_@(collectionGroup.Id)_@(shipmentGroup.CreateDate.ToJointString())_@(shipmentGroup.Name)">
+                                    <table class="table table-striped table-bordered text-break border dataTable w-100 @Html.AddValue(true, $"shipmentItemsTable_{collectionGroup.Id}_{shipmentGroup.CreateDate.ToJointString()}_{shipmentGroup.Name}")">
+                                        <thead>
+                                        <tr>
+                                            <th>Информация о модели</th>
+                                            <th>Цвета</th>
+                                            <th>Линейки</th>
+                                            <th>Единицы</th>
+                                            <th>На сумму</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="d-flex flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3">
+                                                    <div class="font-weight-bold">
+                                                        <span>Итого: </span>
+                                                        <span>@shipmentGroup.Totals.TotalAmount</span>
+                                                        <span>ед на сумму</span>
+                                                        <span class="ml-1">@shipmentGroup.Totals.TotalSum.ToTwoDecimalPlaces() $</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+} else {
+    <div class="row text-center justify-content-center main-font h1 pt-5">По вашему запросу ничего не найдено</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model.Order);
+    </script>
+    <script src="/order/js/processed-order.js" asp-append-version="true"></script>
+}

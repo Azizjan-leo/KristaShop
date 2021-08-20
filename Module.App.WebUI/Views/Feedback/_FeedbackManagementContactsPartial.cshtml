@@ -1,0 +1,19 @@
+﻿@model Module.App.WebUI.Models.ManagementContactsFeedbackViewModel
+<div class="ajax-post-form">
+    <form method="post" asp-action="CreateManagementContacts" asp-controller="Feedback">
+        <div class="ajax-post-form-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()"/>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label asp-for="Message" class="sr-only"></label>
+                    <textarea asp-for="Message" class="form-control grey-control rounded-0" placeholder="Сообщение" rows="6"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-basic btn-main-gradient text-uppercase w-100">Написать</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,215 @@
+﻿@using KristaShop.Common.Enums;
+@using KristaShop.Common.Extensions
+@model (List<Module.Order.Business.Models.CartItem1CDTO> Items, KristaShop.Common.Models.Structs.PrepayValue Prepay)
+
+@{
+    ViewData["Title"] = "Корзина";
+    var totalPrice = Model.Items.Sum(x => x.TotalPrice).ToTwoDecimalPlaces();
+    var totalPriceRu = Model.Items.Sum(x => x.TotalPriceInRub).ToTwoDecimalPlaces();
+    var preorderPrice = Model.Items.Where(x => x.CatalogId == CatalogType.Preorder).Sum(x => x.TotalPrice);
+    var preorderPriceRu = Model.Items.Where(x => x.CatalogId == CatalogType.Preorder).Sum(x => x.TotalPriceInRub);
+    var preorderTotalPrice = (preorderPrice * Model.Prepay.Percent).ToTwoDecimalPlaces();
+    var preorderTotalPriceRu = (preorderPriceRu * Model.Prepay.Percent).ToTwoDecimalPlaces();
+    var instockPrice = Model.Items.Where(x => x.CatalogId != CatalogType.Preorder).Sum(x => x.TotalPrice).ToTwoDecimalPlaces();
+    var instockPriceRu = Model.Items.Where(x => x.CatalogId != CatalogType.Preorder).Sum(x => x.TotalPriceInRub).ToTwoDecimalPlaces();
+    var inStockPriceWasShowed = false;
+    int totalPartsCount = Model.Items.Sum(x => x.Amount);
+}
+<div class="container mt-2">
+    <div class="d-flex my-3 flex-wrap">
+        <div class="">
+            <h1 class="header-font h3 text-uppercase text-black">
+                <b>@ViewData["Title"]</b>
+            </h1>
+        </div>
+        <div class="ml-lg-auto ml-md-auto">
+            <p class="h4 text-uppercase">
+                <span>
+                    <span>
+                        <span>Итого:</span>
+                        <span class="jsCartTotalPrice">@totalPrice</span>
+                        <span> $</span>
+                    </span>
+                    <span>
+                        <span>|</span>
+                        <span class="jsCartTotalPriceRu">@totalPriceRu</span>
+                        <span> р</span>
+                    </span>
+
+                </span>
+                <a class="btn btn-lg btn-basic btn-main-gradient ml-lg-4 ml-md-4 text-capitalize" href="#submitBtn">Оформить заказ <i class="bx bx-down-arrow-alt icon-font align-text-bottom"></i></a>
+            </p>
+        </div>
+    </div>
+    @if (Model.Items.Any()) {
+        <div class="row text-center align-items-start p-3 d-none d-md-flex">
+            <div class="col-1"></div>
+            <div class="col-1 m-0 p-0">
+                <b>Артикул</b>
+            </div>
+            <div class="col-1 m-0 p-0">
+                <b>Цвет</b>
+            </div>
+            <div class="col-1 m-0 p-0">
+                <b>Размер</b>
+            </div>
+            <div class="col-2 m-0 p-0">
+                <b>Линейки</b>
+            </div>
+            <div class="col-2 m-0 p-0">
+                <b>Единицы</b>
+            </div>
+            <div class="col-3">
+                <b>Расчет</b>
+            </div>
+        </div>
+        @foreach (var curCatalog in CatalogTypeExtensions.GetAllCatalogsExceptOpen()) {
+            @if (Model.Items.Any(x => x.CatalogId == curCatalog)) {
+                <div class="jsCatalog">
+                    <span class="d-none jsPrepayPercent">@Model.Prepay.Percent.ToTwoDecimalPlaces()</span>
+                    <div class="d-flex my-1 flex-wrap d-block bg-dark text-white align-items-center p-2" data-toggle="collapse" href="#collapseCatalog_@curCatalog" role="button" aria-expanded="false" aria-controls="collapsePreorder">
+                        <div class="">
+                            <p class="m-auto">
+                                <span class="iconify icon-font-18px align-text-bottom" data-inline="false" data-icon="eva:expand-fill"></span> @Model.Items.First(x => x.CatalogId == curCatalog).CatalogName
+                            </p>
+                        </div>
+                        @if (curCatalog == CatalogType.Preorder) {
+                            <div class="ml-auto">
+                                <span>
+                                    <span>На сумму </span>
+                                    <span class="jsCatalogTotalSum">@preorderPrice.ToTwoDecimalPlaces()</span>
+                                    <span> $</span>
+                                </span>
+                                <span>
+                                    <span>|</span>
+                                    <span class="jsCatalogTotalSumRub">@preorderPriceRu.ToTwoDecimalPlaces()</span>
+                                    <span> р</span>
+                                </span>
+                                <span>
+                                    <span>| Предоплата @Model.Prepay.Name %: </span>
+                                    <span class="jsCatalogPrepaySum">@preorderTotalPrice</span>
+                                    <span> $</span>
+                                </span>
+                                <span>
+                                    <span>|</span>
+                                    <span class="jsCatalogPrepaySumRub">@preorderTotalPriceRu</span>
+                                    <span> р</span>
+                                </span>
+                            </div>
+                        } else {
+                            @if (!inStockPriceWasShowed) {
+                                inStockPriceWasShowed = true;
+                                <div class="ml-auto">
+                                    <span>
+                                        <span>На сумму </span>
+                                        <span class="jsCatalogTotalSum">@instockPrice</span>
+                                        <span> $</span>
+                                    </span>
+                                    <span>
+                                        <span>|</span>
+                                        <span class="jsCatalogTotalSumRub">@instockPriceRu</span>
+                                        <span> р</span>
+                                    </span>
+                                </div>
+                            }
+                        }
+                    </div>
+                    @foreach (var item in Model.Items.Where(x => x.CatalogId == curCatalog)) {
+                        <div class="row collapse show text-center align-items-center border-top border-bottom m-0 mb-3 jsParentRow" id="collapseCatalog_@curCatalog">
+                            <span class="d-none jsPartsCount">@item.PartsCount</span>
+                            <div class="col-lg-1 col-md-1 col-sm-12 p-0">
+                                <a href="@item.Image" data-lightbox="Изображение" data-title="@item.Articul">
+                                    <picture class="img-fluid">
+                                        <source srcset="@item.Image?width=100&format=webp" type="image/webp">
+                                        <img srcset="@item.Image?width=100" class="img-fluid" alt="Фото модели @item.Articul"/>
+                                    </picture>
+                                </a>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-12 m-0 p-0">@item.Articul</div>
+                            <div class="col-lg-1 col-md-1 col-sm-12 m-0 p-0">
+                                @{ var background = string.IsNullOrEmpty(item.ColorPhoto) ? item.ColorValue : $"url({item.ColorPhoto})";}
+                                <div class="color-swatch" title="@item.ColorName" style="background: @background;"></div>
+                                <div class="text-capitalize">@item.ColorName</div>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-12 m-0 p-0">@item.SizeValue</div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-12 m-0 p-0 text-center">
+                                <div class="form-control cart-item-spinner jsCartItemSpinner">
+                                    <button class="btn cart-spinner-btn dn" data-cart-item-id="@item.Id" data-amount-change="dn">-</button>
+                                    <span class="jsAmount">@(item.Amount / item.PartsCount)</span>
+                                    <button class="btn cart-spinner-btn up" data-cart-item-id="@item.Id" data-amount-change="up">+</button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-12 m-0 p-0 jsTotalAmount">@item.Amount</div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 d-md-flex align-self-stretch">
+                                <div class="row">
+                                    <div class="col-6 bg-light d-flex align-self-stretch align-items-center">
+                                        <p class="text-dark m-auto">
+                                            <span>Цена</span>
+                                            <span class="text-bold">
+                                                <span class="text-nowrap jsPrice">@item.Price.ToTwoDecimalPlaces()</span>
+                                                <span> $</span>
+                                                <span>|</span>
+                                                <span class="text-nowrap jsPriceRu">@item.PriceInRub.ToTwoDecimalPlaces()</span>
+                                                <span> р</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6 d-flex align-self-stretch align-items-center" style="background-color:#E0E0E0">
+                                        <p class="text-dark m-auto">Скидка <b><span class="text-nowrap">0 $</span> | <span class="text-nowrap">0 р</span></b></p>
+                                    </div>
+                                    <div class="col-12 bg-secondary d-flex align-self-stretch align-items-center">
+                                        <p class="text-white m-auto">
+                                            <span>Итого</span>
+                                            <span class="text-bold">
+                                                <span class="text-nowrap jsTotalPrice">@item.TotalPrice.ToTwoDecimalPlaces()</span>
+                                                <span> $</span>
+                                                <span>|</span>
+                                                <span class="text-nowrap jsTotalPriceRu">@item.TotalPriceInRub.ToTwoDecimalPlaces()</span>
+                                                <span> р</span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-12 p-0">
+                                <form method="post" asp-action="Delete">
+                                    <button type="submit" name="CartId" value="@item.Id" class="btn">
+                                        <span class="bx bx-x-circle text-red icon-font-24px"></span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+        <div class="d-flex my-1 flex-wrap d-block bg-dark text-white align-items-center p-2 mb-3">
+            <div class="">
+                <p class="m-auto">&nbsp;</p>
+            </div>
+            <div class="ml-auto">
+                <span>Всего единиц:</span>
+                <span class="jsCartTotalAmount">@totalPartsCount</span>
+                <span> шт.</span>
+            </div>
+        </div>
+    } else {
+        <p class="text-center h3">В данный момент Ваша корзина пуста.</p>
+    }
+</div>
+<div class="container">
+    @await Component.InvokeAsync("OrderForm")
+</div>
+
+@section Styles{
+    <link rel="stylesheet" href="/cart/css/cart.css" asp-append-version="true"/>
+}
+
+@section Scripts{
+    <environment include="Development">
+        <script src="/cart/js/cart.js" asp-append-version="true"></script>
+    </environment>
+}

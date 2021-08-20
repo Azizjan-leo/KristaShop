@@ -1,0 +1,66 @@
+﻿@using Module.Common.Admin.Admin.Models
+@model IEnumerable<Module.Client.Business.Models.UserClientDTO>
+@{
+    ViewData["Title"] = "Список клиентов";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("Создать гостевую ссылку", "GuestAccessLink", "", "krista-link")
+    };
+    var isAdvFeaturesEnabled = false;
+}
+<feature name="FeatureAdvancedFunctionality">
+    @{
+        isAdvFeaturesEnabled = true;
+    }
+</feature>
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+
+<partial name="_LinkPartial" />
+<partial name="_SearchUserPartial" model="null" />
+
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered text-break overflow-auto" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Клиент</th>
+                <th>Логин</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th>Город и название ТЦ</th>
+                <th>Менеджер</th>
+                <th>Создан / Был в сети</th>
+                <th>Сер.</th>
+                <th>Не сер.</th>
+                <th>Предз</th>
+                <th>Расп. сер.</th>
+                <th>Расп. не сер.</th>
+                <th>РФ сер.</th>
+                <th>РФ не сер.</th>
+                <th><i class="fas fa-shopping-cart text-secondary"></i></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
+}
+
+@section Scripts {
+    <script>
+        const dataModel = @Html.AsJsObject(Model);
+        const featureEnabled = Boolean.parse('@isAdvFeaturesEnabled');
+        const hasAccessToMakePartner = '@(await HasAccess("Partnership", "MakePartner"))';
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/client-admin/js/Identity/Index.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common-admin/js/datetime-picker.js" asp-append-version="true" type="text/javascript"></script>
+    <script src="/common/js/core/constants.js" asp-append-version="true" type="text/javascript"></script>
+}

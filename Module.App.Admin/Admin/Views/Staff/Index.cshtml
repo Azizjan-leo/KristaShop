@@ -1,0 +1,30 @@
+﻿@model IEnumerable<KristaShop.Common.Models.DTOs.ManagerDetailsDTO>
+@{
+    ViewData["Title"] = "Менеджеры";
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered" style="width: 100%">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Группа</th>
+            <th>Email уведомления</th>
+            <th>Очередь регистраций</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        const dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/app-admin/js/Staff/index.js" asp-append-version="true" type="text/javascript"></script>
+}

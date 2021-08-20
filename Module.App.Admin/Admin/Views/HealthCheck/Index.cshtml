@@ -1,0 +1,18 @@
+@using Module.Common.Admin.Admin.Models
+@{
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> { new("Сбросить кэш", "DropCache", "", "krista-delete", classes: "btn-main-danger") };
+}
+
+<div class="bg-white rounded p-3 collapsed" data-toggle="collapse" href="#collapse_email" role="button" aria-expanded="false" aria-controls="collapseItems_email">
+    <h2>Email notoifications health check</h2>
+    <p class="text-main-grey">Enter email to send test message. If you recieve the message on this email during 5 minutes then the service is working sucessfully</p>
+</div>
+<div id="collapse_email" class="collapse show border rounded p-3">
+    <form asp-action="EmailCheck">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

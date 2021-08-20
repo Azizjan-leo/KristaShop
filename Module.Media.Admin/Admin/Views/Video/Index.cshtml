@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Видео";
+    ViewData["NavbarControllerName"] = "VideoGallery";
+    var galleryId = new Guid(ViewData["GalleryId"].ToString());
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> {
+        new("К списку галерей", "Index", "VideoGallery", classes: "btn-main-info"),
+        new("Новая запись", "Create", "", "krista-plus", new Dictionary<string, string> {{"galleryId", galleryId.ToString()}})
+    };
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<input type="hidden" id="GalleryId" value="@galleryId" />
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Порядок</th>
+                <th>Превью</th>
+                <th>Заголовок</th>
+                <th>Описание</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="/media-admin/js/video.js" asp-append-version="true" type="text/javascript"></script>
+}

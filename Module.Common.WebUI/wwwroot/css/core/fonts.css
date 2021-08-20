@@ -1,0 +1,501 @@
+﻿h1, h2, h3, h4, h5, h6, .header-font {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-style: normal;
+}
+
+body, p, a, button,
+.main-font {
+    font-family: 'Manrope', sans-serif;
+    font-style: normal;
+}
+
+.generic-font {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-style: normal;
+}
+
+.main-font.h1, .main-font .h1, .main-font.h1 > * {
+    font-weight: normal;
+    font-size: 22px !important;
+    line-height: 30px !important;
+}
+
+.main-font.h1-smaller, .main-font .h1-smaller, .main-font.h1-smaller > * {
+    font-weight: normal;
+    font-size: 20px !important;
+    line-height: 32px !important;
+}
+
+.main-font.h2, .main-font .h2, .main-font.h2 > * {
+    font-weight: normal;
+    font-size: 16px !important;
+    line-height: 26px !important;
+}
+
+.main-font.h3, .main-font .h3, .main-font.h3 > * {
+    font-weight: normal;
+    font-size: 15px !important;
+    line-height: 20.49px !important;
+}
+
+.main-font.h4, .main-font .h4, .main-font.h4 > * {
+    font-weight: normal;
+    font-size: 14px !important;
+    line-height: 19.52px !important;
+}
+
+.main-font.h5, .main-font .h5, .main-font.h5 > * {
+    font-weight: normal;
+    font-size: 13px !important;
+    line-height: 24px !important;
+}
+
+.main-font.h6, .main-font .h6, .main-font.h6 > * {
+    font-weight: normal;
+    font-size: 12px !important;
+    line-height: 16px !important;
+}
+
+.main-font.h7, .main-font .h7, .main-font.h7 > * {
+    font-weight: normal;
+    font-size: 11px !important;
+    line-height: 14px !important;
+}
+
+@media (max-width: 540px) {
+    .main-font.h1-smaller, .main-font .h1-smaller, .main-font.h1-smaller > * {
+        font-weight: 500;
+        font-size: 14px !important;
+        line-height: 20px !important;
+    }
+}
+
+.header-font.h1-bigger, .header-font .h1-bigger, a.h1-bigger, .header-font.h1-bigger > * {
+    font-weight: normal;
+    font-size: 70px !important;
+    line-height: 91px !important;
+}
+
+.header-font.h1, .header-font .h1, a.h1, .header-font.h1 > * {
+    font-weight: normal;
+    font-size: 48px !important;
+    line-height: 62px !important;
+}
+
+.header-font.h2, .header-font .h2, a.h2, .header-font.h2 > * {
+    font-weight: normal;
+    font-size: 40px !important;
+    line-height: 52px !important;
+}
+
+.header-font.h3, .header-font .h3, a.h3, .header-font.h3 > * {
+    font-weight: normal;
+    font-size: 32px !important;
+    line-height: 41px !important;
+}
+
+.header-font.h4, .header-font .h4, a.h4, .header-font.h4 > * {
+    font-weight: normal;
+    font-size: 28px !important;
+    line-height: 36px !important;
+}
+
+.header-font.h4-smaller, .header-font .h4-smaller, a.h4-smaller, .header-font.h4-smaller > * {
+    font-weight: normal;
+    font-size: 24px !important;
+    line-height: 31px !important;
+}
+
+.header-font.h5, .header-font .h5, a.h5, .header-font.h5 > * {
+    font-weight: normal;
+    font-size: 18px !important;
+    line-height: 23px !important;
+}
+
+.header-font.h6, .header-font .h6, a.h6, .header-font.h6 > * {
+    font-weight: normal;
+    font-size: 16px !important;
+    line-height: 21px !important;
+}
+
+.header-font.h7, .header-font .h7, a.h7 {
+    font-weight: normal !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+}
+
+.header-font.h8, .header-font .h8, a.h8 {
+    font-weight: normal !important;
+    font-size: 12px !important;
+    line-height: 16px !important;
+}
+
+@media (max-width: 540px) {
+    .header-font.h1-bigger, .header-font .h1-bigger, a.h1-bigger, .header-font.h1-bigger > * {
+        font-weight: normal;
+        font-size: 18px !important;
+        line-height: 23px !important;
+    }
+
+    .header-font.h1, .header-font .h1, a.h1, .header-font.h1 > * {
+        font-weight: normal;
+        font-size: 40px !important;
+        line-height: 52px !important;
+    }
+}
+
+@media (max-width: 720px) {
+    .header-font.h1-bigger, .header-font .h1-bigger, a.h1-bigger, .header-font.h1-bigger > * {
+        font-weight: normal;
+        font-size: 32px !important;
+        line-height: 41px !important;
+    }
+
+    .header-font.h1, .header-font .h1, a.h1, .header-font.h1 > * {
+        font-weight: normal;
+        font-size: 28px !important;
+        line-height: 36px !important;
+    }
+}
+
+.text-small-caps {
+    font-variant: small-caps;
+}
+
+.text-italic {
+    font-style: italic !important;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+/* --- Icon fonts settings --- */
+
+.icon-font {
+    font-size: 20px;
+}
+
+.icon-font-12px {
+    font-size: 12px;
+}
+
+.icon-font-18px {
+    font-size: 18.17px;
+}
+
+.icon-font-22px {
+    font-size: 22px;
+}
+
+.icon-font-24px {
+    font-size: 24px;
+    line-height: 30px !important;
+}
+
+.icon-font-30px {
+    font-size: 30px;
+}
+
+.icon-font-35px {
+    font-size: 35px;
+}
+
+.icon-font-37px {
+    font-size: 37px;
+}
+
+.icon-font-40px {
+    font-size: 40px;
+}
+
+.icon-font-50px {
+    font-size: 52px;
+}
+
+.icon-font-70px {
+    font-size: 70px;
+}
+
+.icon-font-100px {
+    font-size: 100px;
+}
+
+.icon-font-150px {
+    font-size: 150px;
+}
+
+@media(min-width: 430px) {
+    .icon-font-smx-35px {
+        font-size: 35px;
+    }
+
+    .icon-font-smx-100px {
+        font-size: 100px;
+    }
+
+    .icon-font-smx-150px {
+        font-size: 150px;
+    }
+}
+
+@media(min-width: 576px) {
+    .icon-font-sm-35px {
+        font-size: 35px;
+    }
+
+    .icon-font-sm-100px {
+        font-size: 100px;
+    }
+
+    .icon-font-sm-150px {
+        font-size: 150px;
+    }
+}
+
+@media(min-width: 768px) {
+    .icon-font-md-35px {
+        font-size: 35px;
+    }
+
+    .icon-font-md-100px {
+        font-size: 100px;
+    }
+
+    .icon-font-md-150px {
+        font-size: 150px;
+    }
+}
+
+
+@media(min-width: 992px) {
+    .icon-font-lg-35px {
+        font-size: 35px;
+    }
+
+    .icon-font-lg-100px {
+        font-size: 100px;
+    }
+
+    .icon-font-lg-150px {
+        font-size: 150px;
+    }
+}
+
+.text-balance-color {
+    color: #219653;
+}
+
+.text-main-grey {
+    color: #8A8A8A;
+}
+
+.text-main-grey-lighter {
+    color: #B6C0C9;
+}
+
+.text-exclusive {
+    color: #EA3DC4;
+}
+
+.text-main-danger { 
+    color: #EF4747 !important;
+}
+
+.text-main-success {
+    color: #27AE60 !important;
+}
+
+.line-surrounded {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    padding: .2em 0;
+}
+
+.line-surrounded:before, .line-surrounded:after {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 2px;
+    vertical-align: middle;
+    background: #F2F2F2;
+    background-clip: content-box;
+    border-bottom: 1px solid rgba(255,255,255,.5);
+}
+
+.line-surrounded:before {
+    left: -.5em;
+    margin: 0 0 0 -50%;
+}
+
+.line-surrounded:after {
+    left: .5em;
+    margin: 0 -50% 0 0;
+}
+
+/* Old font settings */
+.text-black {
+    color: #000000;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-dark-grey {
+    color: #414141
+}
+
+.text-active {
+    color: #784AAB;
+}
+
+.text-active-brigter {
+    color: #754DF0;
+}
+
+.text-header-grey {
+    color: #3F3E3E;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #7000FF 0%, #D400A6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-main {
+    background: radial-gradient(101.8% 743.94% at -1.8% 0%, #7DE2FD 0%, #7A00F3 52.71%, #772684 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-main-header {
+    background: radial-gradient(101.8% 743.94% at -1.8% 0%, #7DE2FD 0%, #7A00F3 52.71%, #772684 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 300;
+    font-size: 50px;
+    line-height: 63px;
+}
+
+    .text-main-header.th1 {
+        font-size: 50px;
+        line-height: 63px;
+    }
+
+    .text-main-header.th2 {
+        font-size: 45px;
+        line-height: 53px;
+    }
+
+    .text-main-header.h2 {
+        font-size: 45px;
+        line-height: 53px;
+    }
+
+    .text-main-header.th1 .text-adaptive {
+        font-size: 8vw;
+        line-height: normal;
+    }
+
+        .text-main-header.th1 .text-adaptive.th0 {
+            font-size: 12vw;
+            line-height: normal;
+        }
+
+@media(min-width: 576px) {
+    .text-main-header.th1 .text-adaptive-sm.th1 {
+        font-size: 8vw;
+        line-height: normal;
+    }
+
+    .text-main-header .text-adaptive-none-sm {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}
+
+@media(min-width: 768px) {
+    .text-main-header.th1 .text-adaptive-md.th1 {
+        font-size: 7vw;
+        line-height: normal;
+    }
+
+    .text-main-header .text-adaptive-none-md {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}
+
+@media(min-width: 992px) {
+    .text-main-header.th1 .text-adaptive-lg.th1 {
+        font-size: 6vw;
+        line-height: normal;
+    }
+
+    .text-main-header .text-adaptive-none-lg {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}
+
+.text-header-18px {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: 0.085em;
+}
+
+    .text-header-18px.bold {
+        font-weight: bold;
+        letter-spacing: 0.01em;
+    }
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-line-through {
+    text-decoration: line-through !important;
+}
+
+.text-header-bold {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+}
+
+.text-header-basic {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 43px;
+    line-height: 63px;
+    letter-spacing: 0.01em;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-style-normal {
+    font-style: normal !important;
+}
+
+@media(max-width: 350px) {
+    .text-header-basic {
+        font-size: 25px;
+        line-height: 31px;
+    }
+}

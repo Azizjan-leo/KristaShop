@@ -1,0 +1,58 @@
+<div class="container-fluid p-0 customSearchWrapper filter-form-bordered">
+    <div class="form-row mb-0 pl-1 main-font h4">
+        <div class="form-group col-12 col-md-4 pl-0 pr-2">
+            <label class="text-bold">Поиск по артикулу</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                    </span>
+                </div>
+                <input type="text" class="form-control has-append-group" placeholder="Поиск по артикулу" data-target-col="modelKey" name="inputSearchArticul" value="">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                        <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 col-md-4 px-2">
+            <label class="text-bold">Поиск по цвету</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <span class="iconify icon-font" data-inline="false" data-icon="bx:bx-search"></span>
+                    </span>
+                </div>
+                <input type="text" class="form-control has-append-group" placeholder="Поиск по цвету" data-target-col="allColors" name="inputSearchColor" value="">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-clear-input" onclick="clearInputGroup(this)">
+                        <span class="iconify" data-inline="false" data-icon="clarity:close-line"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 col-md-4 px-2">
+            <div class="d-flex">
+                <label class="text-bold">Поиск по размеру</label>
+                <div class="ml-auto">
+                    <a class="link-base link-danger link-decoration-none" title="Сбросить фильтры" data-clear-filter>
+                        <span class="iconify font-size-18 font-weight-6" data-inline="false" data-icon="grommet-icons:power-reset"></span>
+                        <span class="font-weight-6 align-middle">Сброс</span>
+                    </a>
+                </div>
+            </div>
+            <select asp-items="ViewBag.Sizes" class="selectpicker form-control form-control-sm show-menu-arrow" data-target-col="allSizes" data-dropup-auto="false" data-size="10" data-live-search="true" data-actions-box="true" multiple data-title="Укажите размер">
+            </select>
+        </div>
+    </div>
+    <div class="form-row pl-1 main-font h4">
+        <div class="form-group col-12 col-md-4 pl-0 pr-2">
+            <label class="text-bold">По виду документа</label>
+            <select asp-items="ViewBag.Documents" class="selectpicker form-control form-control-sm show-menu-arrow" data-target-col="documentName" data-dropup-auto="false" data-size="10" data-live-search="true" data-actions-box="true" data-title="Выберите тип документа">
+                            <option value=""></option>
+
+                </select>
+        </div>
+    </div>
+</div>

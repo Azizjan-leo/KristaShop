@@ -1,0 +1,82 @@
+﻿@model Module.Client.Admin.Admin.Models.UserUpdateViewModel
+@{
+    ViewData["Title"] = "Пользователь - Изменить запись";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <a asp-action="Index">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Назад к списку
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="UpdateUser" asp-route-filter="@ViewData["filter"]">
+                    <div class="form-row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="NewUserId" hidden />
+                        <input asp-for="FullName" hidden/>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Login"></label>
+                                <input asp-for="Login" class="form-control form-control-sm"/>
+                                <span asp-validation-for="Login" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <div class="input-group input-group-sm mb-2">
+                                    <div class="input-group-prepend">
+                                        <a class="btn btn-secondary" data-generate-password="#Password"><span class="fas fa-ellipsis-h"></span></a>
+                                    </div>
+                                    <input asp-for="Password" class="form-control form-control-sm" />
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CityId"></label>
+                                <select class="form-control form-control-sm" asp-for="CityId" asp-items="Model.Cities">
+                                    <option value="">Другой город</option>
+                                </select>
+                                <span asp-validation-for="CityId" class="text-danger"></span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.NewCity)) {
+                                <div class="form-group">
+                                    <label asp-for="NewCity"></label>
+                                    <input asp-for="NewCity" class="form-control form-control-sm"/>
+                                    <span asp-validation-for="NewCity" class="text-danger"></span>
+                                </div>
+                            }
+                            <div class="form-group">
+                                <label asp-for="CompanyAddress"></label>
+                                <input asp-for="CompanyAddress" class="form-control form-control-sm"/>
+                                <span asp-validation-for="CompanyAddress" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MallAddress"></label>
+                                <input asp-for="MallAddress" class="form-control form-control-sm"/>
+                                <span asp-validation-for="MallAddress" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Phone"></label>
+                                <input asp-for="Phone" class="form-control form-control-sm"/>
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control form-control-sm"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block shadow">Подтвердить</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

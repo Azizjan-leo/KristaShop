@@ -1,0 +1,82 @@
+﻿@model Module.Order.Admin.Admin.Models.OrdersTotalFilter
+@{
+    ViewData["Title"] = "Сводный отчет по заказам";
+}
+<div class="dataTables_customSearchWrapper border-0 p-0">
+    <form asp-action="TotalOrdersReport" id="TotalOrdersReportFilter" method="get">
+        <div class="form-row px-3 pb-4">
+            <h4 class="font-weight-bold">@ViewData["Title"]</h4>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12 col-lg-3">
+                <input type="text" asp-for="Articul" placeholder="Артикул" class="form-control order-input"/>
+            </div>
+            <div class="form-group col-12 col-lg-3">
+                <select asp-for="ColorId" asp-items="@ViewBag.ColorsList" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" title="По цвету">
+                    <option value="">Все</option>
+                </select>
+            </div>
+            <div class="form-group col-12 col-lg-3">
+                <select asp-for="SizeValue" asp-items="@ViewBag.SizesList" class="selectpicker form-control show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true" title="По размеру">
+                    <option value="">Все</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12 col-lg-3">
+                <div class="input-group order-input date" id="orderDateFromPicker" data-target-input="nearest" data-datetime-picker>
+                    <input asp-for="OrderDateFrom" type="text" class="form-control datetimepicker-input" data-target="#orderDateFromPicker" placeholder="Дата от"/>
+                    <div class="input-group-append" data-target="#orderDateFromPicker" data-toggle="datetimepicker">
+                        <div class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12 col-lg-3">
+                <div class="input-group order-input date" id="orderDateToPicker" data-target-input="nearest" data-datetime-picker>
+                    <input asp-for="OrderDateTo" type="text" class="form-control datetimepicker-input" data-target="#orderDateToPicker" placeholder="Дата до"/>
+                    <div class="input-group-append" data-target="#orderDateToPicker" data-toggle="datetimepicker">
+                        <div class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-auto">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" asp-for="PreorderOnly">
+                    <label class="custom-control-label" asp-for="PreorderOnly"></label>
+                </div>
+            </div>
+            <div class="form-group col-auto">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" asp-for="InStockOnly">
+                    <label class="custom-control-label" asp-for="InStockOnly"></label>
+                </div>
+            </div>
+            <div class="form-group col-auto">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" asp-for="ProcessedOnly">
+                    <label class="custom-control-label" asp-for="ProcessedOnly"></label>
+                </div>
+            </div>
+            <div class="form-group col-auto">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" asp-for="UnProcessedOnly">
+                    <label class="custom-control-label" asp-for="UnProcessedOnly"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-row justify-content-end">
+            <div class="form-group col-12 col-lg-3">
+                <button type="button" class="btn btn-main-danger btn-block" onclick="ResetReportFilter();">Сбросить фильтр</button>
+            </div>
+            <div class="form-group col-12 col-lg-3">
+                <button type="submit" class="btn btn-main-primary btn-block">Применить фильтр</button>
+            </div>
+        </div>
+    </form>
+</div>

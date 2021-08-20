@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.VideoGalleryDTO>
+<ul class="dropdown-menu py-xl-0">
+    @foreach (var item in Model) {
+        <li class="mb-3">
+            <a class="link-base link-light main-font h3 d-block w-100" asp-area="" asp-controller="VideoGallery" asp-action="Details" asp-route-gallery="@item.Slug">
+                @item.Title
+            </a>
+        </li>
+    }
+</ul>

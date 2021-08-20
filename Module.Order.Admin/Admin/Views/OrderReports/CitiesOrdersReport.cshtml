@@ -1,0 +1,62 @@
+﻿@model (Module.Order.Admin.Admin.Models.OrderReportsFilter filter, Module.Common.Business.Models.ReportTotalsDTO totals)
+@{
+    ViewData["Title"] = "Отчет по городам";
+}
+<form method="post">
+    <div class="row m-0 mb-4">
+        <div class="col-12 px-0 pb-4">
+            <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+        </div>
+        <div class="col-12 px-0">
+            <div class="dataTables_customTotalsWrapper p-4 mb-2">
+                <partial name="Reports/_ReportTotals" model="Model.totals" />
+                <div class="form-row pt-2">
+                    <div class="form-group col-12 col-lg-3 my-auto">
+                        <a asp-action="TotalOrdersReport" class="btn btn-main-primary btn-block font-weight-bold">Расшифровать по моделям</a>
+                    </div>
+                    <div class="form-group col-12 col-lg-2 my-auto px-3">
+                        <div class="custom-control custom-switch my-auto">
+                            <input type="checkbox" asp-for="filter.OnlyNotEmptyUserCarts" id="OnlyNotEmptyUserCarts" name="OnlyNotEmptyUserCarts" class="custom-control-input">
+                            <label class="custom-control-label pt-1" for="OnlyNotEmptyUserCarts">По корзинам</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-lg-3 my-auto">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" asp-for="filter.OnlyUnprocessedOrders" id="OnlyUnprocessedOrders" name="OnlyUnprocessedOrders" class="custom-control-input">
+                            <label class="custom-control-label pt-1" for="OnlyUnprocessedOrders">По необработанным заказам</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dataTables_customSearchWrapper p-0 border-0">
+        <partial name="Reports/_ReportFilter" model="Model.filter"/>
+        <div class="form-row justify-content-end">
+            <div class="form-group col-4 mb-2">
+                <button type="submit" class="btn btn-main-primary btn-block">Применить фильтр</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered text-break" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Город Id</th>
+                <th>Город</th>
+                <th>Клиент Id</th>
+                <th>Клиент</th>
+                <th>Менеджер Id</th>
+                <th>Менеджер</th>
+                <th>Единиц</th>
+                <th>На сумму</th>
+                <th>Корзина</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="/order-admin/js/OrderReports/city-orders-report.js" asp-append-version="true" type="text/javascript"></script>
+}

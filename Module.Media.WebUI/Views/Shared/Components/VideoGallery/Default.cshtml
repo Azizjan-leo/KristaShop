@@ -1,0 +1,41 @@
+﻿@model Module.Media.Business.DTOs.VideoGalleryWithVideosDTO
+<!-- Video gallery -->
+<div class="container-fluid px-2 px-xl-3">
+    <partial name="_TitleDescriptionPartial" model="@(new TitleDescriptionViewModel("Видеогалерея", Model.Description, Url.Action("Index", "VideoGallery")))"/>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 m-0 pt-2">
+        @foreach (var video in Model.Videos) {
+            <div class="col px-2 mb-2">
+                <div class="card mb-3 border-0 rounded-1 h-100">
+                    <div class="position-relative">
+                        <div class="image-fix-height-wrapper">
+                            <picture class="card-img-top rounded-top-1 lazy image">
+                                <source data-srcset="@video.PreviewPath?width=480&format=webp" type="image/webp">
+                                <img class="card-img-top rounded-top-1 lazy image" data-srcset="@video.PreviewPath?width=480" alt="@video.Title" />
+                            </picture>
+                        </div>
+                        <a class="d-block" data-toggle="video-modal" data-target="#videoModal" data-source="@video.VideoPath">
+                            <div class="card-img-overlay cursor-pointer d-flex flex-column justify-content-center text-white">
+                                <span class="h3 card-text text-center text-overflow">
+                                    <span class="icon icon-font-100px text-red"><i class="bx bxl-youtube"></i></span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body border rounded-bottom-1 p-3">
+                        <a class="link-base link-dark link-decoration-none main-font h5 font-weight-bold cursor-pointer" data-toggle="video-modal" data-target="#videoModal" data-source="@video.VideoPath">@video.Title</a>
+                        <div class="main-font h5 card-text text-overflow card-description-text">
+                            @Html.Raw(video.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row my-3 pt-2">
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="VideoGallery" class="btn btn-basic btn-main-gradient">Смотреть все видео</a>
+        </div>
+    </div>
+</div>
+<partial name="_VideoModalPartial"/>
+<!-- Video gallery -->

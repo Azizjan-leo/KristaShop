@@ -1,0 +1,9 @@
+@model IEnumerable<Module.Media.Business.DTOs.DynamicPageDTO>
+<ul class="dropdown-menu py-xl-0">
+    @foreach (var item in Model) {
+        var anchor = item.IsSinglePage ? string.Empty : $"#{item.GetActionName()}";
+        <li class="mb-3">
+            <a class="link-base link-light main-font h3 d-block w-100" href="@item.URL@anchor">@item.Title</a>
+        </li>
+    }
+</ul>

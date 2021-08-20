@@ -1,0 +1,58 @@
+﻿.lSAction .lSPrev {
+    background-image: url(/common/img/libs/prev.png);
+    -ms-background-size: cover;
+    background-size: cover;
+    -ms-opacity: 1;
+    opacity: 1;
+    -ms-background-position: center;
+    background-position: center;
+}
+
+.lSAction .lSNext {
+    background-image: url(/common/img/libs/next.png);
+    -ms-background-size: cover;
+    background-size: cover;
+    opacity: 1;
+    -ms-background-position: center;
+    background-position: center;
+}
+
+/* Lightslider gallery thumbnails selector*/
+
+.lSPager.lSGallery li {
+    display: flex;
+    flex-direction: row;
+    -o-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.lSPager.lSGallery li.active {
+    display: flex;
+    flex-direction: row;
+    -o-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.lSPager.lSGallery li.active img {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+.lSPager.lSGallery li.active::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: inherit;
+    max-width: 188px;
+    height: 8px;
+    background: #d400a6;
+    -ms-border-bottom-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    -ms-border-bottom-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+        <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.3.0" />
+        <PackageReference Include="Quartz" Version="3.3.2" />
+        <PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\KristaShop.Common\KristaShop.Common.csproj" />
+        <ProjectReference Include="..\Module.Common.Business\Module.Common.Business.csproj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">common</StaticWebAssetBasePath>
+    </PropertyGroup>
+</Project>

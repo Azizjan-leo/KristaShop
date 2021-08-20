@@ -1,0 +1,59 @@
+﻿@model IEnumerable<PartnerStorehouseItemDTO>
+@{
+    Layout = "_PartnersLayout";
+    ViewData["Title"] = "Магазин | Продажа";
+}
+
+        <div>
+            <div class="d-flex my-2 flex-wrap d-block bg-main-info-light rounded-2 align-items-center p-3" data-toggle="collapse" href="#collapseStorehouseItems">
+                <div class="font-weight-bold">
+                    Продажа от @DateTime.Today.ToString("dd/MM/yyyy")
+                </div>
+            </div>
+            <div class="my-4">
+                <div class="row mx-0">
+                    <div class="col-md-3 px-1 main-font text-left">
+                        <h7 class="text-bold main-font" style="line-height: 24px;">Отсканируйте штрихкод</h7>
+                    </div>
+                    <div class="col-md-9 px-1 main-font text-left">
+                        <h7 class="text-bold main-font" style="line-height: 24px;">Информация о модели</h7>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-md-3 px-1 main-font text-left m-auto">
+                        <input class="form-control white-control" id="barcodeInput" />
+                    </div>
+                    <div class="col px-1 main-font text-left m-auto">
+                        <input class="form-control white-control" id="modelInfo" readonly/>
+                    </div>
+                    <div class="col-auto px-1 main-font text-left">
+                        <a class="btn btn-success btn-basic btn-shop" onclick="sellModelItem()">Подтвердить</a>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse show mb-4">
+                <table class="table table-striped table-bordered text-break border dataTable w-100" id="historyItemsTable">
+                    <thead>
+                        <tr>
+                            <th>Информация о модели</th>
+                            <th>Цвета</th>
+                            <th>Размеры</th>
+                            <th>Итого кол-во</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+@section Scripts {
+    <script type="text/javascript">
+        var dataModel = @Html.AsJsObject(Model);
+    </script>
+    <script src="/partners/js/shop/barcodes-handler.js" asp-append-version="true"></script>
+    <script src="/partners/js/shop/selling.js" asp-append-version="true"></script>
+}
+

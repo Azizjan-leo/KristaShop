@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Module.Media.Business.DTOs.BannerItemDTO>
+<!-- Start Image Slider -->
+<div id="bannerCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @for (var i = 0; i < Model.Count(); i++) {
+            if (i == 0) {
+                <li data-target="#bannerCarousel" data-slide-to="@i" class="active"></li>
+            }
+            else {
+                <li data-target="#bannerCarousel" data-slide-to="@i"></li>
+            }
+        }
+    </ol>
+    <div class="carousel-inner">
+        @foreach (var item in Model) {
+        <div class="carousel-item @(Model.First() == item ? "active" : "")">
+            <a href="@item.Link">
+                <picture class="d-block w-100 h-100 img-max-width">
+                    <source media="(max-width:576px)" srcset="@item.ImagePath?format=webp&width=512&height=512">
+                    <source media="(min-width:577px) and (max-width:680px)" srcset="@item.ImagePath?format=webp&width=612&height=612">
+                    <source srcset="@item.ImagePath?width=1920&height=980&format=webp" type="image/webp" />
+                    <img srcset="@item.ImagePath?width=1920&height=980" class="d-block w-100 h-100 img-max-width" alt="...">
+                </picture>
+            </a>
+            <div class="d-lg-none d-block ">
+                <div class="carousel-title-xs">
+                    <div style="color: @item.TitleColor"><span style=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@item.Title</span></div>
+                </div>
+                <div class="carousel-text-xs line-clamp">
+                    <p>@Html.Raw(item.Description)</p>
+                </div>
+                @if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.CatalogUri))
+                {
+                    <a asp-action="Index" asp-controller="Catalog" asp-route-catalogUri="@ViewBag.CatalogUri" class="btn btn-basic btn-main-gradient carousel-button-xs">Смотреть каталог</a>
+                }
+            </div>
+            <div class="carousel-caption d-none d-lg-block">
+                <div class="carousel-caption-bg"></div>
+                @if (Model.First() == item) {
+                    <h1 class="header-font h1 font-weight-bold" style="color: @item.TitleColor">@item.Title</h1>
+                } else {
+                    <div class="header-font h1 font-weight-bold" style="color: @item.TitleColor">@item.Title</div>
+                }
+                <div class="text main-font h2">
+                    @Html.Raw(item.Description)
+                    <div>
+                        @if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(ViewBag.CatalogUri))
+                        {
+                            <div class="mt-4">
+                                <a asp-action="Index" asp-controller="Catalog" asp-route-catalogUri="@ViewBag.CatalogUri" class="btn btn-basic btn-main-gradient">Смотреть каталог</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+@if (!string.IsNullOrEmpty(ViewBag.CatalogUri)) {
+    <div class="container-fluid">
+        <div class="row new-collection-btn-row">
+            <div class="col-12">
+                <div class="new-collection-btn-wrapper">
+                    <div class="py-5">
+                        <a asp-action="Index" asp-controller="Catalog" asp-route-catalogUri="@ViewBag.CatalogUri" class="btn btn-basic btn-main-gradient w-100">
+                            Новая коллекция
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- End Image Slider -->

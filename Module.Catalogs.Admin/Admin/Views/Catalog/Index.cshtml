@@ -1,0 +1,29 @@
+﻿@using Module.Common.Admin.Admin.Models
+@{
+    ViewData["Title"] = "Список каталогов";
+    ViewData["NavbarButtons"] = new List<MenuButtonsViewModel> { new MenuButtonsViewModel("Новая запись", "Create", "", "krista-plus") };
+}
+
+<div class="row">
+    <div class="col pb-4">
+        <h4 class="h4 font-weight-bold">@ViewData["Title"]</h4>
+    </div>
+</div>
+<div class="col-12 table-responsive">
+    <table class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Порядок</th>
+                <th>Наименование</th>
+                <th>ЧПУ</th>
+                <th>ID</th>
+                <th>Форма заказа</th>
+                <th>Видимость</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    <script src="/catalogs-admin/js/Catalog/Index.js" asp-append-version="true" type="text/javascript"></script>
+}

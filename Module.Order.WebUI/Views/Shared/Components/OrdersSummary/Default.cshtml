@@ -1,0 +1,111 @@
+﻿@using KristaShop.Common.Enums
+@using KristaShop.Common.Extensions
+@model Dictionary<KristaShop.Common.Enums.OrderTotalsReportType, KristaShop.Common.Models.Structs.TotalSum>
+<div>
+    <div class="my-2">
+        <span class="font-weight-bold">Ваш баланс:</span>
+    </div>
+    <div class="bg-main-light rounded-1 p-4">
+        <div class="container-fluid">
+            <div class="row px-3 py-2 bg-balance rounded-1">
+                <div class="col px-0 py-2 main-font h2 mb-0 font-weight-bold">@Model[OrderTotalsReportType.Balance].TotalPrice.ToTwoDecimalPlaces() USD</div>
+                <div class="col px-0 text-right">
+                    <a asp-action="MoneyReport" asp-controller="Order" class="btn btn-basic btn-main-white-gradient px-2">
+                        <span class="font-weight-normal">Взаиморасчеты</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="px-2 pt-2">
+            <p class="mb-1" style="text-indent: 25px;">Основной единицей расчета за изделие является доллар ($). Курс доллара к рублю не привязывается к заказу.</p>
+            <p class="mb-0" style="text-indent: 25px;">Стоимость изделия в рублях будет меняться в зависимости от курса доллара на момент выставления счета. В долларах стоимость изделия останется неизменной.</p>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="mb-2 mt-4">
+        <span class="font-weight-bold">Сводная информация по текущим заказам:</span>
+    </div>
+    <div class="bg-main-light rounded-1">
+        <div class="container-fluid px-3 py-4">
+            <div class="row m-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">Сумма за заявку:</label>
+                </div>
+            </div>
+            <div class="row m-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Request].GetTotalPricePrepay().ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Request].GetTotalPriceInRubPrepay().ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">В производстве на сумму:</label>
+                </div>
+            </div>
+            <div class="row mx-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Manufacture].GetTotalPricePrepay().ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Manufacture].GetTotalPriceInRubPrepay().ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">Суммма предоплаты:</label>
+                </div>
+            </div>
+            <div class="row mx-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.TotalProcessing].GetTotalPricePrepay().ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.TotalProcessing].GetTotalPriceInRubPrepay().ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">Доступно от баланса:</label>
+                </div>
+            </div>
+            <div class="row mx-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.ClientBalanceAfterPrepay].TotalPrice.ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.ClientBalanceAfterPrepay].TotalPriceInRub.ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">Резервов на сумму:</label>
+                </div>
+            </div>
+            <div class="row mx-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Reservation].TotalPrice.ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.Reservation].TotalPriceInRub.ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+            <div class="row mx-0">
+                <div class="col-12 px-2">
+                    <label class="font-weight-bold">К оплате:</label>
+                </div>
+            </div>
+            <div class="row mx-0 mb-3">
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.TotalToPay].TotalPrice.ToTwoDecimalPlaces() $</div>
+                </div>
+                <div class="col-6 px-2">
+                    <div class="px-3 py-2 rounded-1 bg-white">@Model[OrderTotalsReportType.TotalToPay].TotalPriceInRub.ToTwoDecimalPlaces() р</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

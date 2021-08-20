@@ -1,0 +1,53 @@
+﻿ol.carousel-indicators li {
+    -ms-opacity: 1;
+    -moz-opacity: 1;
+    opacity: 1;
+    background-color: #ffffff;
+    border-top: none;
+    border-bottom: none;
+    margin-bottom: 2.3%;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin-right: 29px;
+}
+
+ol.carousel-indicators li.active {
+    background-color: #D400A6;
+}
+
+.modal-backdrop.show {
+    -ms-opacity: 0.8;
+    opacity: 0.8;
+    background: #000000;
+}
+
+/*#region breadcrumbs*/
+.breadcrumb {
+    padding: 16px 0;
+    margin: 0;
+    background: none;
+    font-weight: 500 !important;
+}
+
+.breadcrumb-item.active {
+    color: #000000;
+}
+/*#endregion breadcrumbs*/
+
+/*#region grid table customization*/
+
+.striped-rows > .row:nth-child(even) {
+    background: #f9fcff;
+}
+
+.striped-rows > .row:nth-child(odd),
+.striped-rows > .row:first-child,
+.striped-rows > .row:last-child {
+    background: #ffffff;
+}
+/*#endregion grid table customization*/
+
+table.td-paddings td {
+    padding: 8px;
+}

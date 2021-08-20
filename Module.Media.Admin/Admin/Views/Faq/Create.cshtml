@@ -1,0 +1,40 @@
+﻿@model FaqDTO
+@{
+    ViewData["Title"] = "Создание";
+}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-center">
+                    <a asp-action="Index">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Назад к списку
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div class="form-row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Title" class="control-label">Название</label>
+                                <input asp-for="Title" class="form-control form-control-sm html-editor" cols="40" rows="5"/>
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ColorCode" class="control-label">Цвет блока</label>
+                                <input type="color" class="form-control" asp-for="ColorCode"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block shadow">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model List<FaqSectionContentDto>
+@{
+    ViewData["Title"] = "SectionContentList";
+    var sectionId = (Guid)ViewBag.SectionId;
+}
+
+<a style="margin-top: 10px;" class="btn btn-outline-dark" asp-action="CreateSectionContent" asp-route-sectionId="@sectionId">Добавить содержимое секции</a>
+
+<a a style="margin-top: 10px; margin-left: 10px;" class="btn btn-outline-dark" asp-action="Index">Назад к воронкам</a>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Содержимое</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.Raw(item.Content)</td>
+                        <td>
+                            <a asp-action="EditSectionContent" asp-route-id="@item.Id">Редактировать</a>
+                            <a asp-action="DeleteFaqSectionContent" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+

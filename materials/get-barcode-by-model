@@ -1,0 +1,7 @@
+SELECT models.articul, if(barcodes.razmer = "", models.line, barcodes.razmer) AS size_value,
+ colors.name, barcodes.model, barcodes.color, barcodes.barcode
+FROM `1c_barcodes` barcodes
+LEFT JOIN `1c_models` models ON barcodes.model = models.id
+LEFT JOIN `1c_colors` colors ON barcodes.color = colors.id
+WHERE models.articul = "" AND colors.name = ""
+HAVING size_value = ""

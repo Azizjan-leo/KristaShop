@@ -1,0 +1,61 @@
+﻿@using KristaShop.Common.Extensions
+@model Module.Client.WebUI.Models.RegisterViewModel
+<div class="ajax-post-form">
+    <div class="ajax-post-form-body">
+        @if (!Context.User.Identity.IsAuthenticated || Context.User.IsGuest()) {
+            <form method="post" asp-action="Register" asp-controller="Account" id="register-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input hidden asp-for="TermsOfUse"/>
+                <div class="form-group">
+                    <label asp-for="FullName" class="sr-only"></label>
+                    <input asp-for="FullName" class="form-control grey-control rounded-0" placeholder="Укажите ваше Ф.И.О."/>
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select asp-for="CityId" id="RegCityId" asp-items="Model.Cities" class="form-control grey-control rounded-0 show-menu-arrow" data-size="10" data-live-search="true" data-actions-box="true">
+                        <option value="">Выберите город</option>
+                        <option value="" data-new-city="True">Другой город</option>
+                    </select>
+                    <span asp-validation-for="CityId" class="text-danger validation-field"></span>
+                </div>
+                <div class="form-group" id="IdentityNewCity">
+                    <label asp-for="NewCity" class="sr-only"></label>
+                    <input asp-for="NewCity" id="RegNewCity" class="form-control grey-control rounded-0" placeholder="Название города"/>
+                    <span asp-validation-for="NewCity" class="text-danger validation-field"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MallAddress" class="sr-only"></label>
+                    <input asp-for="MallAddress" class="form-control grey-control rounded-0" placeholder="Название торгового центра"/>
+                    <span asp-validation-for="MallAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyAddress" class="sr-only"></label>
+                    <input asp-for="CompanyAddress" class="form-control grey-control rounded-0" placeholder="Укажите ваш адрес"/>
+                    <span asp-validation-for="CompanyAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="sr-only"></label>
+                    <input asp-for="Phone" class="form-control grey-control rounded-0" placeholder="Номер телефона"/>
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="sr-only"></label>
+                    <input asp-for="Email" class="form-control grey-control rounded-0" placeholder="Укажите вашу электронную почту"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input grey-control" id="checkTerms" asp-for="IsAgree">
+                        <label class="custom-control-label" for="checkTerms">Я согласен с <a href="@Model.TermsOfUse" target="_blank" class="link-base link-colored-light main-font plain">условиями *</a></label>
+                        <div>
+                            <span asp-validation-for="IsAgree" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-basic btn-main-gradient-linear text-uppercase py-2 w-100">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                </div>
+            </form>
+        }
+    </div>
+</div>
